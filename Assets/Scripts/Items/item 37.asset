@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e091b1636f51b841bac308167984d04, type: 3}
+  m_Name: item 37
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  type: 1
+  icon: {fileID: 21300000, guid: 817049e3e0ed4a646ab680cc01bfe038, type: 3}
+  battleSprite: {fileID: 21300000, guid: 87a8746657815e042b3ae7bdc98c4469, type: 3}
+  displayname: Claw Shield
+  description: 
+  value: 450
+  strengthRequired: 14
+  physDmg: 0
+  magicDmg: 0
+  shieldDmg: 0
+  physDef: 75
+  magicDef: 0
+  shieldHP: 100
+  bonusMana: 0
+  bonusSpeed: 0

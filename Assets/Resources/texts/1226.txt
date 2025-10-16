@@ -1,0 +1,3 @@
+Increases the damage of 
+--- RECORDSEPARATOR ---
+magical attacks in battle.

@@ -1,0 +1,5 @@
+Slices the enemy, doing a 
+--- RECORDSEPARATOR ---
+percentage damage of thier 
+--- RECORDSEPARATOR ---
+remaining health.

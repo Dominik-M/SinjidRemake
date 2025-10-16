@@ -1,0 +1,7 @@
+Put mouse over a
+--- RECORDSEPARATOR ---
+ Skill
+--- RECORDSEPARATOR ---
+ for 
+--- RECORDSEPARATOR ---
+its explination
