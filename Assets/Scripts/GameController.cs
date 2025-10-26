@@ -1,19 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using System;
 
 public class GameController : MonoBehaviour
 {
     [Header("Balancing")]
-    [SerializeField] private float idleEngConsumption = 0.1f, movingEngConsumption = 1.0f, decreaseSpeed = 2.0f;
-
-    [SerializeField] private ItemContainer allItems, shopItemsMarket, shopItemsArmory1, shopItemsArmory2, shopItemsMGate, shopItemsDGate;
+    [SerializeField] private float idleEngConsumption = 0.1f;
+    [SerializeField] private float movingEngConsumption = 1.0f;
+    [SerializeField] private float decreaseSpeed = 2.0f;
 
     [Header("Screens")]
-    [SerializeField] private GameObject restScreen, healScreen, foodScreen, potionScreen, inventoryScreen, shopScreen;
+    [SerializeField] private GameObject bottomview;
+    [SerializeField] private GameObject restScreen;
+    [SerializeField] private GameObject healScreen;
+    [SerializeField] private GameObject foodScreen;
+    [SerializeField] private GameObject potionScreen;
+    [SerializeField] private GameObject inventoryScreen;
+    [SerializeField] private GameObject skillsMenu;
+    [SerializeField] private GameObject shopScreen;
+    [SerializeField] private GameObject herbguyScreen;
+    [SerializeField] private GameObject gambleScreen;
+    [SerializeField] private GameObject trainingScreen;
 
     [Header("UI Elements")]
-    [SerializeField] private Text lifetext, maxlifetext;
+    [SerializeField] private Text lifetext;
+    [SerializeField] private Text maxlifetext;
     [SerializeField] private Slider lifeslider;
     [SerializeField] private Text manatext, maxmanatext;
     [SerializeField] private Slider manaslider;
@@ -25,17 +39,21 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text mClassText;
     [SerializeField] private GameObject infoDialog;
     [SerializeField] private Text infoDialogTitle, infoDialogMessage;
+    [SerializeField] private Text lifepotionstext, manapotionstext;
 
     [Header("Minimap")]
-    [SerializeField] private GameObject mapArrowLeft, mapArrowRight, mapArrowUp, mapArrowDown;
+    [SerializeField] private GameObject mapArrowLeft;
+    [SerializeField] private GameObject mapArrowRight;
+    [SerializeField] private GameObject mapArrowUp;
+    [SerializeField] private GameObject mapArrowDown;
 
     [Header("References")]
     [SerializeField] private PlayerController worldPlayer;
+    [SerializeField] private Item medicineItem;
+    [SerializeField] private Item secretringItem;
+    [SerializeField] private Sprite chariconBalanced, chariconWarrior, chariconSpellcaster, chariconNinja;
 
-    [SerializeField] private Room[] allRooms;
-
-    const float deadzone = 0.2f, digipadDebounceTime = 0.5f;
-    private float digipadDebounce = 0f;
+    // internal fields
     private GameObject currentMenu;
     private GameObject currentRoomObject;
     private DefaultMenuButtonHandler currentMenuButtonHandler;
@@ -43,16 +61,47 @@ public class GameController : MonoBehaviour
     void Start()
     {
         instance = this;
-        LoadAllPrefs();
+        if (!resourcesLoaded)
+        {
+            LoadResources();
+        }
+        if (shallInit)
+        {
+            // Started new game
+            InitCharacter();
+            shallInit = false;
+        }
+        else
+        {
+            LoadAllPrefs();
+        }
+        switch (mClass)
+        {
+            case CharacterClass.Warrior:
+                playerchar.icon = chariconWarrior;
+                break;
+            case CharacterClass.Spellcaster:
+                playerchar.icon = chariconSpellcaster;
+                break;
+            case CharacterClass.Ninja:
+                playerchar.icon = chariconNinja;
+                break;
+            case CharacterClass.Balanced:
+            case CharacterClass.Invalid:
+                playerchar.icon = chariconBalanced;
+                break;
+        }
         if (currentRoom)
         {
             ChangeRoom(currentRoom);
         }
+        //debug
+        Skillpoints += 20;
     }
 
     void Update()
     {
-        // Get all inputs
+        // Get all Gamepad inputs
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         float digiPadHorizontal = Input.GetAxis("Right") - Input.GetAxis("Left");
@@ -64,17 +113,30 @@ public class GameController : MonoBehaviour
         bool r1 = Input.GetButtonDown("R1");
         bool l1 = Input.GetButtonDown("L1");
         bool start = Input.GetButtonDown("Start");
+        bool space = Input.GetKeyDown(KeyCode.Space);
 
-        // Menu navigation with digipad
-        if (digipadDebounce > 0)
-        {
-            digipadDebounce -= Time.deltaTime;
-        }
-        else
-        {
-            // This is already done per default!
-            //NavigateInMenu(digiPadHorizontal, digiPadVertical);
-        }
+        // add keyboard inputs
+        if (Input.GetKey(KeyCode.W))
+            v += 1;
+        if (Input.GetKey(KeyCode.S))
+            v -= 1;
+        if (Input.GetKey(KeyCode.A))
+            h -= 1;
+        if (Input.GetKey(KeyCode.D))
+            h += 1;
+
+        //Debug.Log("h=" + h + " v=" + v);
+
+
+        // GameObject selected = EventSystem.current.currentSelectedGameObject;
+        //if (selected != null)
+        //{
+        //    Debug.Log("Currently selected UI object: " + selected.name);
+        //}
+        //else
+        //{
+        //    Debug.Log("No UI object is currently selected.");
+        //}
 
         // Button handling in menu
         if (currentMenuButtonHandler)
@@ -83,10 +145,9 @@ public class GameController : MonoBehaviour
             {
                 currentMenuButtonHandler.Kreis();
             }
-            else if (kreuz)
+            else if (space) // kreuz is handled by event system as default submit button
             {
-                // done by default
-                // currentMenuButtonHandler.Kreuz();
+                currentMenuButtonHandler.Kreuz();
             }
             else if (kasten)
             {
@@ -127,49 +188,24 @@ public class GameController : MonoBehaviour
             if (start)
             {
                 // open inventory
-                if(inventoryScreen)
-                    OpenMenu(inventoryScreen);
+                if (inventoryScreen)
+                    OpenInventory();
             }
-            else if (kreuz)
+            else if (kreuz || space)
             {
                 // interaction
                 Interaction();
             }
-        }
-    }
-
-    private void NavigateInMenu(float h, float v)
-    {
-        if (currentMenuButtonHandler)
-        {
-            digipadDebounce = digipadDebounceTime;
-            if (h > deadzone)
+            else if (kasten)
             {
-                // Right
-                currentMenuButtonHandler.Right();
+                UseLifePotion();
             }
-            else if (h < -deadzone)
+            else if (dreieck)
             {
-                // Left
-                currentMenuButtonHandler.Left();
-            }
-            else if (v > deadzone)
-            {
-                // Down
-                currentMenuButtonHandler.Down();
-            }
-            else if (v < -deadzone)
-            {
-                // Up
-                currentMenuButtonHandler.Up();
-            }
-            else
-            {
-                digipadDebounce = 0;
+                UseManaPotion();
             }
         }
     }
-
     private void Interaction()
     {
         Debug.Log("Interaction: " + currentInteraction);
@@ -207,85 +243,203 @@ public class GameController : MonoBehaviour
                 ShowInfoDialog("Student", "This is the arena entrance. If you are hurt, the man in the white robes will heal you for a cheap price. If you want to save, talk to the old man with the stick.");
                 break;
             case InteractionID.BASAR_NPC1:
+                ShowInfoDialog("Ninja", "This is my shitty dialog. You can buy potions or food from the merchants around. Why are you talking to me? I'm a pointless NPC.");
                 break;
             case InteractionID.BASAR_NPC2:
+                OpenMenu(potionScreen);
                 break;
             case InteractionID.BASAR_NPC3:
+                OpenMenu(foodScreen);
                 break;
             case InteractionID.HGATE_GATE_ENTRY:
-                // TODO start battle
+                CombatController.InitCombat(humangatewaystage);
+                StartCombat();
                 break;
             case InteractionID.HGATE_NPC1:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.HGATE_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.MARKET_NPC1:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
-            case InteractionID.MARKET_NPC2:
+            case InteractionID.MARKET_NPC2:// merchant
+                currentShopItems = shopItemsMarket;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
                 break;
-            case InteractionID.MARKET_NPC3:
+            case InteractionID.MARKET_NPC3: // herbs guy
+                currentShopItems = herbs;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Drink);
+                OpenMenu(herbguyScreen);
                 break;
             case InteractionID.PUB_NPC1:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.PUB_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.PUB_NPC3:
+                OpenMenu(gambleScreen);
                 break;
             case InteractionID.PUB_NPC4:
+                ShowInfoDialog("Guy", "Saufen Geil!");
                 break;
-            case InteractionID.ARMORY_NPC1:
+            case InteractionID.ARMORY_NPC1:// armor merchant
+                currentShopItems = shopItemsArmory1;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
                 break;
             case InteractionID.ARMORY_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
-            case InteractionID.ARMORY_NPC3:
+            case InteractionID.ARMORY_NPC3:// weapon merchant
+                currentShopItems = shopItemsArmory2;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
                 break;
-            case InteractionID.LIBRARY_NPC1:
+            case InteractionID.LIBRARY_NPC1:// medicine olle
+                // Herbs in inventory?
+                bool hasHerbs = false;
+                for (int i = 0; i < inventoryItems.Length; i++)
+                {
+                    if (inventoryItems[i] != null
+                        && inventoryItems[i].type == Item.Type.Herb)
+                    {
+                        hasHerbs = true;
+                        inventoryItems[i] = medicineItem;
+                    }
+                }
+                if (hasHerbs)
+                    ShowInfoDialog("Lady", "Ah! You found some white leaves! Here is your medicine.");
+                else
+                    ShowInfoDialog("Lady", "I've been studying herbs here. If you bring me white leaves, I can make medicine out of it for you.");
                 break;
             case InteractionID.LIBRARY_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.LIBRARY_NPC3:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.LIBRARY_BOOKS:
+                ShowInfoDialog("Books", "There is a lot of meaningless stuff to read here.");
                 break;
             case InteractionID.SECRET:
+                // Ring in inventory?
+                for (int i = 0; i < inventoryItems.Length; i++)
+                {
+                    if (inventoryItems[i] != null
+                        && inventoryItems[i].Equals(secretringItem))
+                    {
+                        inventoryItems[i] = null;
+                        Skillpoints++;
+                        ShowInfoDialog("Information", "Mendo's Ring vanishes in the moonlight. The power of the moon grants you a bonus Skillpoint!");
+                        return;
+                    }
+                }
                 break;
             case InteractionID.MGATE_GATE_ENTRY:
+                ShowInfoDialog("Info", "Cannot enter yet.");
                 break;
-            case InteractionID.MGATE_NPC1:
+            case InteractionID.MGATE_NPC1:// merchant
+                currentShopItems = shopItemsMGate;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
                 break;
             case InteractionID.MGATE_NPC2:
+                ShowInfoDialog("Guard", "This is my shitty dialog.");
                 break;
             case InteractionID.MGATE_NPC3:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.MGATE_NOTE:
+                ShowInfoDialog("Note", "This is a notice");
                 break;
             case InteractionID.TRAINING_ENTRY:
+                OpenMenu(trainingScreen);
                 break;
             case InteractionID.PREDARK_NPC1:
+                // Ring already received or can added to inventory ?
+                bool ringgiven = false;
+                if (!ringreceived)
+                    for (int i = 0; i < inventoryItems.Length; i++)
+                    {
+                        if (inventoryItems[i] == null)
+                        {
+                            inventoryItems[i] = secretringItem;
+                            ringgiven = true;
+                            ringreceived = true;
+                            break;
+                        }
+                    }
+                if (ringgiven)
+                    ShowInfoDialog("Meditating Ninja", "I was strolling down the beach yesterday, when I found this strange ring washed on the shore. I do not have any use for it, so you can have it... It may do you good.");
+                else if (ringreceived)
+                    ShowInfoDialog("Meditating Ninja", "Did you find a good use for the ring that I gave you?");
+                else // No inventory space
+                    ShowInfoDialog("Meditating Ninja", "I have a special gift for you. Make some room in your inventory so I can give it to you.");
                 break;
             case InteractionID.PREDARK_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.DGATE_NPC1:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.DGATE_NPC2:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.DGATE_NPC3:
+                ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.DGATE_GATE_ENTRY:
+                ShowInfoDialog("Info", "Cannot enter yet.");
                 break;
         }
     }
 
     public void OpenMenu(GameObject menu)
     {
+        if (currentMenu)
+            currentMenu.SetActive(false); // deactivate previous menu
         currentMenu = menu;
         currentMenuButtonHandler = menu.GetComponent<DefaultMenuButtonHandler>();
         currentMenu.SetActive(true);
+        bottomview.SetActive(false);
+    }
+
+    public static void OpenInventory()
+    {
+        if (instance)
+            instance.OpenMenu(instance.inventoryScreen);
+    }
+    public static void OpenSkilltree()
+    {
+        if (instance)
+            instance.OpenMenu(instance.skillsMenu);
     }
 
     public void ShowInfoDialog(string title, string message)
     {
         OpenMenu(infoDialog);
+        bottomview.SetActive(true);
         infoDialogTitle.text = title;
         infoDialogMessage.text = message;
     }
@@ -312,6 +466,76 @@ public class GameController : MonoBehaviour
             Debug.LogWarning("ChangeRoom: Invalid Room!");
         }
     }
+    private void InitCharacter()
+    {
+        Debug.Log("InitCharacter Class: " + MyClass);
+        foreach (Skill s in allSkills)
+            s.currentlevel = 0;
+        humangatewaystage.currentLevel = 0;
+        monstergatewaystage.currentLevel = 0;
+        darkgatestage.currentLevel = 0;
+        Gold = 75;
+        Level = 1;
+        ExpNext = 50;
+        Exp = 0;
+        LifePotions = 5;
+        ManaPotions = 5;
+        MaxEng = 50;
+        Eng = 50;
+        currentRoom = FindRoomByID(RoomID.ENTRANCE);
+        inventoryItems = new Item[8];
+        playerchar.shield = null;
+        playerchar.suit = null;
+        playerchar.headgear = null;
+        switch (MyClass)
+        {
+            case CharacterClass.Balanced:
+                MaxLife = 100;
+                Life = 100;
+                MaxMana = 80;
+                Mana = 80;
+                Strength = 3;
+                Dex = 3;
+                Magic = 3;
+                Weapon = FindItemByName("Iron Knife");
+                FindSkillByName("Shurikens").currentlevel = 1;
+                break;
+            case CharacterClass.Warrior:
+                MaxLife = 120;
+                Life = 120;
+                MaxMana = 40;
+                Mana = 40;
+                Strength = 5;
+                Dex = 2;
+                Magic = 2;
+                Weapon = FindItemByName("Iron Knife");
+                FindSkillByName("Stab").currentlevel = 1;
+                break;
+            case CharacterClass.Spellcaster:
+                MaxLife = 60;
+                Life = 60;
+                MaxMana = 120;
+                Mana = 120;
+                Strength = 2;
+                Dex = 2;
+                Magic = 5;
+                Weapon = FindItemByName("Energy Knife");
+                FindSkillByName("Charge").currentlevel = 1;
+                break;
+            case CharacterClass.Ninja:
+                MaxLife = 80;
+                Life = 80;
+                MaxMana = 80;
+                Mana = 80;
+                Strength = 3;
+                Dex = 5;
+                Magic = 3;
+                Weapon = FindItemByName("Iron Knife");
+                FindSkillByName("Shadow Blend").currentlevel = 1;
+                break;
+        }
+        SaveAllPrefs();
+    }
 
     // Global Functions
 
@@ -319,20 +543,35 @@ public class GameController : MonoBehaviour
     private static GameController instance;
     private static InteractionID currentInteraction;
     private static Room currentRoom;
+    private static bool shallInit = false, resourcesLoaded = false;
+    private static Room[] allRooms;
+    private static Stage humangatewaystage, monstergatewaystage, darkgatestage;
 
     // stats
-    private static float life, maxlife;
-    private static float mana, maxmana;
-    private static float eng, maxeng;
-    private static float exp, expNext;
-    private static int gold, level, lifePotions, manaPotions;
-    private static int strength, dex, magic;
+    private static Character playerchar;
     private static CharacterClass mClass;
+    private static int skillpoints;
 
     // items
+    private static Item[] allItems;
+    private static ItemContainer herbs, shopItemsMarket, shopItemsArmory1, shopItemsArmory2, shopItemsMGate, shopItemsDGate;
     private static Item[] inventoryItems = new Item[8];
-    private static Item weapon, shield, suit, headgear;
     private static ItemContainer currentShopItems = null;
+    private static List<Item.Type> acceptedItemTypes = new List<Item.Type>();
+
+    // progress
+    private static bool ringreceived = false;
+    private static Skill[] allSkills;
+
+    public static Item.Type[] GetAcceptedItemTypes()
+    {
+        return acceptedItemTypes.ToArray();
+    }
+
+    public static int GetTotalInventorySpace()
+    {
+        return inventoryItems.Length;
+    }
 
     public static Item GetInventoryItem(int idx)
     {
@@ -352,11 +591,12 @@ public class GameController : MonoBehaviour
             return currentShopItems.items[idx];
         return null;
     }
+    public static Character PlayerChar { get => playerchar; }
 
-    public static Item Weapon { get => weapon; set => weapon = value; }
-    public static Item Shield { get => shield; set => shield = value; }
-    public static Item Suit { get => suit; set => suit = value; }
-    public static Item Headgear { get => headgear; set => headgear = value; }
+    public static Item Weapon { get => playerchar.weapon; set => playerchar.weapon = value; }
+    public static Item Shield { get => playerchar.shield; set => playerchar.shield = value; }
+    public static Item Suit { get => playerchar.suit; set => playerchar.suit = value; }
+    public static Item Headgear { get => playerchar.headgear; set => playerchar.headgear = value; }
 
     public static InteractionID CurrentInteraction
     {
@@ -365,13 +605,49 @@ public class GameController : MonoBehaviour
 
     public static Room FindRoomByID(RoomID id)
     {
-        if (instance)
-        {
-            foreach (Room r in instance.allRooms)
-                if (r.id == id)
-                    return r;
-        }
+        foreach (Room r in allRooms)
+            if (r.id == id)
+                return r;
         return null;
+    }
+    public static Skill FindSkillByName(string skillname)
+    {
+        foreach (Skill s in allSkills)
+            if (s.displayname.Equals(skillname))
+                return s;
+        return null;
+    }
+    public static Skill FindSkillByActionId(CombatAction action)
+    {
+        foreach (Skill s in allSkills)
+            if (s.associatedAction == action)
+                return s;
+        return null;
+    }
+
+    public static Item FindItemByName(string itemname)
+    {
+        foreach (Item i in allItems)
+            if (i.displayname.Equals(itemname))
+                return i;
+        return null;
+    }
+    public static Item FindItemByIndex(int idx)
+    {
+        if (idx >= 0 && idx < allItems.Length)
+            return allItems[idx];
+
+        return null;
+    }
+    public static int GetItemIndex(Item item)
+    {
+        if (item)
+        {
+            for (int i = 0; i < allItems.Length; i++)
+                if (allItems[i].displayname.Equals(item.displayname))
+                    return i;
+        }
+        return -1;
     }
 
     public static CharacterClass MyClass
@@ -387,256 +663,305 @@ public class GameController : MonoBehaviour
 
     public static int Gold
     {
-        get => gold; set
+        get => playerchar.gold; set
         {
-            gold = value;
+            playerchar.gold = value;
             if (instance && instance.goldtext)
-                instance.goldtext.text = "Gold: " + gold;
+                instance.goldtext.text = "Gold: " + playerchar.gold;
         }
     }
     public static int Level
     {
-        get => level; set
+        get => playerchar.level; set
         {
-            level = value;
+            playerchar.level = value;
             if (instance && instance.leveltext)
-                instance.leveltext.text = "Level " + level;
+                instance.leveltext.text = "Level " + playerchar.level;
+        }
+    }
+    public static int Skillpoints
+    {
+        get => skillpoints; set
+        {
+            skillpoints = value;
         }
     }
     public static int LifePotions
     {
-        get => lifePotions; set
+        get => playerchar.lifePotions; set
         {
-            lifePotions = value;
+            playerchar.lifePotions = value;
+            if (instance && instance.lifepotionstext)
+                instance.lifepotionstext.text = "x " + playerchar.lifePotions;
         }
     }
     public static int ManaPotions
     {
-        get => manaPotions; set
+        get => playerchar.manaPotions; set
         {
-            manaPotions = value;
+            playerchar.manaPotions = value;
+            if (instance && instance.manapotionstext)
+                instance.manapotionstext.text = "x " + playerchar.manaPotions;
         }
     }
     public static int Strength
     {
-        get => strength; set
+        get => playerchar.strength; set
         {
-            strength = value;
+            playerchar.strength = value;
         }
     }
     public static int Dex
     {
-        get => dex; set
+        get => playerchar.dex; set
         {
-            dex = value;
+            playerchar.dex = value;
         }
     }
     public static int Magic
     {
-        get => magic; set
+        get => playerchar.magic; set
         {
-            magic = value;
+            playerchar.magic = value;
         }
-    }
-
-    public static int PhysDmg => Strength + Dex; // TODO use weapon scaling
-    public static int MagicDmg => Magic;
-    public static int PhysDef => Strength; // TODO add armor
-    public static int MagicDef => Magic;
-
-    public static float GetDodgeChance()
-    {
-        float percent;
-        if (Dex < 20)
-            percent = Dex * 1.0f; // max 20%
-        else if (Dex < 40)
-            percent = 10 + Dex * 0.5f; // max 30%
-        else if (Dex < 100)
-            percent = 18 + Dex * 0.3f; // max 48%
-        else if (Dex < 198)
-            percent = 28 + Dex * 0.2f; // max 68%
-        else
-            percent = 68.0f;
-
-        return percent/100.0f;
     }
 
     public static float Life
     {
-        get => life; set
+        get => playerchar.life; set
         {
-            life = value;
-            if (life <= 0)
+            playerchar.life = value;
+            if (playerchar.life <= 0)
                 Die();
-            if (life > maxlife)
-                life = maxlife;
+            if (playerchar.life > playerchar.maxlife)
+                playerchar.life = playerchar.maxlife;
             if (instance && instance.lifetext)
-                instance.lifetext.text = life.ToString("F0");
+                instance.lifetext.text = playerchar.life.ToString("F0");
             if (instance && instance.lifeslider)
-                instance.lifeslider.value = life / maxlife;
+                instance.lifeslider.value = playerchar.life / playerchar.maxlife;
         }
     }
     public static float MaxLife
     {
-        get => maxlife; set
+        get => playerchar.maxlife; set
         {
-            maxlife = value;
+            playerchar.maxlife = value;
             if (instance && instance.maxlifetext)
-                instance.maxlifetext.text = maxlife.ToString("F0");
+                instance.maxlifetext.text = playerchar.maxlife.ToString("F0");
             if (instance && instance.lifeslider)
-                instance.lifeslider.value = life / maxlife;
+                instance.lifeslider.value = playerchar.life / playerchar.maxlife;
         }
     }
     public static float Mana
     {
-        get => mana; set
+        get => playerchar.mana; set
         {
-            mana = value;
-            if (mana < 0)
-                mana = 0;
-            if (mana > maxmana)
-                mana = maxmana;
+            playerchar.mana = value;
+            if (playerchar.mana < 0)
+                playerchar.mana = 0;
+            if (playerchar.mana > playerchar.maxmana)
+                playerchar.mana = playerchar.maxmana;
             if (instance && instance.manatext)
-                instance.manatext.text = mana.ToString("F0");
+                instance.manatext.text = playerchar.mana.ToString("F0");
             if (instance && instance.manaslider)
-                instance.manaslider.value = mana / maxmana;
+                instance.manaslider.value = playerchar.mana / playerchar.maxmana;
         }
     }
     public static float MaxMana
     {
-        get => maxmana; set
+        get => playerchar.maxmana; set
         {
-            maxmana = value;
+            playerchar.maxmana = value;
             if (instance && instance.maxmanatext)
-                instance.maxmanatext.text = maxmana.ToString("F0");
+                instance.maxmanatext.text = playerchar.maxmana.ToString("F0");
             if (instance && instance.manaslider)
-                instance.manaslider.value = mana / maxmana;
+                instance.manaslider.value = playerchar.mana / playerchar.maxmana;
         }
     }
     public static float Eng
     {
-        get => eng; set
+        get => playerchar.eng; set
         {
-            eng = value;
-            if (eng < 0)
-                eng = 0;
-            if (eng > maxeng)
-                eng = maxeng;
+            playerchar.eng = value;
+            if (playerchar.eng < 0)
+                playerchar.eng = 0;
+            if (playerchar.eng > playerchar.maxeng)
+                playerchar.eng = playerchar.maxeng;
             if (instance && instance.engtext)
-                instance.engtext.text = eng.ToString("F0");
+                instance.engtext.text = playerchar.eng.ToString("F0");
             if (instance && instance.engslider)
-                instance.engslider.value = eng / maxeng;
+                instance.engslider.value = playerchar.eng / playerchar.maxeng;
         }
     }
     public static float MaxEng
     {
-        get => maxeng; set
+        get => playerchar.maxeng; set
         {
-            maxeng = value;
+            playerchar.maxeng = value;
             if (instance && instance.maxengtext)
-                instance.maxengtext.text = maxeng.ToString("F0");
+                instance.maxengtext.text = playerchar.maxeng.ToString("F0");
             if (instance && instance.engslider)
-                instance.engslider.value = eng / maxeng;
+                instance.engslider.value = playerchar.eng / playerchar.maxeng;
         }
     }
     public static float Exp
     {
-        get => exp; set
+        get => playerchar.exp; set
         {
-            exp = value;
-            if (eng < 0)
-                eng = 0;
-            if (exp >= expNext)
+            playerchar.exp = value;
+            if (playerchar.eng < 0)
+                playerchar.eng = 0;
+            while (playerchar.exp >= playerchar.expNext)
                 LevelUp();
             if (instance && instance.exptext)
-                instance.exptext.text = exp.ToString("F0");
+                instance.exptext.text = playerchar.exp.ToString("F0");
             if (instance && instance.expslider)
-                instance.expslider.value = exp / ExpNext;
+                instance.expslider.value = playerchar.exp / ExpNext;
         }
     }
     public static float ExpNext
     {
-        get => expNext; set
+        get => playerchar.expNext; set
         {
-            expNext = value;
+            playerchar.expNext = value;
             if (instance && instance.expnexttext)
-                instance.expnexttext.text = expNext.ToString("F0");
+                instance.expnexttext.text = playerchar.expNext.ToString("F0");
             if (instance && instance.expslider)
-                instance.expslider.value = exp / expNext;
+                instance.expslider.value = playerchar.exp / playerchar.expNext;
         }
+    }
+
+    public static int GetPhysDmg()
+    {
+        return playerchar.GetPhysDmg();
+    }
+
+    public static int GetPhysDef()
+    {
+        int def = playerchar.strength;
+        if (playerchar.weapon) def += playerchar.weapon.physDef;
+        if (playerchar.suit) def += playerchar.suit.physDef;
+        if (playerchar.headgear) def += playerchar.headgear.physDef;
+        return def;
+    }
+
+    public static int GetMagicDmg()
+    {
+        return playerchar.GetMagicDmg();
+    }
+
+    public static int GetMagicDef()
+    {
+        int def = playerchar.magic;
+        if (playerchar.weapon) def += playerchar.weapon.magicDef;
+        if (playerchar.suit) def += playerchar.suit.magicDef;
+        if (playerchar.headgear) def += playerchar.headgear.magicDef;
+        return def;
     }
 
     public static void InitCharacter(CharacterClass c)
     {
-        Debug.Log("InitCharacter Class: " + c);
         MyClass = c;
-        Gold = 100;
-        Level = 1;
-        ExpNext = 40;
-        Exp = 0;
-        LifePotions = 5;
-        ManaPotions = 5;
-        MaxEng = 50;
-        Eng = 50;
-        currentRoom = FindRoomByID(RoomID.ENTRANCE);
-        switch (c)
-        {
-            case CharacterClass.Balanced:
-                MaxLife = 100;
-                Life = 100;
-                MaxMana = 80;
-                Mana = 80;
-                Strength = 3;
-                Dex = 3;
-                Magic = 3;
-                break;
-            case CharacterClass.Warrior:
-                MaxLife = 120;
-                Life = 120;
-                MaxMana = 40;
-                Mana = 40;
-                Strength = 5;
-                Dex = 2;
-                Magic = 2;
-                break;
-            case CharacterClass.Spellcaster:
-                MaxLife = 60;
-                Life = 60;
-                MaxMana = 120;
-                Mana = 120;
-                Strength = 2;
-                Dex = 2;
-                Magic = 5;
-                break;
-            case CharacterClass.Ninja:
-                MaxLife = 80;
-                Life = 80;
-                MaxMana = 80;
-                Mana = 80;
-                Strength = 3;
-                Dex = 5;
-                Magic = 3;
-                break;
-        }
-        SaveAllPrefs();
+        shallInit = true; // remember to init later when Start is called and instance is ready
+    }
+    public static int GetItemSellPrice(Item i)
+    {
+        if (i == null)
+            return 0;
+        return i.value / 2;
+    }
+
+    public static bool SellItem(Item i)
+    {
+        if (i == null)
+            return false;
+        if (!acceptedItemTypes.Contains(i.type))
+            return false;
+        Gold += GetItemSellPrice(i);
+        return true;
+    }
+
+    public static bool UseLifePotion()
+    {
+        if (LifePotions <= 0)
+            return false;
+        Life += 80;
+        LifePotions--;
+        return true;
+    }
+
+    public static bool UseManaPotion()
+    {
+        if (ManaPotions <= 0)
+            return false;
+        Mana += 80;
+        ManaPotions--;
+        return true;
     }
 
     private static void Die()
     {
-        life = 0;
-        // TODO gameover screen
+        playerchar.life = 0;
+        // TODO gameover screen ?
     }
 
     private static void LevelUp()
     {
-        exp = 0;
-        ExpNext = expNext + expNext * 0.25f;
+        playerchar.exp -= playerchar.expNext;
+        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.4f) / 10) * 10;
+        // common upgrades
         Level++;
+        Skillpoints++;
+        if (Level % 5 == 0)
+            Skillpoints++; // Bonus point
+        MaxLife += 5;
+        MaxMana += 5;
+        MaxEng += 3;
+        Strength++;
+        // class specific upgrades
+        switch (MyClass)
+        {
+            case CharacterClass.Balanced:
+                MaxLife += 5;
+                Strength++;
+                Dex++;
+                Magic++;
+                break;
+            case CharacterClass.Warrior:
+                MaxLife += 10;
+                Strength += 2;
+                break;
+            case CharacterClass.Spellcaster:
+                MaxMana += 5;
+                Magic += 2;
+                Dex++;
+                break;
+            case CharacterClass.Ninja:
+                MaxLife += 5;
+                MaxMana += 5;
+                Dex += 2;
+                break;
+        }
+        // refill all
+        Eng = MaxEng;
+        Life = MaxLife;
+        Mana = MaxMana;
     }
 
     public static void LoadWorldScene()
     {
         SceneManager.LoadScene(1);
+    }
+
+    private static void StartCombat()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public static void StartTraining(int level)
+    {
+        CombatController.InitTraining(level);
+        StartCombat();
     }
 
     public static void CloseMenu()
@@ -646,15 +971,41 @@ public class GameController : MonoBehaviour
             instance.currentMenu.SetActive(false);
             instance.currentMenu = null;
             instance.currentMenuButtonHandler = null;
+            instance.bottomview.SetActive(true);
         }
         currentShopItems = null;
+    }
+
+    private static void LoadResources()
+    {
+        Debug.Log("LoadResources()");
+        humangatewaystage = Resources.Load<Stage>("Stages/Human");
+        monstergatewaystage = Resources.Load<Stage>("Stages/Monster");
+        darkgatestage = Resources.Load<Stage>("Stages/Dark");
+        allSkills = Resources.LoadAll<Skill>("Skills");
+        allRooms = Resources.LoadAll<Room>("Rooms");
+        allItems = Resources.LoadAll<Item>("Items");
+        herbs = Resources.Load<ItemContainer>("Items/Container/Herbs");
+        shopItemsMarket = Resources.Load<ItemContainer>("Items/Container/shopItemsMarket");
+        shopItemsArmory1 = Resources.Load<ItemContainer>("Items/Container/shopItemsArmory1");
+        shopItemsArmory2 = Resources.Load<ItemContainer>("Items/Container/shopItemsArmory2");
+        shopItemsMGate = Resources.Load<ItemContainer>("Items/Container/shopItemsMGate");
+        shopItemsDGate = Resources.Load<ItemContainer>("Items/Container/shopItemsDGate");
+
+        playerchar = Resources.Load<Character>("Character/Player");
+
+        resourcesLoaded = true;
     }
 
     public static void LoadAllPrefs()
     {
         Debug.Log("LoadAllPrefs()");
+        if (!resourcesLoaded)
+        {
+            LoadResources();
+        }
         MyClass = (CharacterClass)(PlayerPrefs.GetInt("class", (int)CharacterClass.Invalid));
-        Gold = PlayerPrefs.GetInt("gold", 100);
+        Gold = PlayerPrefs.GetInt("gold", 0);
         Level = PlayerPrefs.GetInt("level", 1);
         MaxLife = PlayerPrefs.GetInt("maxlife", 80);
         Life = PlayerPrefs.GetInt("life", 80);
@@ -669,8 +1020,18 @@ public class GameController : MonoBehaviour
         Magic = PlayerPrefs.GetInt("magic", 2);
         LifePotions = PlayerPrefs.GetInt("lifepotions", 0);
         ManaPotions = PlayerPrefs.GetInt("manapotions", 0);
+        Skillpoints = PlayerPrefs.GetInt("skillpoints", 0);
         int roomid = PlayerPrefs.GetInt("room", (int)(RoomID.ENTRANCE));
         currentRoom = FindRoomByID((RoomID)roomid);
+        Weapon = FindItemByIndex(PlayerPrefs.GetInt("weapon", -1));
+        Shield = FindItemByIndex(PlayerPrefs.GetInt("shield", -1));
+        Headgear = FindItemByIndex(PlayerPrefs.GetInt("headgear", -1));
+        Suit = FindItemByIndex(PlayerPrefs.GetInt("suit", -1));
+        for (int i = 0; i < inventoryItems.Length; i++)
+            SetInventoryItem(i, FindItemByIndex(PlayerPrefs.GetInt("item_" + i, -1)));
+        for (int i = 0; i < allSkills.Length; i++)
+            allSkills[i].currentlevel = PlayerPrefs.GetInt("skill_" + i, 0);
+        ringreceived = PlayerPrefs.GetInt("ringreceived", 0) > 0;
     }
 
     public static void SaveAllPrefs()
@@ -692,9 +1053,20 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("magic", Magic);
         PlayerPrefs.SetInt("lifepotions", LifePotions);
         PlayerPrefs.SetInt("manapotions", ManaPotions);
+        PlayerPrefs.SetInt("skillpoints", Skillpoints);
         if (currentRoom)
             PlayerPrefs.SetInt("room", (int)currentRoom.id);
         else
             PlayerPrefs.SetInt("room", (int)RoomID.ENTRANCE);
+
+        PlayerPrefs.SetInt("weapon", GetItemIndex(Weapon));
+        PlayerPrefs.SetInt("shield", GetItemIndex(Shield));
+        PlayerPrefs.SetInt("headgear", GetItemIndex(Headgear));
+        PlayerPrefs.SetInt("suit", GetItemIndex(Suit));
+        for (int i = 0; i < inventoryItems.Length; i++)
+            PlayerPrefs.SetInt("item_" + i, GetItemIndex(inventoryItems[i]));
+        for (int i = 0; i < allSkills.Length; i++)
+            PlayerPrefs.SetInt("skill_" + i, allSkills[i].currentlevel);
+        PlayerPrefs.GetInt("ringreceived", ringreceived ? 1 : 0);
     }
 }

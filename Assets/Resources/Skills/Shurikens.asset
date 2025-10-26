@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
+  m_Name: Shurikens
+  m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 5
+  displayname: Shurikens
+  description: Throws deadly Shurikens at the enemy. Stacks with magical damage and
+    Dexterity.
+  icon: {fileID: -7332636246946955656, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
+  prerequisites: []
+  requiredLevel: 0
+  passive: 0
+  manacost: 15
+  currentlevel: 0
+  levelvalues: 160000001c000000220000002800000030000000380000004000000048000000500000005a000000640000006e0000007d0000008c0000009b000000aa000000c8000000f0000000180100005e010000
+  effectTitle: Magical Damage
+  effectValueDescription: ' '

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
+  m_Name: ShadowReplicate
+  m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 19
+  displayname: Shadow Replicate
+  description: Makes a shadow copy of yourself to fight alongside you. Shadows damage,
+    life and speed increases with each level.
+  icon: {fileID: -2481611804937726193, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
+  prerequisites:
+  - {fileID: 11400000, guid: f4dfa5cf5abba3745b1a4b93efb495f1, type: 2}
+  requiredLevel: 15
+  passive: 0
+  manacost: 100
+  currentlevel: 0
+  levelvalues: 6400000096000000c8000000fa0000002c0100005e01000090010000c2010000f401000058020000bc0200002003000084030000e80300004c040000b0040000780500004006000008070000d0070000
+  effectTitle: Shadow Life
+  effectValueDescription: ' Life'

@@ -1,57 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class DefaultMenuButtonHandler : MonoBehaviour
 {
-    public Button[] buttons;
-    public int rowlength = 1;
+    public Button defaultbutton;
     public bool closeWithKreis = true;
 
-    private int idx;
-
-    public int Idx
+    void OnEnable()
     {
-        get => idx; set
-        {
-            idx = value;
-            if (idx >= 0 && idx < buttons.Length)
-                buttons[idx].Select();
-        }
-    }
-
-    void Start()
-    {
-        Idx = 0;
-    }
-    public virtual void Up()
-    {
-        Debug.Log("DefaultMenuButtonHandler.Up()");
-        if(Idx-rowlength >= 0)
-            Idx -= rowlength;
-    }
-    public virtual void Down()
-    {
-        Debug.Log("DefaultMenuButtonHandler.Down()");
-        if (Idx + rowlength < buttons.Length)
-            Idx += rowlength;
-    }
-    public virtual void Left()
-    {
-        Debug.Log("DefaultMenuButtonHandler.Left()");
-        if (Idx - 1 >= 0)
-            Idx --;
-    }
-    public virtual void Right()
-    {
-        Debug.Log("DefaultMenuButtonHandler.Right()");
-        if (Idx + 1 < buttons.Length)
-            Idx++;
+        defaultbutton.Select();
     }
     public virtual void Kreuz()
     {
         Debug.Log("DefaultMenuButtonHandler.Kreuz()");
-        if (Idx >= 0 && Idx < buttons.Length)
-            buttons[Idx].onClick.Invoke();
+        GameObject selected = EventSystem.current.currentSelectedGameObject;
+        if (selected != null)
+        {
+            Button selectedButton = selected.GetComponent<Button>();
+            selectedButton.onClick.Invoke();
+        }
     }
     public virtual void Kreis()
     {

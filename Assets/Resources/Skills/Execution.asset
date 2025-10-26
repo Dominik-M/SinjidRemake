@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
+  m_Name: Execution
+  m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 11
+  displayname: Execution
+  description: The ultimate physical attack that hits the enemy four time, dealing
+    a percentage of the physical attack damage.
+  icon: {fileID: 3297365880679015330, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
+  prerequisites:
+  - {fileID: 11400000, guid: 756deadf1ab59b049a01c3d9b44a14ae, type: 2}
+  - {fileID: 11400000, guid: 077b8672983fd364597e80a724eb93ff, type: 2}
+  requiredLevel: 15
+  passive: 0
+  manacost: 70
+  currentlevel: 0
+  levelvalues: 4b000000640000007d00000096000000af000000c8000000f000000018010000400100000401000090010000c2010000f4010000260200005802000094020000d00200002003000084030000e8030000
+  effectTitle: Extra Damage
+  effectValueDescription: '% Attack per Hit'

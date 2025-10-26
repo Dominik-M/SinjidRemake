@@ -13,10 +13,12 @@ public class AnimatedImage : MonoBehaviour
 
     private float t;
     private int idx;
+    private bool forward;
 
 
     void Start()
     {
+        forward = true;
         sr = GetComponent<SpriteRenderer>();
         img = GetComponent<Image>();
         t = 0;
@@ -47,15 +49,27 @@ public class AnimatedImage : MonoBehaviour
 
     private void NextFrame()
     {
-        idx++;
-        if (idx >= sprites.Length)
+        if (mode == PlaybackMode.PINGPONG && !forward)
+            idx--;
+        else
+            idx++;
+
+        if (idx < 0)
+        {
+            idx=0;
+            forward = true;
+        }
+        else if (idx >= sprites.Length)
         {
             if (mode == PlaybackMode.ONESHOT)
                 return;
-            else if(mode == PlaybackMode.REPEAT)
+            else if (mode == PlaybackMode.REPEAT)
                 idx = 0;
             else if (mode == PlaybackMode.PINGPONG)
-                idx = 0; // TODO
+            {
+                idx = sprites.Length - 1;
+                forward = false;
+            }
         }
         if(img != null)
             img.sprite = sprites[idx];

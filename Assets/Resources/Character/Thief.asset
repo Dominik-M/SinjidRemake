@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Thief
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Thief
+  icon: {fileID: 21300000, guid: bdf551e163c40844985093622c097aea, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 0945bd68f34e5b4498a8dd15edc00ef4, type: 3}
+  life: 60
+  maxlife: 60
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 20
+  gold: 30
+  level: 1
+  lifePotions: 0
+  manaPotions: 0
+  strength: 3
+  dex: 3
+  magic: 1
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 01af9973ff8615b4fb61e9f62380103f, type: 2}
+  shield: {fileID: 11400000, guid: c2394a113f95dad4ca66319039723aad, type: 2}
+  suit: {fileID: 0}
+  headgear: {fileID: 0}

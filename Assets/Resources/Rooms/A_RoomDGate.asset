@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36a43d12ac61954caac9511d82d4719, type: 3}
+  m_Name: A_RoomDGate
+  m_EditorClassIdentifier: Assembly-CSharp::Room
+  id: 11
+  left: {fileID: 0}
+  right: {fileID: 0}
+  up: {fileID: 0}
+  down: {fileID: 11400000, guid: 1d33d21c5f1537c4ca16baee41bede83, type: 2}
+  prefab: {fileID: 6676913223279286840, guid: 59c68def5d3749f418796b807a8c3f54, type: 3}

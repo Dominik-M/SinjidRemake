@@ -418,9 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b302410680cef4b98c7d30d3fc5a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMenuButtonHandler
-  buttons:
-  - {fileID: 1247869701}
-  rowlength: 1
+  defaultbutton: {fileID: 1247869701}
   closeWithKreis: 1
 --- !u!1 &217090407
 GameObject:
@@ -1572,7 +1570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb1257e0334aa940a983924f1728b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startWeapon: {fileID: 11400000, guid: 01af9973ff8615b4fb61e9f62380103f, type: 2}
   welcomeFrame: {fileID: 804835966}
   mainMenuFrame: {fileID: 1749382463}
   startFrame: {fileID: 182721286}
@@ -1779,9 +1776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b302410680cef4b98c7d30d3fc5a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMenuButtonHandler
-  buttons:
-  - {fileID: 136073043}
-  rowlength: 1
+  defaultbutton: {fileID: 136073043}
   closeWithKreis: 0
 --- !u!1 &814056243
 GameObject:
@@ -2662,9 +2657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b302410680cef4b98c7d30d3fc5a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMenuButtonHandler
-  buttons:
-  - {fileID: 1266648550}
-  rowlength: 1
+  defaultbutton: {fileID: 1266648550}
   closeWithKreis: 1
 --- !u!1 &1247869699
 GameObject:
@@ -3708,12 +3701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b302410680cef4b98c7d30d3fc5a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMenuButtonHandler
-  buttons:
-  - {fileID: 1091688701}
-  - {fileID: 851660655}
-  - {fileID: 269136732}
-  - {fileID: 452719628}
-  rowlength: 1
+  defaultbutton: {fileID: 1091688701}
   closeWithKreis: 1
 --- !u!1 &1811702097
 GameObject:

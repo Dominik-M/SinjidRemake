@@ -7,8 +7,6 @@ public class MainMenuController : MonoBehaviour
         WELCOME, MAIN, START, CHOOSE
     }
 
-    public Item startWeapon;
-
     public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, optionsFrame;
 
     private Frame currentFrame;
@@ -63,9 +61,8 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("OnChooseButton");
         CharacterClass chosen = (CharacterClass)idx;
-        GameController.InitCharacter(chosen);
-        GameController.Weapon = startWeapon;
         GameController.LoadWorldScene();
+        GameController.InitCharacter(chosen);
     }
 
     public void OnToggleOptions()

@@ -47,10 +47,10 @@ public class RestScreenController : DefaultMenuButtonHandler
         gold.text = "Gold: "+GameController.Gold.ToString();
         lifepotions.text = "x " + GameController.LifePotions;
         manapotions.text = "x " + GameController.ManaPotions;
-        physDmg.text = "Physical   Damage:    " + GameController.PhysDmg;
-        physDef.text = "Physical   Defence:    " + GameController.PhysDef;
-        magicDmg.text = "Magical   Damage:    " + GameController.MagicDmg;
-        magicDef.text = "Magical   Defence:    " + GameController.MagicDef;
+        physDmg.text = "Physical   Damage:    " + GameController.GetPhysDmg();
+        physDef.text = "Physical   Defence:    " + GameController.GetPhysDef();
+        magicDmg.text = "Magical   Damage:    " + GameController.GetMagicDmg();
+        magicDef.text = "Magical   Defence:    " + GameController.GetMagicDef();
         strength.text = GameController.Strength.ToString();
         dex.text = GameController.Dex.ToString();
         magic.text = GameController.Magic.ToString();
@@ -58,6 +58,7 @@ public class RestScreenController : DefaultMenuButtonHandler
 
     public void OnRest()
     {
+        Debug.Log("OnRest()");
         GameController.Life = GameController.MaxLife;
         GameController.Mana = GameController.MaxMana;
         GameController.Eng = GameController.MaxEng;
@@ -65,5 +66,10 @@ public class RestScreenController : DefaultMenuButtonHandler
         lifebarImage.Restart();
         manabarImage.Restart();
         engbarImage.Restart();
+    }
+    public void OnSave()
+    {
+        Debug.Log("OnSave()");
+        GameController.SaveAllPrefs();
     }
 }
