@@ -12,26 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
   m_Name: Thief 1
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  displayName: Thief
+  displayName: Rude Thief
   icon: {fileID: 21300000, guid: bdf551e163c40844985093622c097aea, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 0945bd68f34e5b4498a8dd15edc00ef4, type: 3}
-  life: 80
+  life: 0
   maxlife: 80
   mana: 0
   maxmana: 0
   eng: 0
   maxeng: 0
   exp: 0
-  expNext: 30
+  expNext: 25
   gold: 50
-  level: 1
+  level: 2
   lifePotions: 0
   manaPotions: 0
-  strength: 3
-  dex: 3
-  magic: 1
+  strength: 5
+  dex: 5
+  magic: 2
   currentShieldHp: 0
   weapon: {fileID: 11400000, guid: a135fb9dbdd014441802251b6b701e51, type: 2}
   shield: {fileID: 11400000, guid: c2394a113f95dad4ca66319039723aad, type: 2}
   suit: {fileID: 0}
   headgear: {fileID: 11400000, guid: 30a6ec7d527ea7d4892e2554d3e72be0, type: 2}
+  moves: 0100000004000000

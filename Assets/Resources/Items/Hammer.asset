@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e091b1636f51b841bac308167984d04, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  type: 0
+  icon: {fileID: 21300000, guid: b616d2c37b9d9064b9956f74f8cd7bc3, type: 3}
+  battleSprite: {fileID: 21300000, guid: b616d2c37b9d9064b9956f74f8cd7bc3, type: 3}
+  displayname: Shield Breaker
+  description: 
+  value: 400
+  strengthRequired: 15
+  physDmg: 20
+  magicDmg: 0
+  shieldDmg: 100
+  physDef: 0
+  magicDef: 0
+  shieldHP: 0
+  bonusMana: 0
+  bonusSpeed: -15

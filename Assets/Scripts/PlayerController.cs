@@ -8,13 +8,14 @@ public class PlayerController : MonoBehaviour
     const float deadzone = 0.2f;
     const int DIRECTION_UP = 0, DIRECTION_DOWN = 1, DIRECTION_LEFT = 2, DIRECTION_RIGHT = 3;
 
+    private Animator leftAnim, rightAnim, frontAnim, backAnim;
     private int direction = 0;
     private Rigidbody2D rb;
     private bool moving=false;
 
     public bool IsMoving()
     {
-        return moving;
+        return Moving;
     }
 
     public int Direction
@@ -29,14 +30,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool Moving
+    {
+        get => moving; set
+        {
+            moving = value;
+            if(left.activeInHierarchy)
+                leftAnim.SetBool("Moving", moving);
+            if (right.activeInHierarchy)
+                rightAnim.SetBool("Moving", moving);
+            if (front.activeInHierarchy)
+                frontAnim.SetBool("Moving", moving);
+            if (back.activeInHierarchy)
+                backAnim.SetBool("Moving", moving);
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        leftAnim = left.GetComponent<Animator>();
+        rightAnim = right.GetComponent<Animator>();
+        frontAnim = front.GetComponent<Animator>();
+        backAnim = back.GetComponent<Animator>();
     }
 
     public void Move(float horizontal, float vertical)
     {
-        moving = true;
+        Moving = true;
         if (vertical > deadzone)
         {
             Direction = DIRECTION_UP;
@@ -55,13 +76,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            moving = false;
+            Moving = false;
         }
-        if (moving)
+        if (Moving)
         {
             Vector2 speed = new Vector2(horizontal, vertical) * movespeed;
             if (GameController.Eng <= 0)
-                speed = speed * 0.3f;
+                speed = speed * 0.6f;
             rb.linearVelocity = speed;
         }
         else

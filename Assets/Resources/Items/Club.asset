@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e091b1636f51b841bac308167984d04, type: 3}
+  m_Name: Club
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  type: 0
+  icon: {fileID: 21300000, guid: 811ce4cde1dac7f41a27cd30dcd8d2a5, type: 3}
+  battleSprite: {fileID: 21300000, guid: 811ce4cde1dac7f41a27cd30dcd8d2a5, type: 3}
+  displayname: Club
+  description: 
+  value: 30
+  strengthRequired: 8
+  physDmg: 6
+  magicDmg: 0
+  shieldDmg: 12
+  physDef: 0
+  magicDef: 0
+  shieldHP: 0
+  bonusMana: 0
+  bonusSpeed: -5

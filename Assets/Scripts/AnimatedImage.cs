@@ -7,14 +7,15 @@ public class AnimatedImage : MonoBehaviour
 
     public PlaybackMode mode = PlaybackMode.REPEAT;
     public float frameTime = 0.1f;
-    private Image img;
-    private SpriteRenderer sr;
+    public bool autoplay = false;
     public Sprite[] sprites;
 
     private float t;
     private int idx;
     private bool forward;
-
+    private Image img;
+    private SpriteRenderer sr;
+    private bool started;
 
     void Start()
     {
@@ -23,12 +24,14 @@ public class AnimatedImage : MonoBehaviour
         img = GetComponent<Image>();
         t = 0;
         idx = 0;
+        started = autoplay;
     }
-
 
     void Update()
     {
-        if (mode == PlaybackMode.ONESHOT && idx >= sprites.Length)
+        if (!started)
+            return;
+        if (isFinished())
         {
             return;
         }
@@ -41,10 +44,21 @@ public class AnimatedImage : MonoBehaviour
         }
     }
 
+    public bool isFinished()
+    {
+        return mode == PlaybackMode.ONESHOT && idx >= sprites.Length;
+    }
+
     public void Restart()
     {
         idx = 0;
         t = 0;
+        started = true;
+    }
+
+    public void Stopp()
+    {
+        started = false;
     }
 
     private void NextFrame()

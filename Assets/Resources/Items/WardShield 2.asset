@@ -18,12 +18,12 @@ MonoBehaviour:
   displayname: Ward Shield
   description: 
   value: 500
-  strengthRequired: 25
+  strengthRequired: 5
   physDmg: 0
   magicDmg: 0
   shieldDmg: 0
-  physDef: 65
-  magicDef: 65
-  shieldHP: 400
+  physDef: 30
+  magicDef: 40
+  shieldHP: 200
   bonusMana: 0
   bonusSpeed: 0

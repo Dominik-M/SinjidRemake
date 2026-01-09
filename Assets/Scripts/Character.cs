@@ -14,6 +14,7 @@ public class Character : ScriptableObject
     public int strength, dex, magic;
     public int currentShieldHp;
     public Item weapon, shield, suit, headgear;
+    public CombatAction[] moves;
 
     public bool IsPlayerChar()
     {
@@ -29,8 +30,8 @@ public class Character : ScriptableObject
             n += suit.physDmg;
         if (headgear)
             n += headgear.physDmg;
-        float scaling = 1 + 0.2f * strength + 0.2f * dex;
-        n = (int)(n * scaling);
+        float scaling = 1 + 0.5f * strength + 0.5f * dex;
+        n = (int)(n + scaling);
         if (IsPlayerChar())
         {
             n += GameController.FindSkillByName("Inner Strength").GetCurrentLevelValue();
@@ -43,12 +44,13 @@ public class Character : ScriptableObject
         int n = 0;
         if (weapon)
             n += weapon.magicDmg;
+        if (n == 0)
+            return 0; // weapon must have magic
         if (suit)
             n += suit.magicDmg;
         if (headgear)
             n += headgear.magicDmg;
-        float scaling = 1 + 0.5f * magic;
-        n = (int)(n * scaling);
+        n += magic;
         if (IsPlayerChar())
         {
             n += GameController.FindSkillByName("Energy Field").GetCurrentLevelValue();
@@ -123,5 +125,37 @@ public class Character : ScriptableObject
             percent = 68.0f;
 
         return percent / 100.0f;
+    }
+    public float GetCritChance()
+    {
+        float percent;
+        int spd = GetSpeed();
+
+        if (spd < 20)
+            percent = spd * 1.0f; // max 20%
+        else if (spd < 40)
+            percent = 10 + spd * 0.5f; // max 30%
+        else if (spd < 100)
+            percent = 18 + spd * 0.3f; // max 48%
+        else if (spd < 198)
+            percent = 28 + spd * 0.2f; // max 68%
+        else
+            percent = 68.0f;
+
+        return percent / 100.0f;
+    }
+
+    public CombatAction GetRandomMove()
+    {
+        if (moves != null && moves.Length > 0)
+        {
+            int idx = Random.Range(0, moves.Length);
+            return moves[idx];
+        }
+        else
+        {
+            Debug.LogWarning("GetRandomMove(): "+ this + " does not have any moves");
+            return CombatAction.NONE;
+        }
     }
 }

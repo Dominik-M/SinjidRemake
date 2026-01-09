@@ -1,0 +1,23 @@
+Missing features
+
+World scene:
+- book shelf
+- dialogs
+
+UI:
+- buy/sell/equip with kasten/dreieck
+
+Combat scene:
+- all other characters and prefabs
+- more sounds and effects
+
+-Localization
+
+Known Issues
+- some Animations buggy
+- buy herbs with negative money
+- Balancing
+- death animation length
+
+
+Balancing:

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e091b1636f51b841bac308167984d04, type: 3}
+  m_Name: Demon Shield
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  type: 1
+  icon: {fileID: 21300000, guid: 79ebd09ebeb0e7d4a81aceb4e6095543, type: 3}
+  battleSprite: {fileID: 21300000, guid: 315c196b536e37141bb41d1dc979dd96, type: 3}
+  displayname: Demon Shield
+  description: 
+  value: 3800
+  strengthRequired: 40
+  physDmg: 0
+  magicDmg: 0
+  shieldDmg: 0
+  physDef: 70
+  magicDef: 50
+  shieldHP: 800
+  bonusMana: 0
+  bonusSpeed: 0

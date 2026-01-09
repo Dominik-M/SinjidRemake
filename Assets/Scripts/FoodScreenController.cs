@@ -26,8 +26,10 @@ public class FoodScreenController : DefaultMenuButtonHandler
             button.OnSelectItem += OnButtonSelected;
     }
 
-    void OnEnable()
+    public override void OnEnable()
     {
+        Debug.Log("FoodScreenController.OnEnable()");
+        base.OnEnable();
         UpdateValues();
     }
 

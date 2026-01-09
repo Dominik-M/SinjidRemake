@@ -7,7 +7,7 @@ public class DefaultMenuButtonHandler : MonoBehaviour
     public Button defaultbutton;
     public bool closeWithKreis = true;
 
-    void OnEnable()
+    public virtual void OnEnable()
     {
         defaultbutton.Select();
     }

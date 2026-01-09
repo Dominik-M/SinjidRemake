@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
   m_Name: Thief
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  displayName: Thief
+  displayName: Filthy Thief
   icon: {fileID: 21300000, guid: bdf551e163c40844985093622c097aea, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 0945bd68f34e5b4498a8dd15edc00ef4, type: 3}
   life: 60
@@ -35,3 +35,4 @@ MonoBehaviour:
   shield: {fileID: 11400000, guid: c2394a113f95dad4ca66319039723aad, type: 2}
   suit: {fileID: 0}
   headgear: {fileID: 0}
+  moves: 0100000004000000

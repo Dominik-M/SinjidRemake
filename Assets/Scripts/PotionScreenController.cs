@@ -14,8 +14,9 @@ public class PotionScreenController : DefaultMenuButtonHandler
     [SerializeField] private Text gold;
     [SerializeField] private Text currentLifepotions, currentManapotions;
 
-    void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
         UpdateValues();
     }
 

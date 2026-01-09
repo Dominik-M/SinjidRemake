@@ -14,8 +14,9 @@ public class HealScreenController : DefaultMenuButtonHandler
     [SerializeField] private AnimatedImage manabarImage;
     [SerializeField] private Text gold;
 
-    void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
         UpdateValues();
     }
 

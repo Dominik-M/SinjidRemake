@@ -24,14 +24,15 @@ MonoBehaviour:
   exp: 0
   expNext: 0
   gold: 0
-  level: 3
+  level: 10
   lifePotions: 0
   manaPotions: 0
-  strength: 20
-  dex: 20
-  magic: 100
-  currentShieldHp: 300
-  weapon: {fileID: 0}
+  strength: 15
+  dex: 15
+  magic: 15
+  currentShieldHp: 291
+  weapon: {fileID: 11400000, guid: 778ee291921d080439bebaec244923e4, type: 2}
   shield: {fileID: 11400000, guid: f1a51ed2d461c5946b5c918c4cadf0df, type: 2}
   suit: {fileID: 0}
   headgear: {fileID: 0}
+  moves: 0000000014000000150000001600000019000000

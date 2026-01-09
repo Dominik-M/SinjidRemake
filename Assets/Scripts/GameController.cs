@@ -26,17 +26,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject trainingScreen;
 
     [Header("UI Elements")]
-    [SerializeField] private Text lifetext;
-    [SerializeField] private Text maxlifetext;
-    [SerializeField] private Slider lifeslider;
-    [SerializeField] private Text manatext, maxmanatext;
-    [SerializeField] private Slider manaslider;
-    [SerializeField] private Text engtext, maxengtext;
-    [SerializeField] private Slider engslider;
-    [SerializeField] private Text exptext, expnexttext;
-    [SerializeField] private Slider expslider;
-    [SerializeField] private Text goldtext, leveltext;
-    [SerializeField] private Text mClassText;
     [SerializeField] private GameObject infoDialog;
     [SerializeField] private Text infoDialogTitle, infoDialogMessage;
     [SerializeField] private Text lifepotionstext, manapotionstext;
@@ -49,7 +38,8 @@ public class GameController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerController worldPlayer;
-    [SerializeField] private Item medicineItem;
+    [SerializeField] private Item herbsItem, blackHerbsItem;
+    [SerializeField] private Item medicineItem, improvedMedicineItem, specialMedicineItem;
     [SerializeField] private Item secretringItem;
     [SerializeField] private Sprite chariconBalanced, chariconWarrior, chariconSpellcaster, chariconNinja;
 
@@ -57,6 +47,7 @@ public class GameController : MonoBehaviour
     private GameObject currentMenu;
     private GameObject currentRoomObject;
     private DefaultMenuButtonHandler currentMenuButtonHandler;
+    private float buttonDebounceTime = 0f;
 
     void Start()
     {
@@ -96,7 +87,7 @@ public class GameController : MonoBehaviour
             ChangeRoom(currentRoom);
         }
         //debug
-        Skillpoints += 20;
+        //Skillpoints += 20;
     }
 
     void Update()
@@ -127,19 +118,21 @@ public class GameController : MonoBehaviour
 
         //Debug.Log("h=" + h + " v=" + v);
 
-
-        // GameObject selected = EventSystem.current.currentSelectedGameObject;
-        //if (selected != null)
-        //{
-        //    Debug.Log("Currently selected UI object: " + selected.name);
-        //}
-        //else
-        //{
-        //    Debug.Log("No UI object is currently selected.");
-        //}
+        if (dreieck)
+        {
+            GameObject selected = EventSystem.current.currentSelectedGameObject;
+            if (selected != null)
+            {
+                Debug.Log("Currently selected UI object: " + selected.name);
+            }
+            else
+            {
+                Debug.Log("No UI object is currently selected.");
+            }
+        }
 
         // Button handling in menu
-        if (currentMenuButtonHandler)
+        if (currentMenuButtonHandler != null)
         {
             if (kreis)
             {
@@ -170,6 +163,7 @@ public class GameController : MonoBehaviour
         else if (worldPlayer)
         {
             worldPlayer.Move(h, v);
+
             if (worldPlayer.IsMoving())
             {
                 Eng -= movingEngConsumption * Time.deltaTime;
@@ -185,7 +179,10 @@ public class GameController : MonoBehaviour
                 n = Mana - decreaseSpeed * Time.deltaTime;
                 Mana = n < 1 ? 1 : n;
             }
-            if (start)
+
+            if (buttonDebounceTime > 0)
+                buttonDebounceTime -= Time.deltaTime;
+            else if (start)
             {
                 // open inventory
                 if (inventoryScreen)
@@ -212,6 +209,19 @@ public class GameController : MonoBehaviour
         switch (currentInteraction)
         {
             case InteractionID.NONE:
+                break;
+            case InteractionID.PREDARK_EXIT:
+                if (humangatewaystage.isFinished())
+                {
+                    ChangeRoom(currentRoom.up);
+                    if (worldPlayer)
+                        worldPlayer.transform.position = new Vector3(worldPlayer.transform.position.x, -1.25f, worldPlayer.transform.position.z);
+
+                }
+                else
+                {
+                    ShowInfoDialog("Info", "You have to complete human gateway first to enter.");
+                }
                 break;
             case InteractionID.EXIT_UP:
                 ChangeRoom(currentRoom.up);
@@ -252,8 +262,13 @@ public class GameController : MonoBehaviour
                 OpenMenu(foodScreen);
                 break;
             case InteractionID.HGATE_GATE_ENTRY:
-                CombatController.InitCombat(humangatewaystage);
-                StartCombat();
+                if (humangatewaystage.isFinished())
+                    ShowInfoDialog("Info", "You finished this stage.");
+                else
+                {
+                    CombatController.InitCombat(humangatewaystage);
+                    StartCombat();
+                }
                 break;
             case InteractionID.HGATE_NPC1:
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
@@ -315,16 +330,26 @@ public class GameController : MonoBehaviour
             case InteractionID.LIBRARY_NPC1:// medicine olle
                 // Herbs in inventory?
                 bool hasHerbs = false;
+                bool hasBlackHerbs = false;
                 for (int i = 0; i < inventoryItems.Length; i++)
                 {
-                    if (inventoryItems[i] != null
-                        && inventoryItems[i].type == Item.Type.Herb)
+                    if (inventoryItems[i] != null)
                     {
-                        hasHerbs = true;
-                        inventoryItems[i] = medicineItem;
+                        if (inventoryItems[i].Equals(herbsItem))
+                        {
+                            hasHerbs = true;
+                            inventoryItems[i] = medicineItem;
+                        }
+                        else if (inventoryItems[i].Equals(blackHerbsItem))
+                        {
+                            hasBlackHerbs = true;
+                            inventoryItems[i] = specialMedicineItem;
+                        }
                     }
                 }
-                if (hasHerbs)
+                if (hasBlackHerbs)
+                    ShowInfoDialog("Lady", "Oh! You have mysterious black herbs! Here is your special medicine.");
+                else if (hasHerbs)
                     ShowInfoDialog("Lady", "Ah! You found some white leaves! Here is your medicine.");
                 else
                     ShowInfoDialog("Lady", "I've been studying herbs here. If you bring me white leaves, I can make medicine out of it for you.");
@@ -353,7 +378,13 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case InteractionID.MGATE_GATE_ENTRY:
-                ShowInfoDialog("Info", "Cannot enter yet.");
+                if (monstergatewaystage.isFinished())
+                    ShowInfoDialog("Info", "You finished this stage.");
+                else
+                {
+                    CombatController.InitCombat(monstergatewaystage);
+                    StartCombat();
+                }
                 break;
             case InteractionID.MGATE_NPC1:// merchant
                 currentShopItems = shopItemsMGate;
@@ -400,17 +431,38 @@ public class GameController : MonoBehaviour
             case InteractionID.PREDARK_NPC2:
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
-            case InteractionID.DGATE_NPC1:
+            case InteractionID.DGATE_GUARD:
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
-            case InteractionID.DGATE_NPC2:
+            case InteractionID.DGATE_NPC:
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
-            case InteractionID.DGATE_NPC3:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.DGATE_MERCHANT:
+                currentShopItems = shopItemsDGate;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
+                break;
+            case InteractionID.DGATE_MERCHANT2:
+                currentShopItems = shopItemsNinja;
+                acceptedItemTypes.Clear();
+                acceptedItemTypes.Add(Item.Type.Weapon);
+                acceptedItemTypes.Add(Item.Type.Shield);
+                acceptedItemTypes.Add(Item.Type.Suit);
+                acceptedItemTypes.Add(Item.Type.Head_Gear);
+                OpenMenu(shopScreen);
                 break;
             case InteractionID.DGATE_GATE_ENTRY:
-                ShowInfoDialog("Info", "Cannot enter yet.");
+                if (darkgatestage.isFinished())
+                    ShowInfoDialog("Info", "You finished this stage.");
+                else
+                {
+                    CombatController.InitCombat(darkgatestage);
+                    StartCombat();
+                }
                 break;
         }
     }
@@ -420,8 +472,8 @@ public class GameController : MonoBehaviour
         if (currentMenu)
             currentMenu.SetActive(false); // deactivate previous menu
         currentMenu = menu;
-        currentMenuButtonHandler = menu.GetComponent<DefaultMenuButtonHandler>();
         currentMenu.SetActive(true);
+        currentMenuButtonHandler = menu.GetComponent<DefaultMenuButtonHandler>();
         bottomview.SetActive(false);
     }
 
@@ -438,6 +490,7 @@ public class GameController : MonoBehaviour
 
     public void ShowInfoDialog(string title, string message)
     {
+        Debug.Log("ShowInfoDialog");
         OpenMenu(infoDialog);
         bottomview.SetActive(true);
         infoDialogTitle.text = title;
@@ -471,6 +524,7 @@ public class GameController : MonoBehaviour
         Debug.Log("InitCharacter Class: " + MyClass);
         foreach (Skill s in allSkills)
             s.currentlevel = 0;
+        restsremaining = 10;
         humangatewaystage.currentLevel = 0;
         monstergatewaystage.currentLevel = 0;
         darkgatestage.currentLevel = 0;
@@ -494,9 +548,9 @@ public class GameController : MonoBehaviour
                 Life = 100;
                 MaxMana = 80;
                 Mana = 80;
-                Strength = 3;
-                Dex = 3;
-                Magic = 3;
+                Strength = 8;
+                Dex = 4;
+                Magic = 4;
                 Weapon = FindItemByName("Iron Knife");
                 FindSkillByName("Shurikens").currentlevel = 1;
                 break;
@@ -505,8 +559,8 @@ public class GameController : MonoBehaviour
                 Life = 120;
                 MaxMana = 40;
                 Mana = 40;
-                Strength = 5;
-                Dex = 2;
+                Strength = 12;
+                Dex = 3;
                 Magic = 2;
                 Weapon = FindItemByName("Iron Knife");
                 FindSkillByName("Stab").currentlevel = 1;
@@ -516,9 +570,9 @@ public class GameController : MonoBehaviour
                 Life = 60;
                 MaxMana = 120;
                 Mana = 120;
-                Strength = 2;
-                Dex = 2;
-                Magic = 5;
+                Strength = 6;
+                Dex = 3;
+                Magic = 6;
                 Weapon = FindItemByName("Energy Knife");
                 FindSkillByName("Charge").currentlevel = 1;
                 break;
@@ -527,8 +581,8 @@ public class GameController : MonoBehaviour
                 Life = 80;
                 MaxMana = 80;
                 Mana = 80;
-                Strength = 3;
-                Dex = 5;
+                Strength = 8;
+                Dex = 6;
                 Magic = 3;
                 Weapon = FindItemByName("Iron Knife");
                 FindSkillByName("Shadow Blend").currentlevel = 1;
@@ -554,7 +608,7 @@ public class GameController : MonoBehaviour
 
     // items
     private static Item[] allItems;
-    private static ItemContainer herbs, shopItemsMarket, shopItemsArmory1, shopItemsArmory2, shopItemsMGate, shopItemsDGate;
+    private static ItemContainer herbs, shopItemsMarket, shopItemsArmory1, shopItemsArmory2, shopItemsMGate, shopItemsDGate, shopItemsNinja;
     private static Item[] inventoryItems = new Item[8];
     private static ItemContainer currentShopItems = null;
     private static List<Item.Type> acceptedItemTypes = new List<Item.Type>();
@@ -562,6 +616,7 @@ public class GameController : MonoBehaviour
     // progress
     private static bool ringreceived = false;
     private static Skill[] allSkills;
+    private static int restsremaining;
 
     public static Item.Type[] GetAcceptedItemTypes()
     {
@@ -650,15 +705,59 @@ public class GameController : MonoBehaviour
         return -1;
     }
 
+    public static bool TryEquip(Item item)
+    {
+        bool canputon = item.strengthRequired <= Strength;
+        switch (item.type)
+        {
+            case Item.Type.Head_Gear:
+                if (Headgear != null)
+                    canputon = TryPutInventory(Headgear);
+                if (canputon)
+                    Headgear = item;
+                return canputon;
+            case Item.Type.Weapon:
+                if (Weapon != null)
+                    canputon = TryPutInventory(Weapon);
+                if (canputon)
+                    Weapon = item;
+                return canputon;
+            case Item.Type.Shield:
+                if (Shield != null)
+                    canputon = TryPutInventory(Shield);
+                if (canputon)
+                    Shield = item;
+                return canputon;
+            case Item.Type.Suit:
+                if (Suit != null)
+                    canputon = TryPutInventory(Suit);
+                if (canputon)
+                    Suit = item;
+                return canputon;
+        }
+        return false;
+    }
+
+    public static bool TryPutInventory(Item item)
+    {
+
+        for (int i = 0; i < inventoryItems.Length; i++)
+        {
+            if (inventoryItems[i] == null)
+            {
+                inventoryItems[i] = item;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static CharacterClass MyClass
     {
         get => mClass; set
         {
             mClass = value;
-            if (instance && instance.mClassText)
-                instance.mClassText.text = mClass.ToString();
         }
-
     }
 
     public static int Gold
@@ -666,8 +765,6 @@ public class GameController : MonoBehaviour
         get => playerchar.gold; set
         {
             playerchar.gold = value;
-            if (instance && instance.goldtext)
-                instance.goldtext.text = "Gold: " + playerchar.gold;
         }
     }
     public static int Level
@@ -675,8 +772,6 @@ public class GameController : MonoBehaviour
         get => playerchar.level; set
         {
             playerchar.level = value;
-            if (instance && instance.leveltext)
-                instance.leveltext.text = "Level " + playerchar.level;
         }
     }
     public static int Skillpoints
@@ -691,8 +786,6 @@ public class GameController : MonoBehaviour
         get => playerchar.lifePotions; set
         {
             playerchar.lifePotions = value;
-            if (instance && instance.lifepotionstext)
-                instance.lifepotionstext.text = "x " + playerchar.lifePotions;
         }
     }
     public static int ManaPotions
@@ -700,8 +793,6 @@ public class GameController : MonoBehaviour
         get => playerchar.manaPotions; set
         {
             playerchar.manaPotions = value;
-            if (instance && instance.manapotionstext)
-                instance.manapotionstext.text = "x " + playerchar.manaPotions;
         }
     }
     public static int Strength
@@ -730,78 +821,42 @@ public class GameController : MonoBehaviour
     {
         get => playerchar.life; set
         {
-            playerchar.life = value;
-            if (playerchar.life <= 0)
-                Die();
-            if (playerchar.life > playerchar.maxlife)
-                playerchar.life = playerchar.maxlife;
-            if (instance && instance.lifetext)
-                instance.lifetext.text = playerchar.life.ToString("F0");
-            if (instance && instance.lifeslider)
-                instance.lifeslider.value = playerchar.life / playerchar.maxlife;
+            playerchar.life = Mathf.Clamp(value, 0, playerchar.maxlife);
         }
     }
     public static float MaxLife
     {
         get => playerchar.maxlife; set
         {
-            playerchar.maxlife = value;
-            if (instance && instance.maxlifetext)
-                instance.maxlifetext.text = playerchar.maxlife.ToString("F0");
-            if (instance && instance.lifeslider)
-                instance.lifeslider.value = playerchar.life / playerchar.maxlife;
+            playerchar.maxlife = Mathf.Max(value, 1);
         }
     }
     public static float Mana
     {
         get => playerchar.mana; set
         {
-            playerchar.mana = value;
-            if (playerchar.mana < 0)
-                playerchar.mana = 0;
-            if (playerchar.mana > playerchar.maxmana)
-                playerchar.mana = playerchar.maxmana;
-            if (instance && instance.manatext)
-                instance.manatext.text = playerchar.mana.ToString("F0");
-            if (instance && instance.manaslider)
-                instance.manaslider.value = playerchar.mana / playerchar.maxmana;
+            playerchar.mana = Mathf.Clamp(value, 0, playerchar.maxmana);
         }
     }
     public static float MaxMana
     {
         get => playerchar.maxmana; set
         {
-            playerchar.maxmana = value;
-            if (instance && instance.maxmanatext)
-                instance.maxmanatext.text = playerchar.maxmana.ToString("F0");
-            if (instance && instance.manaslider)
-                instance.manaslider.value = playerchar.mana / playerchar.maxmana;
+            playerchar.maxmana = Mathf.Max(value, 1);
         }
     }
     public static float Eng
     {
         get => playerchar.eng; set
         {
-            playerchar.eng = value;
-            if (playerchar.eng < 0)
-                playerchar.eng = 0;
-            if (playerchar.eng > playerchar.maxeng)
-                playerchar.eng = playerchar.maxeng;
-            if (instance && instance.engtext)
-                instance.engtext.text = playerchar.eng.ToString("F0");
-            if (instance && instance.engslider)
-                instance.engslider.value = playerchar.eng / playerchar.maxeng;
+            playerchar.eng = Mathf.Clamp(value, 0, playerchar.maxeng);
         }
     }
     public static float MaxEng
     {
         get => playerchar.maxeng; set
         {
-            playerchar.maxeng = value;
-            if (instance && instance.maxengtext)
-                instance.maxengtext.text = playerchar.maxeng.ToString("F0");
-            if (instance && instance.engslider)
-                instance.engslider.value = playerchar.eng / playerchar.maxeng;
+            playerchar.maxeng = Mathf.Max(value, 1);
         }
     }
     public static float Exp
@@ -813,23 +868,17 @@ public class GameController : MonoBehaviour
                 playerchar.eng = 0;
             while (playerchar.exp >= playerchar.expNext)
                 LevelUp();
-            if (instance && instance.exptext)
-                instance.exptext.text = playerchar.exp.ToString("F0");
-            if (instance && instance.expslider)
-                instance.expslider.value = playerchar.exp / ExpNext;
         }
     }
     public static float ExpNext
     {
         get => playerchar.expNext; set
         {
-            playerchar.expNext = value;
-            if (instance && instance.expnexttext)
-                instance.expnexttext.text = playerchar.expNext.ToString("F0");
-            if (instance && instance.expslider)
-                instance.expslider.value = playerchar.exp / playerchar.expNext;
+            playerchar.expNext = Mathf.Max(value, 1);
         }
     }
+
+    public static int RestsRemaining { get => restsremaining; set => restsremaining = value; }
 
     public static int GetPhysDmg()
     {
@@ -838,7 +887,7 @@ public class GameController : MonoBehaviour
 
     public static int GetPhysDef()
     {
-        int def = playerchar.strength;
+        int def = playerchar.strength / 2;
         if (playerchar.weapon) def += playerchar.weapon.physDef;
         if (playerchar.suit) def += playerchar.suit.physDef;
         if (playerchar.headgear) def += playerchar.headgear.physDef;
@@ -852,7 +901,7 @@ public class GameController : MonoBehaviour
 
     public static int GetMagicDef()
     {
-        int def = playerchar.magic;
+        int def = playerchar.magic / 2;
         if (playerchar.weapon) def += playerchar.weapon.magicDef;
         if (playerchar.suit) def += playerchar.suit.magicDef;
         if (playerchar.headgear) def += playerchar.headgear.magicDef;
@@ -908,7 +957,7 @@ public class GameController : MonoBehaviour
     private static void LevelUp()
     {
         playerchar.exp -= playerchar.expNext;
-        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.4f) / 10) * 10;
+        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.4f) / 10 + Level) * 10;
         // common upgrades
         Level++;
         Skillpoints++;
@@ -948,6 +997,10 @@ public class GameController : MonoBehaviour
         Mana = MaxMana;
     }
 
+    public static void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(0);
+    }
     public static void LoadWorldScene()
     {
         SceneManager.LoadScene(1);
@@ -972,6 +1025,7 @@ public class GameController : MonoBehaviour
             instance.currentMenu = null;
             instance.currentMenuButtonHandler = null;
             instance.bottomview.SetActive(true);
+            instance.buttonDebounceTime = 0.25f; // prevent the interaction to be triggered again immediately
         }
         currentShopItems = null;
     }
@@ -991,6 +1045,7 @@ public class GameController : MonoBehaviour
         shopItemsArmory2 = Resources.Load<ItemContainer>("Items/Container/shopItemsArmory2");
         shopItemsMGate = Resources.Load<ItemContainer>("Items/Container/shopItemsMGate");
         shopItemsDGate = Resources.Load<ItemContainer>("Items/Container/shopItemsDGate");
+        shopItemsNinja = Resources.Load<ItemContainer>("Items/Container/shopItemsNinja");
 
         playerchar = Resources.Load<Character>("Character/Player");
 
@@ -1032,6 +1087,10 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < allSkills.Length; i++)
             allSkills[i].currentlevel = PlayerPrefs.GetInt("skill_" + i, 0);
         ringreceived = PlayerPrefs.GetInt("ringreceived", 0) > 0;
+        restsremaining = PlayerPrefs.GetInt("restsremaining", 10);
+        humangatewaystage.currentLevel = PlayerPrefs.GetInt("humangatewaystageLevel", 0);
+        monstergatewaystage.currentLevel = PlayerPrefs.GetInt("monstergatewaystageLevel", 0);
+        darkgatestage.currentLevel = PlayerPrefs.GetInt("darkgatestageLevel", 0);
     }
 
     public static void SaveAllPrefs()
@@ -1067,6 +1126,10 @@ public class GameController : MonoBehaviour
             PlayerPrefs.SetInt("item_" + i, GetItemIndex(inventoryItems[i]));
         for (int i = 0; i < allSkills.Length; i++)
             PlayerPrefs.SetInt("skill_" + i, allSkills[i].currentlevel);
-        PlayerPrefs.GetInt("ringreceived", ringreceived ? 1 : 0);
+        PlayerPrefs.SetInt("ringreceived", ringreceived ? 1 : 0);
+        PlayerPrefs.SetInt("restsremaining", restsremaining);
+        PlayerPrefs.SetInt("humangatewaystageLevel", humangatewaystage.currentLevel);
+        PlayerPrefs.SetInt("monstergatewaystageLevel", monstergatewaystage.currentLevel);
+        PlayerPrefs.SetInt("darkgatestageLevel", darkgatestage.currentLevel);
     }
 }

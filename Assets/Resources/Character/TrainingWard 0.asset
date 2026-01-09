@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Training Ward
   icon: {fileID: -6594082591126157566, guid: 39dafdaf9c4d08b4082d036462b8b5e2, type: 3}
   combatprefab: {fileID: 1182826583376627294, guid: e786094b0b0d82a498f87a902952cad0, type: 3}
-  life: 80
+  life: 0
   maxlife: 80
   mana: 0
   maxmana: 0
@@ -24,14 +24,15 @@ MonoBehaviour:
   exp: 0
   expNext: 0
   gold: 0
-  level: 1
+  level: 2
   lifePotions: 0
   manaPotions: 0
-  strength: 10
-  dex: 10
-  magic: 30
-  currentShieldHp: 300
-  weapon: {fileID: 0}
+  strength: 5
+  dex: 5
+  magic: 5
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 778ee291921d080439bebaec244923e4, type: 2}
   shield: {fileID: 11400000, guid: ceb83f58d5d52a14e9435d1dc496e11c, type: 2}
   suit: {fileID: 0}
   headgear: {fileID: 0}
+  moves: 000000001400000019000000

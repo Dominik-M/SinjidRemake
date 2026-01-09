@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class RestScreenController : DefaultMenuButtonHandler
 {
+    public Image playericon;
     public Text life, maxlife;
     public Slider lifebar;
     public AnimatedImage lifebarImage;
@@ -15,6 +16,8 @@ public class RestScreenController : DefaultMenuButtonHandler
     public Text mClass, level, gold, lifepotions, manapotions;
     public Text physDmg, magicDmg, physDef, magicDef;
     public Text strength, dex, magic;
+    public Text restsremainingNumber;
+    public GameObject savepopup;
 
     void Awake()
     {
@@ -42,6 +45,7 @@ public class RestScreenController : DefaultMenuButtonHandler
         maxeng.text = mn.ToString("F0");
         engbar.value = n / mn;
         // Stats
+        playericon.sprite = GameController.PlayerChar.icon;
         level.text = "Level: "+GameController.Level;
         mClass.text = GameController.MyClass.ToString();
         gold.text = "Gold: "+GameController.Gold.ToString();
@@ -54,22 +58,28 @@ public class RestScreenController : DefaultMenuButtonHandler
         strength.text = GameController.Strength.ToString();
         dex.text = GameController.Dex.ToString();
         magic.text = GameController.Magic.ToString();
+        restsremainingNumber.text = GameController.RestsRemaining.ToString();
     }
 
     public void OnRest()
     {
         Debug.Log("OnRest()");
-        GameController.Life = GameController.MaxLife;
-        GameController.Mana = GameController.MaxMana;
-        GameController.Eng = GameController.MaxEng;
-        UpdateValues();
-        lifebarImage.Restart();
-        manabarImage.Restart();
-        engbarImage.Restart();
+        if (GameController.RestsRemaining > 0)
+        {
+            GameController.RestsRemaining--;
+            GameController.Life = GameController.MaxLife;
+            GameController.Mana = GameController.MaxMana;
+            GameController.Eng = GameController.MaxEng;
+            UpdateValues();
+            lifebarImage.Restart();
+            manabarImage.Restart();
+            engbarImage.Restart();
+        }
     }
     public void OnSave()
     {
         Debug.Log("OnSave()");
         GameController.SaveAllPrefs();
+        Instantiate(savepopup, transform);
     }
 }

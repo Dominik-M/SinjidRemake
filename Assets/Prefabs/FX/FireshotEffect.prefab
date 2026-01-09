@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7998224885646071704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2446672175750004202}
+  - component: {fileID: 7510547635369130624}
+  - component: {fileID: 2431815018833864016}
+  - component: {fileID: 3139945907058633826}
+  m_Layer: 0
+  m_Name: FireshotEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2446672175750004202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998224885646071704}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 8, y: 0, z: -2}
+  m_LocalScale: {x: 12, y: 8, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!212 &7510547635369130624
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998224885646071704}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 0f33a5545cbb8764da6a89f46a09595d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.13, y: 1.46}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &2431815018833864016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998224885646071704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1974da571ad69445a79020b73d98d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatedImage
+  mode: 0
+  frameTime: 0.04
+  autoplay: 1
+  sprites:
+  - {fileID: 21300000, guid: 03c09c6cccca06243b881c50dcea1648, type: 3}
+  - {fileID: 21300000, guid: 1e265dffad04e28449c9ed9b0a26bf6a, type: 3}
+  - {fileID: 21300000, guid: 079db974e775d4944a96bfd53dfddeb1, type: 3}
+  - {fileID: 21300000, guid: 4849260d3a45bda4da59f3b52033ed16, type: 3}
+  - {fileID: 21300000, guid: dea063e2b61e3ed4287c5142456da0f4, type: 3}
+  - {fileID: 21300000, guid: d60b7eddf6271f1479b164b18f64e075, type: 3}
+  - {fileID: 21300000, guid: 55537e7468a0d6c499e973fc7a9e8953, type: 3}
+  - {fileID: 21300000, guid: a4f11bdc903f94740a8c8ccfec3d6c59, type: 3}
+  - {fileID: 21300000, guid: a6e791c6ef71046469458134dd762884, type: 3}
+  - {fileID: 21300000, guid: 84251cc407b3b3d409405c4a80c7723d, type: 3}
+  - {fileID: 21300000, guid: 87af1131d806c6c4e89e7266b0df0269, type: 3}
+  - {fileID: 21300000, guid: e06f0d83b619c9843b3b8d5a0fcdafea, type: 3}
+  - {fileID: 21300000, guid: 8dc30766b9f252f4380d6d1462b807b9, type: 3}
+  - {fileID: 21300000, guid: 38bf35e096239a64bbe8326c7adbc42d, type: 3}
+  - {fileID: 21300000, guid: 289be98e607bbb04496a50713826b17d, type: 3}
+  - {fileID: 21300000, guid: 278232b73ff613347b7080882ea6e37b, type: 3}
+  - {fileID: 21300000, guid: 577bf6446ef69c247bdf3336b2ce5b87, type: 3}
+  - {fileID: 21300000, guid: 0f35cef15f31d0b42996db58fe075e54, type: 3}
+  - {fileID: 21300000, guid: bd7b5c60dcaaeab4dbe6fc47dc6afab3, type: 3}
+  - {fileID: 21300000, guid: 5dc3ab5a22e882a48b50212a84910f31, type: 3}
+  - {fileID: 21300000, guid: d27e595fa6ac62a4c8fd8c78191a7d91, type: 3}
+  - {fileID: 21300000, guid: 36813baead832854b9e0a6c8f3951b24, type: 3}
+  - {fileID: 21300000, guid: f938eeece5df42b45a33ac9c59ccf753, type: 3}
+  - {fileID: 21300000, guid: 399a3984f9ca60f49acccc8d3d080f1e, type: 3}
+  - {fileID: 21300000, guid: 7e5e19e46e6f5464fa81f4d8a8046bdb, type: 3}
+  - {fileID: 21300000, guid: 77ce25e92bcca804fb2f82b8dcc17f7e, type: 3}
+  - {fileID: 21300000, guid: cf95ccf5ea11dd74c949c3690a2b66ef, type: 3}
+  - {fileID: 21300000, guid: c12cd78680d17514593693d57248bb5b, type: 3}
+  - {fileID: 21300000, guid: 01d70e27c2c58014cbeb669f8cc04724, type: 3}
+  - {fileID: 21300000, guid: d21847d616665164a9ee34d2eaaf90f3, type: 3}
+  - {fileID: 21300000, guid: 2a224fc10b8f42a47ae86f52ad5f8c08, type: 3}
+  - {fileID: 21300000, guid: b68424407c66a38468b5f0a32f212f12, type: 3}
+  - {fileID: 21300000, guid: 65ac6a0b8da5a4b47b61f43840172786, type: 3}
+  - {fileID: 21300000, guid: b07342f8ae2056d4bbc0f6465c38027e, type: 3}
+  - {fileID: 21300000, guid: e393e33d0b1398b44a0245b24aadcf1b, type: 3}
+  - {fileID: 21300000, guid: 290f9fb1dc748fc43bc91ab0e80a4e4d, type: 3}
+  - {fileID: 21300000, guid: b97e544280c0b90439c307bc00ba88e6, type: 3}
+--- !u!114 &3139945907058633826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998224885646071704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0619a7b325ff2814697dadda4bd126ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyByTime
+  lifetime: 1.5

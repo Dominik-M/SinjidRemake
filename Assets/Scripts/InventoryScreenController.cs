@@ -11,7 +11,7 @@ public class InventoryScreenController : DefaultMenuButtonHandler
     public Text yourgold, yourstrength, sellvalue;
     public Text acceptedItems;
 
-    private Item picketItem = null;
+    private Item picketItem = null, selectedItem = null;
 
     private void Start()
     {
@@ -25,13 +25,15 @@ public class InventoryScreenController : DefaultMenuButtonHandler
             shopSlots[i].OnSelectItem += SetSelectedItem;
     }
 
-    void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
         Sync();
     }
 
     public void SetSelectedItem(Item item)
     {
+        selectedItem = item;
         if (itemDescription)
             itemDescription.DisplayedItem = item;
     }
@@ -57,7 +59,7 @@ public class InventoryScreenController : DefaultMenuButtonHandler
             if (picketItem)
                 sellvalue.text = GameController.GetItemSellPrice(picketItem).ToString();
         }
-        if(acceptedItems)
+        if (acceptedItems)
         {
             string txt = "";
             foreach (Item.Type t in GameController.GetAcceptedItemTypes())
@@ -78,8 +80,73 @@ public class InventoryScreenController : DefaultMenuButtonHandler
     public override void Kreis()
     {
         Debug.Log("InventoryScreenController.Kreis()");
-        if(picketItem == null)  // prevent losing the item in hand
+        if (picketItem == null)  // prevent losing the item in hand
             GameController.CloseMenu();
+    }
+    public override void Kasten()
+    {
+        Debug.Log("InventoryScreenController.Kasten()");
+        // TODO experimental code below !!
+        // Does not work because of the Equals
+        //if (picketItem != null)
+        //{
+        //    // quickequip
+        //    if (GameController.TryEquip(picketItem))
+        //    {
+        //        picketItem = null;
+        //        Sync();
+        //    }
+        //}
+        //else
+        //{
+        //    if (selectedItem != null)
+        //    {
+        //        // which kind of item is it?
+        //        if (selectedItem.Equals(GameController.Weapon))
+        //            if (GameController.TryPutInventory((GameController.Weapon)))
+        //                GameController.Weapon = null; // unequip weapon
+        //        if (selectedItem.Equals(GameController.Shield))
+        //            if (GameController.TryPutInventory((GameController.Shield)))
+        //                GameController.Shield = null; // unequip Shield
+        //        if (selectedItem.Equals(GameController.Suit))
+        //            if (GameController.TryPutInventory((GameController.Suit)))
+        //                GameController.Suit = null; // unequip Suit
+        //        if (selectedItem.Equals(GameController.Headgear))
+        //            if (GameController.TryPutInventory((GameController.Headgear)))
+        //                GameController.Headgear = null; // unequip Headgear
+        //
+        //        for (int i = 0; i < inventorySlots.Length; i++)
+        //            if (selectedItem.Equals(inventorySlots[i].Item))
+        //                if (GameController.TryEquip(inventorySlots[i].Item))
+        //                {
+        //                    picketItem = null;
+        //                }
+        //
+        //        for (int i = 0; i < shopSlots.Length; i++)
+        //            if (selectedItem.Equals(shopSlots[i].Item))
+        //                if (TryBuyStore(shopSlots[i].Item))
+        //                {
+        //                    picketItem = null;
+        //                }
+        //
+        //        Sync();
+        //    }
+        //}
+    }
+    public override void Dreieck()
+    {
+        Debug.Log("InventoryScreenController.Dreieck()");
+        if (picketItem != null)
+        {
+            // quick equip
+        }
+        else
+        {
+            if (selectedItem != null)
+            {
+                // which kind of item is it?
+            }
+        }
     }
     public override void L1()
     {
@@ -104,22 +171,17 @@ public class InventoryScreenController : DefaultMenuButtonHandler
     }
     public void OnShopslotClicked(int idx)
     {
-        if(picketItem == null)
+        if (picketItem == null)
         {
             Item shopitem = GameController.GetShopItem(idx);
-            if(shopitem != null && shopitem.value <= GameController.Gold)
-            {
-                GameController.Gold -= shopitem.value;
-                picketItem = shopitem;
-                Sync();
-            }
+            TryBuy(shopitem);
         }
     }
 
     public void OnWeaponslotClicked()
     {
         if (picketItem == null || // no item picked
-            ((picketItem.type == Item.Type.Weapon) && (picketItem.strengthRequired <= GameController.Strength) )) // can equip picket item
+            ((picketItem.type == Item.Type.Weapon) && (picketItem.strengthRequired <= GameController.Strength))) // can equip picket item
         {
             Item otheritem = GameController.Weapon;
             GameController.Weapon = picketItem;
@@ -178,5 +240,34 @@ public class InventoryScreenController : DefaultMenuButtonHandler
             picketItem = null;
             Sync();
         }
+    }
+
+    private bool TryBuy(Item shopitem)
+    {
+        if (shopitem != null && shopitem.value <= GameController.Gold)
+        {
+            GameController.Gold -= shopitem.value;
+            picketItem = shopitem;
+            Sync();
+            return true;
+        }
+        return false;
+    }
+
+    private bool TryBuyEquip(Item item)
+    {
+        if (TryBuy(item))
+        {
+            return GameController.TryEquip(item);
+        }
+        return false;
+    }
+    private bool TryBuyStore(Item item)
+    {
+        if (TryBuy(item))
+        {
+            return GameController.TryPutInventory(item);
+        }
+        return false;
     }
 }

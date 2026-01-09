@@ -30,7 +30,6 @@ public class CombatController : MonoBehaviour
     public float damageVariance = 0.1f;
 
     [Header("Critical Hits")]
-    [Range(0f, 1f)] public float critChance = 0.1f;
     [Range(1f, 3f)] public float critMultiplier = 1.5f;
 
     [Header("Music")]
@@ -43,6 +42,7 @@ public class CombatController : MonoBehaviour
     [SerializeField] private Transform player1Position, player2Position, enemy1Position, enemy2Position;
 
     [Header("UI References")]
+    [SerializeField] private CombatBackgroundController backgroundController;
     [SerializeField] private GameObject pleaseWait;
     [SerializeField] private GameObject buttons;
     [SerializeField] private GameObject introScreen;
@@ -66,7 +66,7 @@ public class CombatController : MonoBehaviour
     private AudioSource audioSource;
 
     // Globals
-    class Combatant { public Character ch; public GameObject go; public Animator animator; }
+    class Combatant { public Character ch; public GameObject go; public Animator animator; public Vector3 startPosition; }
     private static Combatant player, ally, enemy1, enemy2, target;
     private static Stage currentStage;
 
@@ -112,6 +112,10 @@ public class CombatController : MonoBehaviour
             enemy1.ch.mana = enemy1.ch.maxmana;
             enemy1.ch.currentShieldHp = enemy1.ch.shield != null ? enemy1.ch.shield.shieldHP : 0;
         }
+        else
+        {
+            enemy1 = null;
+        }
         if (enemy2Character)
         {
             enemy2 = new Combatant();
@@ -120,14 +124,21 @@ public class CombatController : MonoBehaviour
             enemy2.ch.mana = enemy2.ch.maxmana;
             enemy2.ch.currentShieldHp = enemy2.ch.shield != null ? enemy2.ch.shield.shieldHP : 0;
         }
+        else
+        {
+            enemy2 = null;
+        }
     }
 
     public void Start()
     {
         // Just for debugging!
         //GameController.LoadAllPrefs();
-        //InitCombat(Resources.Load<Character>("Character/Thief"), Resources.Load<Character>("Character/Thief 1"));
+        //GameController.Eng = 50;
+        //InitCombat(Resources.Load<Stage>("Stages/Human"));
+        //InitTraining(1);
         //trainingXp = 200;
+        // END Debug code
 
         audioSource = GetComponent<AudioSource>();
         PlayRandomMusic();
@@ -136,6 +147,7 @@ public class CombatController : MonoBehaviour
         playerMonitor.MChar = player.ch;
         player.go = Instantiate(playerPrefab, player1Position);
         player.animator = player.go.GetComponentInChildren<Animator>();
+        player.startPosition = player.go.transform.position;
 
         // Is an ally there?
         if (ally != null)
@@ -143,6 +155,7 @@ public class CombatController : MonoBehaviour
             ally.go = Instantiate(ally.ch.combatprefab, player2Position);
             ally.animator = ally.go.GetComponentInChildren<Animator>();
             allyMonitor.MChar = ally.ch;
+            ally.startPosition = ally.go.transform.position;
         }
         else
         {
@@ -156,6 +169,7 @@ public class CombatController : MonoBehaviour
             enemy1.go = Instantiate(enemy1.ch.combatprefab, enemy1Position);
             enemy1Monitor.MChar = enemy1.ch;
             enemy1.animator = enemy1.go.GetComponentInChildren<Animator>();
+            enemy1.startPosition = enemy1.go.transform.position;
             SetTarget(0);
         }
         else
@@ -169,6 +183,7 @@ public class CombatController : MonoBehaviour
             enemy2.go = Instantiate(enemy2.ch.combatprefab, enemy2Position);
             enemy2Monitor.MChar = enemy2.ch;
             enemy2.animator = enemy2.go.GetComponentInChildren<Animator>();
+            enemy2.startPosition = enemy2.go.transform.position;
             SetTarget(1);
         }
         else
@@ -210,11 +225,32 @@ public class CombatController : MonoBehaviour
         if (end) EndCombat();
         else
         {
+            // cleanup dead bodys
+            if(ally != null && ally.ch.life <= 0)
+            {
+                Destroy(ally.go, 1);
+                ally = null;
+                allyMonitor.MChar = null;
+            }
+            if(enemy1 != null && enemy1.ch.life <= 0)
+            {
+                Destroy(enemy1.go, 1);
+                enemy1 = null;
+                enemy1Position.gameObject.SetActive(false);
+                enemy1Monitor.MChar = null;
+            }
+            if (enemy2 != null && enemy2.ch.life <= 0)
+            {
+                Destroy(enemy2.go, 1);
+                enemy2 = null;
+                enemy2Position.gameObject.SetActive(false);
+                enemy2Monitor.MChar = null;
+            }
             // check if target still valid
             if (target.ch.life <= 0)
             {
                 // change target
-                if (target.Equals(enemy1))
+                if (enemy2!=null && enemy2.ch.life>0)
                     SetTarget(1);
                 else
                     SetTarget(0);
@@ -257,12 +293,15 @@ public class CombatController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough Mana");
+            Debug.Log("Cannot use " + s + ". Skill not learned or not enough Mana");
+            // DEBUG!
+            //StartCoroutine(PlayTurnAnimations(s.associatedAction));
         }
     }
 
     public void EndCombat()
     {
+        IsAnimating = true;
         if (GameController.Life <= 0)
         {
             // Gameover
@@ -355,11 +394,27 @@ public class CombatController : MonoBehaviour
         GameController.SaveAllPrefs();
         GameController.LoadWorldScene();
     }
+    public void OnEndScreenRetry()
+    {
+        GameController.Life = 1; // revive with a minimum amount of life
+        GameController.SaveAllPrefs();
+        GameController.LoadWorldScene();
+    }
+    public void OnEndScreenLoadGame()
+    {
+        GameController.LoadAllPrefs();
+        GameController.LoadWorldScene();
+    }
+    public void OnEndScreenMainMenu()
+    {
+        GameController.LoadMainMenuScene();
+    }
 
     public int CalculateFinalDamage(
         float rawDamage,
         int strengthOrMagic,
-        float armorPercent)
+        float armorPercent,
+        bool isCrit)
     {
         // === Raw damage must be greater than 0 ===
         if (rawDamage <= 0)
@@ -375,7 +430,7 @@ public class CombatController : MonoBehaviour
 
         // === 3. Variance and critical hit ===
         reduced *= Random.Range(1f - damageVariance, 1f + damageVariance);
-        if (Random.value < critChance)
+        if (isCrit)
             reduced *= critMultiplier;
 
         // === 4. Clamp and return ===
@@ -390,25 +445,36 @@ public class CombatController : MonoBehaviour
         return Mathf.Min(soft, maxReduction);
     }
 
-    private void DealDamage(Combatant attacker, Combatant defender, float extraPhysDmg, float extraMagicDmg)
+    private void DealDamage(Combatant attacker, Combatant defender, bool isPhys, bool isMag, float extraPhysDmg, float extraMagicDmg)
     {
         if (attacker == null || defender == null) return;
-
-        if (defender.ch.currentShieldHp > 0)
+        float critChance = attacker.ch.GetCritChance();
+        bool isCrit = Random.value < critChance;
+        float missChance = (1.0f - attacker.ch.GetDodgeChance()) * defender.ch.GetDodgeChance();
+        float n = Random.value;
+        if(n < missChance)
+        {
+            Debug.Log(defender.ch.name + " dodges the attack");
+            ShowDamageNumber(defender.go.transform.position, 0, 0, isCrit);
+            defender.animator?.SetTrigger("Miss");
+        }
+        else if (defender.ch.currentShieldHp > 0)
         {
             // shield takes damage
-            int physdmg = CalculateFinalDamage(
+            int physdmg = isPhys ? CalculateFinalDamage(
                 attacker.ch.GetPhysDmg() + extraPhysDmg,
-               attacker.ch.weapon ? attacker.ch.weapon.shieldDmg * -1 : 0,
-                defender.ch.GetShieldPhysDefPercent()
-            );
-            int magicdmg = CalculateFinalDamage(
+               attacker.ch.weapon ? (int)(attacker.ch.weapon.shieldDmg * -1 / flatDefenseMultiplier) : 0,
+                defender.ch.GetShieldPhysDefPercent(),
+                isCrit
+            ) : 0;
+            int magicdmg = isMag ? CalculateFinalDamage(
                 attacker.ch.GetMagicDmg() + extraMagicDmg,
-                attacker.ch.weapon ? attacker.ch.weapon.shieldDmg * -1 : 0,
-                defender.ch.GetShieldMagicDefPercent()
-            );
+                attacker.ch.weapon ? (int)(attacker.ch.weapon.shieldDmg * -1 / flatDefenseMultiplier) : 0,
+                defender.ch.GetShieldMagicDefPercent(),
+                isCrit
+            ) : 0;
             Debug.Log(defender.ch.name + "'s shield receives " + physdmg + " physical and " + magicdmg + " magical damage");
-            ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg);
+            ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg, isCrit);
             int totaldmg = physdmg + magicdmg;
             defender.ch.currentShieldHp -= totaldmg;
             if (defender.ch.currentShieldHp < 0)
@@ -421,12 +487,12 @@ public class CombatController : MonoBehaviour
                 defender.animator?.SetTrigger("ShieldHit");
             }
             // earn training xp
-            if(isTraining && attacker.ch.IsPlayerChar() && totaldmg > 0)
+            if (isTraining && attacker.ch.IsPlayerChar() && totaldmg > 0)
             {
                 // default easy
                 int xp = 3;
                 int eng = 2;
-                if(currentStage.currentLevel == 1) // medium
+                if (currentStage.currentLevel == 1) // medium
                 {
                     xp = 5;
                     eng = 3;
@@ -443,18 +509,20 @@ public class CombatController : MonoBehaviour
         else
         {
             // character takes damage
-            int physdmg = CalculateFinalDamage(
-                attacker.ch.GetPhysDmg(),
+            int physdmg = isPhys ? CalculateFinalDamage(
+                attacker.ch.GetPhysDmg() + extraPhysDmg,
                 defender.ch.strength,
-                defender.ch.GetPhysDefPercent()
-            );
-            int magicdmg = CalculateFinalDamage(
-                attacker.ch.GetMagicDmg(),
+                defender.ch.GetPhysDefPercent(),
+                isCrit
+            ) : 0;
+            int magicdmg = isMag ? CalculateFinalDamage(
+                attacker.ch.GetMagicDmg() + extraMagicDmg,
                 defender.ch.magic,
-                defender.ch.GetMagicDefPercent()
-            );
+                defender.ch.GetMagicDefPercent(),
+                isCrit
+            ) : 0;
             Debug.Log(defender.ch.name + " receives " + physdmg + " physical and " + magicdmg + " magical damage");
-            ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg);
+            ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg, isCrit);
             int totaldmg = physdmg + magicdmg;
             defender.ch.life -= totaldmg;
             if (defender.ch.life < 0)
@@ -489,15 +557,17 @@ public class CombatController : MonoBehaviour
         UpdateTexts();
     }
 
-    public void ShowDamageNumber(Vector3 position, int physdmg, int magicdmg)
+    public void ShowDamageNumber(Vector3 position, int physdmg, int magicdmg, bool isCrit)
     {
-        damageNumberDisplay.transform.position = position + new Vector3(0, 2, -5);
         Color textcolor = Color.orange;
+
         if (physdmg < 0)
             textcolor = Color.green;
+        else if (isCrit)
+            textcolor = Color.red;
         else if (magicdmg > physdmg)
             textcolor = Color.cyan;
-        damageNumberDisplay.Show(Mathf.Abs(physdmg + magicdmg), textcolor);
+        damageNumberDisplay.Show(position + new Vector3(0, 2, -5), Mathf.Abs(physdmg + magicdmg), textcolor);
     }
 
 
@@ -507,7 +577,7 @@ public class CombatController : MonoBehaviour
     {
         IsAnimating = true;
         introTitle.text = currentStage.title;
-        introLevel.text = "Level " + (currentStage.currentLevel+1);
+        introLevel.text = "Level " + (currentStage.currentLevel + 1);
         introScreen.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -516,6 +586,9 @@ public class CombatController : MonoBehaviour
         yield return FadeAndScale(introEffect, 0f, 1f, new Vector3(0.1f, 0.1f, 1), new Vector3(1.3f, 1.1f, 1f), 0.75f);
         // Fade-out and Scale-out
         yield return FadeAndScale(introEffect, 1f, 0f, new Vector3(1.3f, 1.1f, 1f), new Vector3(0.1f, 0.1f, 1f), 0.75f);
+
+        // Prepare combat screen
+        backgroundController.SetBackground(currentStage);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -532,20 +605,34 @@ public class CombatController : MonoBehaviour
         yield return PerformCombatAction(playerAction, player, target);
         UpdateTexts();
 
+        yield return new WaitForSeconds(0.2f);
+
         // Ally turn
         if (ally != null && target != null)
-            yield return PerformNormalAttack(ally, target);
+        {
+            yield return new WaitForSeconds(0.2f);
+            CombatAction a = ally.ch.GetRandomMove();
+            yield return PerformCombatAction(a, ally, target);
+        }
 
         // Now enemy turn
         if (enemy1 != null && enemy1.ch.life > 0)
         {
-            // TODO make a random move
-            yield return PerformNormalAttack(enemy1, player);
+            yield return new WaitForSeconds(0.2f);
+            CombatAction a = enemy1.ch.GetRandomMove();
+            if (ally != null && ally.ch.life > 0)
+                yield return PerformCombatAction(a, enemy1, ally);
+            else
+                yield return PerformCombatAction(a, enemy1, player);
         }
         if (enemy2 != null && enemy2.ch.life > 0)
         {
-            // TODO make a random move
-            yield return PerformNormalAttack(enemy2, player);
+            yield return new WaitForSeconds(0.2f);
+            CombatAction a = enemy2.ch.GetRandomMove();
+            if (ally != null && ally.ch.life > 0)
+                yield return PerformCombatAction(a, enemy2, ally);
+            else
+                yield return PerformCombatAction(a, enemy2, player);
         }
 
         IsAnimating = false;
@@ -560,11 +647,11 @@ public class CombatController : MonoBehaviour
                     yield return PerformNormalAttack(user, target);
                 break;
             case CombatAction.LIFE_POTION:
-                ShowDamageNumber(user.go.transform.position, -80, 0);
+                ShowDamageNumber(user.go.transform.position, -80, 0, false);
                 yield return new WaitForSeconds(0.5f);
                 break;
             case CombatAction.MANA_POTION:
-                ShowDamageNumber(user.go.transform.position, 0, 80);
+                ShowDamageNumber(user.go.transform.position, 0, 80, false);
                 yield return new WaitForSeconds(0.5f);
                 break;
             case CombatAction.SKILL_STAB:
@@ -574,22 +661,22 @@ public class CombatController : MonoBehaviour
                 yield return PerformShuriken(user, target);
                 break;
             case CombatAction.SKILL_DOUBLESTRIKE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformDoublestrike(user, target);
                 break;
             case CombatAction.SKILL_SPEEDSTRIKE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformSpeedstrike(user, target);
                 break;
             case CombatAction.SKILL_VERTICALSTRIKE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformVerticalStrike(user, target);
                 break;
             case CombatAction.SKILL_AVENGER:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformAvenger(user, target);
                 break;
             case CombatAction.SKILL_SPLIT:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformSplit(user, target);
                 break;
             case CombatAction.SKILL_EXECUTION:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformExecution(user, target);
                 break;
             case CombatAction.SKILL_CHARGE:
                 yield return PerformManaHeal(user, GameController.FindSkillByActionId(CombatAction.SKILL_CHARGE).GetCurrentLevelValue());
@@ -598,89 +685,54 @@ public class CombatController : MonoBehaviour
                 yield return PerformHeal(user, GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).GetCurrentLevelValue());
                 break;
             case CombatAction.SKILL_ENERGYSHOT:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformEnergyball(user, target);
                 break;
             case CombatAction.SKILL_FIRESHOT:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformFireshot(user, target);
                 break;
             case CombatAction.SKILL_MANABOMB:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformManabomb(user, target);
                 break;
             case CombatAction.SKILL_ANNIHILATE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformAnnihilate(user, target);
                 break;
             case CombatAction.SKILL_SHADOWSTRIKE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformShadowstrike(user, target);
                 break;
             case CombatAction.SKILL_REPLICATE:
-                Debug.Log("Action not supoorted yet: " + a);
+                yield return PerformReplicate();
+                break;
+            case CombatAction.LASER:
+                yield return PerformLaser(user, target);
+                break;
+            case CombatAction.DOUBLE_LASER:
+                yield return PerformDoubleLaser(user, target);
+                break;
+            case CombatAction.TRIPLE_ENERGYBALL:
+                yield return PerformTripleEnergyball(user, target);
+                break;
+            case CombatAction.FIREBALL:
+                yield return PerformFireball(user, target);
+                break;
+            case CombatAction.THROW_SLASH:
+                yield return PerformThrowslash(user, target);
+                break;
+            case CombatAction.FULL_HEAL:
+                yield return PerformHeal(user, Mathf.RoundToInt(user.ch.maxlife * 10) / 10);
+                break;
+            case CombatAction.NONE:
+                Debug.Log(user + " decides to do nothing");
+                break;
+            case CombatAction.WASP_STING:
+                yield return PerformWaspSting(user, target);
+                break;
+            case CombatAction.WASP_LASER:
+                yield return PerformWaspLaser(user, target);
                 break;
         }
     }
 
-    private IEnumerator PerformNormalAttack(Combatant attacker, Combatant defender)
-    {
-
-        Vector3 start = attacker.go.transform.position;
-        Vector3 forward = defender.go.transform.position;
-
-        forward += (start - forward).normalized * 2;
-
-        // Move forward
-        attacker.animator?.SetTrigger("Move");
-        float t = 0;
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime;
-            attacker.go.transform.position = Vector3.Lerp(start, forward, t);
-            yield return null;
-        }
-
-        // Wait for attack animation
-        attacker.animator?.SetTrigger("Strike");
-        yield return new WaitForSeconds(0.25f);
-        DealDamage(attacker, defender, 0, 0);
-        yield return new WaitForSeconds(0.25f);
-
-        // Return back
-        attacker.animator?.SetTrigger("Move");
-        t = 0;
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime;
-            attacker.go.transform.position = Vector3.Lerp(forward, start, t);
-            yield return null;
-        }
-        attacker.animator?.SetTrigger("Idle");
-    }
-
-    private IEnumerator PerformHeal(Combatant user, int healamount)
-    {
-        // Play the heal effect
-        user.animator?.SetTrigger("Heal");
-        Debug.Log(user.ch.name + " heals " + healamount);
-        user.ch.life += healamount;
-        if (user.ch.life > user.ch.maxlife) user.ch.life = user.ch.maxlife;
-        ShowDamageNumber(user.go.transform.position, -healamount, 0);
-        // wait for the animation to finish
-        yield return new WaitForSeconds(0.5f);
-        user.animator?.SetTrigger("Idle");
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    private IEnumerator PerformManaHeal(Combatant user, int healamount)
-    {
-        // Play the mana restore effect
-        user.animator?.SetTrigger("Heal");
-        Debug.Log(user.ch.name + " recovers mana " + healamount);
-        user.ch.mana += healamount;
-        if (user.ch.mana > user.ch.maxmana) user.ch.mana = user.ch.maxmana;
-        ShowDamageNumber(user.go.transform.position, 0, healamount);
-        // wait for the animation to finish
-        yield return new WaitForSeconds(0.5f);
-        user.animator?.SetTrigger("Idle");
-        yield return new WaitForSeconds(0.5f);
-    }
+    // Animation helper functions
 
     private IEnumerator FadeAndScale(CanvasGroup canvasGroup, float fromAlpha, float toAlpha, Vector3 fromScale, Vector3 toScale, float duration)
     {
@@ -697,16 +749,13 @@ public class CombatController : MonoBehaviour
         transform.localScale = toScale;
     }
 
-    // Skill Animations
-    private IEnumerator PerformStab(Combatant user, Combatant target)
+    private IEnumerator MoveForward(Combatant user, Combatant target)
     {
-
         Vector3 start = user.go.transform.position;
         Vector3 forward = target.go.transform.position;
 
         forward += (start - forward).normalized * 2;
 
-        // Move forward
         user.animator?.SetTrigger("Move");
         float t = 0;
         while (t < 1.0f)
@@ -715,48 +764,489 @@ public class CombatController : MonoBehaviour
             user.go.transform.position = Vector3.Lerp(start, forward, t);
             yield return null;
         }
+    }
+    private IEnumerator MoveBackward(Combatant user, Combatant target)
+    {
+        Vector3 start = user.go.transform.position;// current position
+        Vector3 end = user.startPosition; // initial position
 
-        // Wait for attack animation
-        user.animator?.SetTrigger("Stab");
-        yield return new WaitForSeconds(0.25f);
-        if (user.ch.IsPlayerChar())
-            DealDamage(user, target, GameController.FindSkillByActionId(CombatAction.SKILL_STAB).GetCurrentLevelValue(), 0);
-        else
-            DealDamage(user, target, user.ch.level * 4, 0);
-        yield return new WaitForSeconds(0.25f);
-
-        // Return back
-        user.animator?.SetTrigger("Move");
-        t = 0;
+        user.animator?.SetTrigger("MoveBack");
+        float t = 0;
         while (t < 1.0f)
         {
             t += Time.deltaTime;
-            user.go.transform.position = Vector3.Lerp(forward, start, t);
+            user.go.transform.position = Vector3.Lerp(start, end, t);
             yield return null;
         }
+    }
+
+    // Skill Animations
+
+    private IEnumerator PerformNormalAttack(Combatant attacker, Combatant defender)
+    {
+        yield return MoveForward(attacker, defender);
+
+        // Wait for attack animation
+        attacker.animator?.SetTrigger("Strike");
+        yield return new WaitForSeconds(0.25f);
+        DealDamage(attacker, defender, true, true, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+
+        yield return MoveBackward(attacker, defender);
+        attacker.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformHeal(Combatant user, int healamount)
+    {
+        // Play the heal effect
+        user.animator?.SetTrigger("Heal");
+        Debug.Log(user.ch.name + " heals " + healamount);
+        user.ch.life += healamount;
+        if (user.ch.life > user.ch.maxlife) user.ch.life = user.ch.maxlife;
+        ShowDamageNumber(user.go.transform.position, -healamount, 0, false);
+        UpdateTexts();
+        // wait for the animation to finish
+        yield return new WaitForSeconds(0.5f);
+        user.animator?.SetTrigger("Idle");
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    private IEnumerator PerformManaHeal(Combatant user, int healamount)
+    {
+        // Play the mana restore effect
+        user.animator?.SetTrigger("Heal");
+        Debug.Log(user.ch.name + " recovers mana " + healamount);
+        user.ch.mana += healamount;
+        if (user.ch.mana > user.ch.maxmana) user.ch.mana = user.ch.maxmana;
+        ShowDamageNumber(user.go.transform.position, 0, healamount, false);
+        UpdateTexts();
+        // wait for the animation to finish
+        yield return new WaitForSeconds(0.5f);
+        user.animator?.SetTrigger("Idle");
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    private IEnumerator PerformStab(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("Stab");
+        yield return new WaitForSeconds(0.35f);
+        if (user.ch.IsPlayerChar())
+            DealDamage(user, target, true, true, GameController.FindSkillByActionId(CombatAction.SKILL_STAB).GetCurrentLevelValue(), 0);
+        else
+            DealDamage(user, target, true, true, user.ch.level * 4, 0);
+        yield return new WaitForSeconds(0.35f);
+
+        yield return MoveBackward(user, target);
         user.animator?.SetTrigger("Idle");
     }
+
     private IEnumerator PerformShuriken(Combatant user, Combatant target)
     {
         // throw
         user.animator?.SetTrigger("Throw");
-        yield return new WaitForSeconds(0.5f);
-
+        FXSystem.SpawnEffect(FXSystem.FxId.SHURIKENS, user.go.transform.position, false);
         // Wait for attack animation
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         if (user.ch.IsPlayerChar())
         {
-            DealDamage(user, enemy1, 0, GameController.FindSkillByActionId(CombatAction.SKILL_SHURIKEN).GetCurrentLevelValue());
-            DealDamage(user, enemy2, 0, GameController.FindSkillByActionId(CombatAction.SKILL_SHURIKEN).GetCurrentLevelValue());
+            DealDamage(user, enemy1, true, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_SHURIKEN).GetCurrentLevelValue());
+            DealDamage(user, enemy2, true, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_SHURIKEN).GetCurrentLevelValue());
         }
         else
         {
-            DealDamage(user, player, 0, user.ch.level * 4);
-            DealDamage(user, ally, 0, user.ch.level * 4);
+            DealDamage(user, player, true, true, 0, user.ch.level * 4);
+            DealDamage(user, ally, true, true, 0, user.ch.level * 4);
         }
         // Wait for hurt animation
         user.animator?.SetTrigger("Idle");
         yield return new WaitForSeconds(0.5f);
     }
 
+    private IEnumerator PerformDoublestrike(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("DoubleStrike");
+        yield return new WaitForSeconds(0.25f);
+        int bonusDamage;
+        if (user.ch.IsPlayerChar())
+            bonusDamage = (int)(((GameController.FindSkillByActionId(CombatAction.SKILL_DOUBLESTRIKE).GetCurrentLevelValue() - 100.0f) * user.ch.GetPhysDmg()) / 100f);
+        else
+            bonusDamage = (((50 + user.ch.level * 2) - 100) * user.ch.GetPhysDmg()) / 100;
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.5f);
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.25f);
+
+        yield return MoveBackward(user, target);
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformSpeedstrike(Combatant user, Combatant target)
+    {
+        // Wait for attack animation
+        user.animator?.SetTrigger("SpeedStrike");
+        yield return new WaitForSeconds(0.75f);
+        int bonusDamage;
+        if (user.ch.IsPlayerChar())
+            bonusDamage = (GameController.PlayerChar.GetSpeed() * GameController.FindSkillByActionId(CombatAction.SKILL_SPEEDSTRIKE).GetCurrentLevelValue()) / 100;
+        else
+            bonusDamage = (user.ch.GetSpeed() * user.ch.level * 5 + 50) / 100;
+        DealDamage(user, target, true, true, bonusDamage, 0);
+
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformVerticalStrike(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("VerticalStrike");
+        yield return new WaitForSeconds(1.3f);
+        int bonusDamage;
+        if (user.ch.IsPlayerChar())
+            bonusDamage = GameController.Strength * GameController.FindSkillByActionId(CombatAction.SKILL_VERTICALSTRIKE).GetCurrentLevelValue() / 100;
+        else
+            bonusDamage = (user.ch.strength * user.ch.level * 5 + 50) / 100;
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.3f);
+
+        yield return MoveBackward(user, target);
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformAvenger(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("Avenger");
+        yield return new WaitForSeconds(0.8f);
+        int bonusDamage = (int)((user.ch.maxlife - user.ch.life));
+        if (user.ch.IsPlayerChar())
+            bonusDamage = bonusDamage * GameController.FindSkillByActionId(CombatAction.SKILL_AVENGER).GetCurrentLevelValue() / 100;
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.3f);
+
+        yield return MoveBackward(user, target);
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformSplit(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("Split");
+        FXSystem.SpawnEffect(FXSystem.FxId.SPLIT, user.go.transform.position, false);
+        yield return new WaitForSeconds(1.3f);
+        int bonusDamage = (int)(target.ch.maxlife);
+        if (user.ch.IsPlayerChar())
+            bonusDamage = bonusDamage * GameController.FindSkillByActionId(CombatAction.SKILL_SPLIT).GetCurrentLevelValue() / 100;
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.2f);
+
+        yield return MoveBackward(user, target);
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformExecution(Combatant user, Combatant target)
+    {
+        yield return MoveForward(user, target);
+
+        // Wait for attack animation
+        user.animator?.SetTrigger("Execution");
+        yield return new WaitForSeconds(0.35f);
+        int bonusDamage;
+        if (user.ch.IsPlayerChar())
+            bonusDamage = ((GameController.FindSkillByActionId(CombatAction.SKILL_EXECUTION).GetCurrentLevelValue() - 100) * user.ch.GetPhysDmg()) / 100;
+        else
+            bonusDamage = (((50 + user.ch.level * 5) - 100) * user.ch.GetPhysDmg()) / 100;
+
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.35f);
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.2f);
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.2f);
+        DealDamage(user, target, true, true, bonusDamage, 0);
+        yield return new WaitForSeconds(0.3f);
+
+        yield return MoveBackward(user, target);
+        user.animator?.SetTrigger("Idle");
+    }
+
+    private IEnumerator PerformEnergyball(Combatant user, Combatant target)
+    {
+        // throw
+        user.animator?.SetTrigger("Energyball");
+        FXSystem.SpawnEffect(FXSystem.FxId.ENERGY_BALL, user.go.transform.position, false);
+        // Wait for attack animation
+        yield return new WaitForSeconds(1.0f);
+        if (user.ch.IsPlayerChar())
+        {
+            DealDamage(user, target, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_ENERGYSHOT).GetCurrentLevelValue());
+        }
+        else
+        {
+            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+        }
+        // Wait for hurt animation
+        user.animator?.SetTrigger("Idle");
+        yield return new WaitForSeconds(0.3f);
+    }
+
+    private IEnumerator PerformFireshot(Combatant user, Combatant target)
+    {
+        // throw
+        user.animator?.SetTrigger("Throw");
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, user.go.transform.position, false);
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.6f);
+        user.animator?.SetTrigger("Idle");
+        if (user.ch.IsPlayerChar())
+        {
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, enemy1, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_FIRESHOT).GetCurrentLevelValue());
+            DealDamage(user, enemy2, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_FIRESHOT).GetCurrentLevelValue());
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, enemy1, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_FIRESHOT).GetCurrentLevelValue());
+            DealDamage(user, enemy2, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_FIRESHOT).GetCurrentLevelValue());
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, player, false, true, 0, user.ch.level * 4);
+            DealDamage(user, ally, false, true, 0, user.ch.level * 4);
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, player, false, true, 0, user.ch.level * 4);
+            DealDamage(user, ally, false, true, 0, user.ch.level * 4);
+        }
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.25f);
+    }
+    private IEnumerator PerformAnnihilate(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Annihilate");
+        FXSystem.SpawnEffect(FXSystem.FxId.ANNIHILATE, user.go.transform.position, false);
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.6f);
+        if (user.ch.IsPlayerChar())
+        {
+            DealDamage(user, target, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_ANNIHILATE).GetCurrentLevelValue());
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, target, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_ANNIHILATE).GetCurrentLevelValue());
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, target, false, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_ANNIHILATE).GetCurrentLevelValue());
+        }
+        else
+        {
+            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+            yield return new WaitForSeconds(0.3f);
+            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+        }
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    private IEnumerator PerformShadowstrike(Combatant user, Combatant target)
+    {
+        // throw
+        user.animator?.SetTrigger("ShadowStrike");
+        FXSystem.SpawnEffect(FXSystem.FxId.SHADOW_STRIKE, user.go.transform.position, false);
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.75f);
+        if (user.ch.IsPlayerChar())
+        {
+            DealDamage(user, target, true, true, 0, GameController.FindSkillByActionId(CombatAction.SKILL_SHADOWSTRIKE).GetCurrentLevelValue());
+        }
+        else
+        {
+            DealDamage(user, target, true, true, 0, user.ch.level * 4);
+        }
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    private IEnumerator PerformReplicate()
+    {
+        // Start effect
+        FXSystem.SpawnEffect(FXSystem.FxId.REPLICATE, player.go.transform.position, false);
+        // Wait for animation
+        yield return new WaitForSeconds(0.6f);
+        // Create ally
+        ally = new Combatant();
+        ally.ch = Resources.Load<Character>("Character/Shadow");
+        ally.go = Instantiate(ally.ch.combatprefab, player2Position);
+        ally.animator = ally.go.GetComponentInChildren<Animator>();
+        allyMonitor.MChar = ally.ch;
+        ally.startPosition = ally.go.transform.position;
+        player2Position.gameObject.SetActive(true);
+        // Wait for animation
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    private IEnumerator PerformManabomb(Combatant user, Combatant target)
+    {
+        // calculate with current mana and set to 0
+        int bonusDamage = (int)(user.ch.mana);
+        user.ch.mana = 0;
+
+        // shoot
+        user.animator?.SetTrigger("Manabomb");
+        FXSystem.SpawnEffect(FXSystem.FxId.MANABOMB, user.go.transform.position, false);
+        // Wait for attack animation
+        yield return new WaitForSeconds(1f);
+        if (user.ch.IsPlayerChar())
+        {
+            bonusDamage = bonusDamage * GameController.FindSkillByActionId(CombatAction.SKILL_MANABOMB).GetCurrentLevelValue() / 100;
+        }
+        DealDamage(user, target, false, true, 0, bonusDamage);
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformLaser(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Laser");
+        // Wait for attack animation
+        yield return new WaitForSeconds(1f);
+
+        DealDamage(user, target, false, true, 0, user.ch.level);
+
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformDoubleLaser(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("DoubleLaser");
+        // Wait for attack animation
+        yield return new WaitForSeconds(1f);
+
+        DealDamage(user, target, false, true, 0, user.ch.level);
+        yield return new WaitForSeconds(0.5f);
+        DealDamage(user, target, false, true, 0, user.ch.level);
+
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformTripleEnergyball(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Triple");
+        // Wait for attack animation
+        yield return new WaitForSeconds(1f);
+
+        DealDamage(user, target, false, true, 0, 0);
+        yield return new WaitForSeconds(0.5f);
+        DealDamage(user, target, false, true, 0, 0);
+        yield return new WaitForSeconds(0.5f);
+        DealDamage(user, target, false, true, 0, 0);
+
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformFireball(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Throw");
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_BALL, user.go.transform.position, !user.ch.IsPlayerChar());
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.6f);
+
+        DealDamage(user, target, false, true, 0, user.ch.level * 2);
+        yield return new WaitForSeconds(0.3f);
+
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformThrowslash(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Throw");
+        FXSystem.SpawnEffect(FXSystem.FxId.THROW_SLASH, user.go.transform.position, !user.ch.IsPlayerChar());
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.6f);
+
+        DealDamage(user, target, true, true, user.ch.level * 2, 0);
+        yield return new WaitForSeconds(0.3f);
+
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformWaspSting(Combatant user, Combatant target)
+    {
+        // start animation
+        user.animator?.SetTrigger("Sting");
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.75f);
+
+        DealDamage(user, target, true, true, user.ch.level, 0);
+        yield return new WaitForSeconds(0.3f);
+
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator PerformWaspLaser(Combatant user, Combatant target)
+    {
+        // start animation
+        user.animator?.SetTrigger("Laser");
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.75f);
+
+        DealDamage(user, target, true, true, 0, user.ch.level);
+        yield return new WaitForSeconds(0.3f);
+
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    public void TestFunction()
+    {
+        StartCoroutine(TestSubroutine());
+    }
+    private IEnumerator TestSubroutine()
+    {
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, enemy1.go.transform.position, true);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.THROW_SLASH, enemy1.go.transform.position, true);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_BALL, enemy1.go.transform.position, true);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.LASER, enemy1.go.transform.position, true);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.DOUBLE_LASER, enemy1.go.transform.position, true);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.TRIPLE_LASER, enemy1.go.transform.position, true);
+
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, player.go.transform.position, false);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.THROW_SLASH, player.go.transform.position, false);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_BALL, player.go.transform.position, false);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.LASER, player.go.transform.position, false);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.DOUBLE_LASER, player.go.transform.position, false);
+        yield return new WaitForSeconds(1f);
+        FXSystem.SpawnEffect(FXSystem.FxId.TRIPLE_LASER, player.go.transform.position, false);
+
+    }
 }

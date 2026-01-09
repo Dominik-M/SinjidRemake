@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Wasp
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Giant Wasp
+  icon: {fileID: 21300000, guid: b73454edd82608d45badfd9b6f70c84e, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 360ce76daf0b19846bb63029c2128a68, type: 3}
+  life: 300
+  maxlife: 300
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 100
+  gold: 150
+  level: 5
+  lifePotions: 0
+  manaPotions: 0
+  strength: 4
+  dex: 12
+  magic: 4
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 48551a13e82a2c64f99c8a5c6153b10b, type: 2}
+  shield: {fileID: 0}
+  suit: {fileID: 0}
+  headgear: {fileID: 0}
+  moves: 1b0000001a00000001000000
