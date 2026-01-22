@@ -8,12 +8,18 @@ public class CombatEndScreenController : MonoBehaviour
     [SerializeField] private GameObject defeatButtons;
     [SerializeField] private GameObject victoryButtons;
     [SerializeField] private GameObject itemdropMessage;
+    [SerializeField] private GameObject levelUpScreen;
+    [SerializeField] private GameObject continueButton;
+    [SerializeField] private GameObject skilltreeScreen;
     [SerializeField] private Text title;
     [SerializeField] private Text goldreceived, totalgold;
     [SerializeField] private Text expgained, currentexp, nextexp, leveltext, leveluptext;
     [SerializeField] private Text lifegained, managained, enggained, strengthgained, dexgained, magicgained;
+    [SerializeField] private Text strength, dex, magic, maxlife, maxmana, pointsRemain;
     [SerializeField] private Slider expBar;
     [SerializeField] private AnimatedImage expBarAnimation;
+
+    private int levelsGained = 0;
 
     public void ShowEndscreen(bool defeat, int goldgained, int xpgained, Item drop)
     {
@@ -45,6 +51,68 @@ public class CombatEndScreenController : MonoBehaviour
         }
     }
 
+    public void OnContinuePressed()
+    {
+        if (levelsGained > 0)
+        {
+            victoryButtons.SetActive(false);
+            levelUpScreen.SetActive(true);
+            UpdateAttributesTexts();
+        }
+        else
+        {
+            CombatController.Instance.OnEndScreenExit();
+        }
+    }
+
+    public void OnLevelUpContinue()
+    {
+        levelUpScreen.SetActive(false);
+        skilltreeScreen.SetActive(true);
+    }
+
+    public void UpdateAttributesTexts()
+    {
+        continueButton.SetActive(levelsGained <= 0);
+        pointsRemain.text = "" + levelsGained;
+        strength.text = "" + GameController.Strength;
+        dex.text = "" + GameController.Dex;
+        magic.text = "" + GameController.Magic;
+        maxlife.text = "" + GameController.MaxLife;
+        maxmana.text = "" + GameController.MaxMana;
+    }
+
+    public void OnAttributeButtonPressed(int idx)
+    {
+        if (levelsGained > 0)
+        {
+            levelsGained--;
+            switch (idx)
+            {
+                case 0:
+                    // strength
+                    GameController.Strength++;
+                    break;
+                case 1:
+                    // dex
+                    GameController.Dex++;
+                    break;
+                case 2:
+                    // magic
+                    GameController.Magic ++;
+                    break;
+                case 3:
+                    // life
+                    GameController.MaxLife+=10;
+                    break;
+                case 4:
+                    // mana
+                    GameController.MaxMana+=10;
+                    break;
+            }
+        }
+        UpdateAttributesTexts();
+    }
 
     private IEnumerator EarnGoldAndXP(int gold, int xp)
     {
@@ -67,15 +135,17 @@ public class CombatEndScreenController : MonoBehaviour
         totalgold.text = currentgold.ToString();
 
         // First add the gold and xp to not loose if the animation is skipped
+        int currentLevel = GameController.Level;
         GameController.Exp += xp;
         GameController.Gold += gold;
+        levelsGained = (GameController.Level - currentLevel) * GameController.StatPointsPerLevel;
 
         // Animate gold gained
         while (gold > 0)
         {
             gold--;
             currentgold++;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.01f);
 
             goldreceived.text = gold.ToString();
             totalgold.text = currentgold.ToString();
@@ -86,7 +156,7 @@ public class CombatEndScreenController : MonoBehaviour
         {
             xp--;
             currentxp++;
-            yield return new WaitForSeconds(0.05f);
+            yield return null;
 
             expgained.text = "Experience Gained: " + xp;
             currentexp.text = currentxp.ToString("F0") + " / ";

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Monster
   m_EditorClassIdentifier: Assembly-CSharp::Stage
   title: Monster Gateway
-  currentLevel: 0
+  currentLevel: 1
   primaryEnemyPerStage:
   - {fileID: 11400000, guid: dffdea516fe29ef4a88e9970f761443f, type: 2}
+  - {fileID: 11400000, guid: 5a30746922aaeb2469fe2d441adcf2df, type: 2}
   secondaryEnemyPerStage:
+  - {fileID: 0}
   - {fileID: 0}

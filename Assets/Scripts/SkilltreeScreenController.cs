@@ -16,11 +16,13 @@ public class SkilltreeScreenController : DefaultMenuButtonHandler
     public override void L1()
     {
         Debug.Log("InventoryScreenController.L1()");
-        GameController.OpenInventory();
+        if(closeWithKreis)
+            GameController.OpenInventory();
     }
     public override void R1()
     {
         Debug.Log("InventoryScreenController.R1()");
-        GameController.OpenInventory();
+        if(closeWithKreis)
+            GameController.OpenInventory();
     }
 }

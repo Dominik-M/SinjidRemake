@@ -8,6 +8,7 @@ using System;
 public class GameController : MonoBehaviour
 {
     [Header("Balancing")]
+    public static readonly int StatPointsPerLevel = 2;
     [SerializeField] private float idleEngConsumption = 0.1f;
     [SerializeField] private float movingEngConsumption = 1.0f;
     [SerializeField] private float decreaseSpeed = 2.0f;

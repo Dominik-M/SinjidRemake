@@ -66,6 +66,13 @@ public class CombatController : MonoBehaviour
     private AudioSource audioSource;
 
     // Globals
+
+    private static CombatController instance;
+    public static CombatController Instance
+    {
+        get => instance;
+    }
+
     class Combatant { public Character ch; public GameObject go; public Animator animator; public Vector3 startPosition; }
     private static Combatant player, ally, enemy1, enemy2, target;
     private static Stage currentStage;
@@ -140,6 +147,7 @@ public class CombatController : MonoBehaviour
         //trainingXp = 200;
         // END Debug code
 
+        instance = this;
         audioSource = GetComponent<AudioSource>();
         PlayRandomMusic();
         StartCoroutine(PlayIntro());
@@ -525,7 +533,7 @@ public class CombatController : MonoBehaviour
             ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg, isCrit);
             int totaldmg = physdmg + magicdmg;
             defender.ch.life -= totaldmg;
-            if (defender.ch.life < 0)
+            if (defender.ch.life <= 0)
             {
                 defender.ch.life = 0;
                 defender.animator?.SetTrigger("Die");
@@ -1007,7 +1015,7 @@ public class CombatController : MonoBehaviour
         user.animator?.SetTrigger("Throw");
         FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, user.go.transform.position, false);
         // Wait for attack animation
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.3f);
         user.animator?.SetTrigger("Idle");
         if (user.ch.IsPlayerChar())
         {
@@ -1147,12 +1155,12 @@ public class CombatController : MonoBehaviour
         // shoot
         user.animator?.SetTrigger("Triple");
         // Wait for attack animation
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.2f);
 
         DealDamage(user, target, false, true, 0, 0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         DealDamage(user, target, false, true, 0, 0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         DealDamage(user, target, false, true, 0, 0);
 
         // Wait for hurt animation

@@ -5424,7 +5424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   mode: 1
   frameTime: 0.05
-  autoplay: 0
+  autoplay: 1
   sprites:
   - {fileID: 21300000, guid: 3b298601ba39f054f8cb0cba14b94184, type: 3}
   - {fileID: 21300000, guid: 5aa20646142939248bbbfde62ce6b11c, type: 3}
