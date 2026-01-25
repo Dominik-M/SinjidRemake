@@ -17,13 +17,13 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: a3de271391730d144953a7011593a9a0, type: 3}
   displayname: Energy Wrist
   description: 
-  value: 800
+  value: 400
   strengthRequired: 5
   physDmg: 0
   magicDmg: 0
   shieldDmg: 0
   physDef: 30
-  magicDef: 90
-  shieldHP: 200
+  magicDef: 75
+  shieldHP: 100
   bonusMana: 60
   bonusSpeed: 0

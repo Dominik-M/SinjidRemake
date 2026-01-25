@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Mercenary
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Mercenary
+  icon: {fileID: 21300000, guid: a472df483a003264f8eada5399ff6598, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 9e3c486888c047c48841b411d7a44bc0, type: 3}
+  life: 400
+  maxlife: 400
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 200
+  gold: 100
+  level: 8
+  lifePotions: 0
+  manaPotions: 0
+  strength: 20
+  dex: 10
+  magic: 6
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 5311c3e7721180245a742b69029d63b9, type: 2}
+  shield: {fileID: 11400000, guid: 030bcb94d9af70c4180ae614e4deecff, type: 2}
+  suit: {fileID: 11400000, guid: e596bbabb1130184d8fdd89a835e339f, type: 2}
+  headgear: {fileID: 11400000, guid: ce2a674d7d8775f4f8ce5181091323ae, type: 2}
+  moves: 01000000040000000600000018000000

@@ -17,13 +17,13 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 6eaaaca2343d4de43a266f94422cc03f, type: 3}
   displayname: Metal Wrist
   description: 
-  value: 40
+  value: 50
   strengthRequired: 8
   physDmg: 0
   magicDmg: 0
   shieldDmg: 0
   physDef: 40
-  magicDef: 0
+  magicDef: 10
   shieldHP: 40
   bonusMana: 0
   bonusSpeed: 0

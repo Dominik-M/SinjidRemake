@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54105b9438720143a9e7cfbd75e7514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  interaction: 2
+  interaction: 43
   minAlpha: 0.2
   maxAlpha: 1
   increment: 2

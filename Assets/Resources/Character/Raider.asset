@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raider
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Raider
-  icon: {fileID: 21300000, guid: a472df483a003264f8eada5399ff6598, type: 3}
+  icon: {fileID: 21300000, guid: 8cd13cd47ff9bad489161312d947fc17, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: a9478862b7463a043a64d871381de6eb, type: 3}
   life: 150
   maxlife: 150
@@ -22,17 +22,17 @@ MonoBehaviour:
   eng: 0
   maxeng: 0
   exp: 0
-  expNext: 50
-  gold: 120
-  level: 4
+  expNext: 60
+  gold: 80
+  level: 3
   lifePotions: 0
   manaPotions: 0
-  strength: 12
+  strength: 10
   dex: 5
   magic: 2
   currentShieldHp: 0
   weapon: {fileID: 11400000, guid: 54721b88cfc874d41af4c00b7c7f69a5, type: 2}
-  shield: {fileID: 11400000, guid: 777fd8c1602e6cc459327cb6a1c0df39, type: 2}
-  suit: {fileID: 11400000, guid: 7825b32876dde4645abd8cafa57a1a47, type: 2}
+  shield: {fileID: 11400000, guid: 7f98f885226eef24cb2bc7e9c44b8a76, type: 2}
+  suit: {fileID: 0}
   headgear: {fileID: 11400000, guid: 30a6ec7d527ea7d4892e2554d3e72be0, type: 2}
   moves: 0100000004000000060000001800000001000000

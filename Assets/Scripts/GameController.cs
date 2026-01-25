@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject herbguyScreen;
     [SerializeField] private GameObject gambleScreen;
     [SerializeField] private GameObject trainingScreen;
+    [SerializeField] private GameObject endScreen;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject infoDialog;
@@ -465,6 +466,17 @@ public class GameController : MonoBehaviour
                     StartCombat();
                 }
                 break;
+            case InteractionID.END_EXIT:
+                if (humangatewaystage.isFinished())
+                {
+                    GetComponent<AudioSource>().Stop();
+                    OpenMenu(endScreen);
+                }
+                else
+                {
+                    ShowInfoDialog("Info", "You have to complete human gateway first to enter.");
+                }
+                break;
         }
     }
 
@@ -596,6 +608,7 @@ public class GameController : MonoBehaviour
 
     // refs
     private static GameController instance;
+    public static GameController Instance { get => instance; }
     private static InteractionID currentInteraction;
     private static Room currentRoom;
     private static bool shallInit = false, resourcesLoaded = false;
@@ -836,12 +849,12 @@ public class GameController : MonoBehaviour
     {
         get => playerchar.mana; set
         {
-            playerchar.mana = Mathf.Clamp(value, 0, playerchar.maxmana);
+            playerchar.mana = Mathf.Clamp(value, 0, playerchar.GetMaxMana());
         }
     }
     public static float MaxMana
     {
-        get => playerchar.maxmana; set
+        get => playerchar.GetMaxMana(); set
         {
             playerchar.maxmana = Mathf.Max(value, 1);
         }
@@ -949,25 +962,18 @@ public class GameController : MonoBehaviour
         return true;
     }
 
-    private static void Die()
-    {
-        playerchar.life = 0;
-        // TODO gameover screen ?
-    }
-
     private static void LevelUp()
     {
         playerchar.exp -= playerchar.expNext;
-        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.4f) / 10 + Level) * 10;
+        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.2f) / 15 + Level) * 15;
         // common upgrades
         Level++;
         Skillpoints++;
         if (Level % 5 == 0)
             Skillpoints++; // Bonus point
         MaxLife += 5;
-        MaxMana += 5;
+        MaxMana = playerchar.maxmana + 5;
         MaxEng += 3;
-        Strength++;
         // class specific upgrades
         switch (MyClass)
         {
@@ -982,13 +988,14 @@ public class GameController : MonoBehaviour
                 Strength += 2;
                 break;
             case CharacterClass.Spellcaster:
-                MaxMana += 5;
+                MaxMana = playerchar.maxmana + 5;
                 Magic += 2;
                 Dex++;
                 break;
             case CharacterClass.Ninja:
                 MaxLife += 5;
-                MaxMana += 5;
+                MaxMana = playerchar.maxmana + 5;
+                Strength++;
                 Dex += 2;
                 break;
         }

@@ -17,13 +17,13 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 811ce4cde1dac7f41a27cd30dcd8d2a5, type: 3}
   displayname: Club
   description: 
-  value: 30
+  value: 40
   strengthRequired: 8
-  physDmg: 6
+  physDmg: 5
   magicDmg: 0
-  shieldDmg: 12
+  shieldDmg: 10
   physDef: 0
   magicDef: 0
   shieldHP: 0
   bonusMana: 0
-  bonusSpeed: -5
+  bonusSpeed: -10

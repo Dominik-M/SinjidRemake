@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 
   value: 900
   strengthRequired: 8
-  physDmg: 5
-  magicDmg: 80
+  physDmg: 4
+  magicDmg: 30
   shieldDmg: 0
   physDef: 0
   magicDef: 0

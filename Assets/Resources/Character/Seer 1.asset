@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Seer 1
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Seer
+  icon: {fileID: 21300000, guid: 7995ae1e392092541b5f9fc09665722b, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 3befaf388ff868a44b8c565b0c5536b8, type: 3}
+  life: 600
+  maxlife: 600
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 400
+  gold: 200
+  level: 8
+  lifePotions: 0
+  manaPotions: 0
+  strength: 8
+  dex: 8
+  magic: 24
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 332100c492831334da737fe74733a9d3, type: 2}
+  shield: {fileID: 11400000, guid: 030bcb94d9af70c4180ae614e4deecff, type: 2}
+  suit: {fileID: 11400000, guid: 10a12d374b5a26f439c1381617c6c87f, type: 2}
+  headgear: {fileID: 11400000, guid: a478ee4ced7c0e9439102331018de60b, type: 2}
+  moves: 17000000170000000d0000000f0000000e00000011000000

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Shaman
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Shaman
+  icon: {fileID: 21300000, guid: 8a18e374fbb2b9e4cb83be024d8fe038, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 5d4d330bffe678a4b8c0e9685bbf8fce, type: 3}
+  life: 700
+  maxlife: 700
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 350
+  gold: 150
+  level: 10
+  lifePotions: 0
+  manaPotions: 0
+  strength: 12
+  dex: 10
+  magic: 25
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 5aaa8447457154c4ea4c523a99f96e14, type: 2}
+  shield: {fileID: 0}
+  suit: {fileID: 0}
+  headgear: {fileID: 11400000, guid: ee6e797ff0fdfff44b7bf45857d142f4, type: 2}
+  moves: 170000000d00000001000000

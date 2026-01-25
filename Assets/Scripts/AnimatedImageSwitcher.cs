@@ -15,7 +15,7 @@ public class AnimatedImageSwitcher : MonoBehaviour
 
     private Dictionary<string, AnimatedImage> stateToImageMapping;
     private string currentState, nextState;
-    private readonly string IDLE_STATE = "Idle";
+    private readonly string IDLE_STATE = "Idle", FINAL_STATE = "Die";
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class AnimatedImageSwitcher : MonoBehaviour
                 SwitchAnimations(idleAnimation, stateToImageMapping[nextState]);
             }
         }
-        else
+        else if(!currentState.Equals(FINAL_STATE)) // Do nothing in final state
         {
             // currently in a state animation
             // check if finished and go to idle

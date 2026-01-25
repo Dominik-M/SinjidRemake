@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     }
 
     public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, optionsFrame;
+    public Text versionNumber;
 
     private Frame currentFrame;
 
@@ -27,6 +29,7 @@ public class MainMenuController : MonoBehaviour
     void Start()
     {
         CurrentFrame = Frame.WELCOME;
+        versionNumber.text = "v"+Application.version;
     }
 
     public void OnWelcomeProceed()

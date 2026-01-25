@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Bandit
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Bandit
+  icon: {fileID: 21300000, guid: 8cba71495a02fca40a23c83d4b728289, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: de862eff8dc2a9f42bcb80dfdfc6babe, type: 3}
+  life: 40
+  maxlife: 40
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 40
+  gold: 60
+  level: 2
+  lifePotions: 0
+  manaPotions: 0
+  strength: 8
+  dex: 5
+  magic: 2
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: a135fb9dbdd014441802251b6b701e51, type: 2}
+  shield: {fileID: 11400000, guid: 7f98f885226eef24cb2bc7e9c44b8a76, type: 2}
+  suit: {fileID: 0}
+  headgear: {fileID: 11400000, guid: 30a6ec7d527ea7d4892e2554d3e72be0, type: 2}
+  moves: 01000000040000000600000001000000

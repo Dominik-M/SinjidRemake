@@ -35,4 +35,4 @@ MonoBehaviour:
   shield: {fileID: 0}
   suit: {fileID: 0}
   headgear: {fileID: 0}
-  moves: 1b0000001a00000001000000
+  moves: 1b0000001a000000

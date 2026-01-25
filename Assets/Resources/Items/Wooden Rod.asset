@@ -17,10 +17,10 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: ba48d7cf874c1fe4e92c2df68f86caee, type: 3}
   displayname: Wooden Rod
   description: 
-  value: 50
+  value: 80
   strengthRequired: 3
   physDmg: 2
-  magicDmg: 12
+  magicDmg: 8
   shieldDmg: 0
   physDef: 0
   magicDef: 0

@@ -17,12 +17,12 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 8803b497e6c3a5e4892decffa488a3f4, type: 3}
   displayname: Demon Rags
   description: 
-  value: 800
+  value: 500
   strengthRequired: 18
-  physDmg: 0
+  physDmg: 10
   magicDmg: 0
   shieldDmg: 0
-  physDef: 75
+  physDef: 60
   magicDef: 40
   shieldHP: 0
   bonusMana: 0

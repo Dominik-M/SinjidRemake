@@ -104,10 +104,12 @@ public class CombatEndScreenController : MonoBehaviour
                 case 3:
                     // life
                     GameController.MaxLife+=10;
+                    GameController.Life = GameController.MaxLife;
                     break;
                 case 4:
                     // mana
                     GameController.MaxMana+=10;
+                    GameController.Mana = GameController.MaxMana;
                     break;
             }
         }

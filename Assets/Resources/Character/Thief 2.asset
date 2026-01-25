@@ -15,14 +15,14 @@ MonoBehaviour:
   displayName: Vicious Thief
   icon: {fileID: 21300000, guid: bdf551e163c40844985093622c097aea, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 0945bd68f34e5b4498a8dd15edc00ef4, type: 3}
-  life: 0
-  maxlife: 120
+  life: 100
+  maxlife: 100
   mana: 0
   maxmana: 0
   eng: 0
   maxeng: 0
   exp: 0
-  expNext: 30
+  expNext: 50
   gold: 100
   level: 3
   lifePotions: 0

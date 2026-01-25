@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Warrior
+  icon: {fileID: 21300000, guid: bea11c7b5dc7618458d8343cc619985e, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: feaf26abd9ecf074fb45d667d7937f61, type: 3}
+  life: 200
+  maxlife: 200
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 120
+  gold: 100
+  level: 6
+  lifePotions: 0
+  manaPotions: 0
+  strength: 18
+  dex: 4
+  magic: 2
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 5311c3e7721180245a742b69029d63b9, type: 2}
+  shield: {fileID: 11400000, guid: 5d1fa1c3d66c9d24d9245f710c1c63e0, type: 2}
+  suit: {fileID: 11400000, guid: 62ee507d7b2cbbc42b395fb9839f932f, type: 2}
+  headgear: {fileID: 11400000, guid: ce2a674d7d8775f4f8ce5181091323ae, type: 2}
+  moves: 01000000040000000600000001000000

@@ -37,6 +37,14 @@ public class CombatController : MonoBehaviour
     [SerializeField] private AudioClip victoryMusic;
     [SerializeField] private AudioClip defeatMusic;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip shieldHitSound;
+    [SerializeField] private AudioClip bodyHitSound;
+    [SerializeField] private AudioClip missSound;
+    [SerializeField] private AudioClip criticalSound;
+    [SerializeField] private AudioClip spellSound;
+    [SerializeField] private AudioClip throwSound;
+
     [Header("References")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform player1Position, player2Position, enemy1Position, enemy2Position;
@@ -116,7 +124,7 @@ public class CombatController : MonoBehaviour
             enemy1 = new Combatant();
             enemy1.ch = enemy1Character;
             enemy1.ch.life = enemy1.ch.maxlife;
-            enemy1.ch.mana = enemy1.ch.maxmana;
+            enemy1.ch.mana = enemy1.ch.GetMaxMana();
             enemy1.ch.currentShieldHp = enemy1.ch.shield != null ? enemy1.ch.shield.shieldHP : 0;
         }
         else
@@ -128,7 +136,7 @@ public class CombatController : MonoBehaviour
             enemy2 = new Combatant();
             enemy2.ch = enemy2Character;
             enemy2.ch.life = enemy2.ch.maxlife;
-            enemy2.ch.mana = enemy2.ch.maxmana;
+            enemy2.ch.mana = enemy2.ch.GetMaxMana();
             enemy2.ch.currentShieldHp = enemy2.ch.shield != null ? enemy2.ch.shield.shieldHP : 0;
         }
         else
@@ -229,28 +237,29 @@ public class CombatController : MonoBehaviour
     {
         bool end = GameController.Life <= 0; // player dead
         end |= ((enemy1 == null || enemy1.ch.life <= 0) && (enemy2 == null || enemy2.ch.life <= 0)); // both enemys dead
-        end |= (isTraining && GameController.Eng <= 0); // Out of energy in training
-        if (end) EndCombat();
+        end |= (isTraining && (int)(GameController.Eng) <= 0); // Out of energy in training
+
+        if (end) Invoke(nameof(EndCombat), 2f); // Delay end screen to see die animations
         else
         {
             // cleanup dead bodys
-            if(ally != null && ally.ch.life <= 0)
+            if (ally != null && ally.ch.life <= 0)
             {
                 Destroy(ally.go, 1);
-                ally = null;
+                ally.go = null;
                 allyMonitor.MChar = null;
             }
-            if(enemy1 != null && enemy1.ch.life <= 0)
+            if (enemy1 != null && enemy1.ch.life <= 0)
             {
                 Destroy(enemy1.go, 1);
-                enemy1 = null;
+                enemy1.go = null;
                 enemy1Position.gameObject.SetActive(false);
                 enemy1Monitor.MChar = null;
             }
             if (enemy2 != null && enemy2.ch.life <= 0)
             {
                 Destroy(enemy2.go, 1);
-                enemy2 = null;
+                enemy2.go = null;
                 enemy2Position.gameObject.SetActive(false);
                 enemy2Monitor.MChar = null;
             }
@@ -258,7 +267,7 @@ public class CombatController : MonoBehaviour
             if (target.ch.life <= 0)
             {
                 // change target
-                if (enemy2!=null && enemy2.ch.life>0)
+                if (enemy2 != null && enemy2.ch.life > 0)
                     SetTarget(1);
                 else
                     SetTarget(0);
@@ -375,7 +384,7 @@ public class CombatController : MonoBehaviour
     public void SetTarget(int idx)
     {
         Debug.Log("SetTarget: " + idx);
-        if (idx == 0 && enemy1 != null)
+        if (idx == 0 && enemy1 != null && enemy1.go != null)
         {
             target = enemy1;
             Color c = marker1.color;
@@ -385,7 +394,7 @@ public class CombatController : MonoBehaviour
             c.a = 0.4f;
             marker2.color = c;
         }
-        else if (idx == 1 && enemy2 != null)
+        else if (idx == 1 && enemy2 != null && enemy2.go != null)
         {
             target = enemy2;
             Color c = marker1.color;
@@ -455,12 +464,12 @@ public class CombatController : MonoBehaviour
 
     private void DealDamage(Combatant attacker, Combatant defender, bool isPhys, bool isMag, float extraPhysDmg, float extraMagicDmg)
     {
-        if (attacker == null || defender == null) return;
+        if (attacker == null || defender == null || attacker.go == null || defender.go == null) return;
         float critChance = attacker.ch.GetCritChance();
         bool isCrit = Random.value < critChance;
         float missChance = (1.0f - attacker.ch.GetDodgeChance()) * defender.ch.GetDodgeChance();
         float n = Random.value;
-        if(n < missChance)
+        if (n < missChance)
         {
             Debug.Log(defender.ch.name + " dodges the attack");
             ShowDamageNumber(defender.go.transform.position, 0, 0, isCrit);
@@ -489,6 +498,8 @@ public class CombatController : MonoBehaviour
             {
                 defender.ch.currentShieldHp = 0;
                 defender.animator?.SetTrigger("ShieldBreak");
+                foreach (DestroyOnShieldBreak l in defender.go.GetComponentsInChildren<DestroyOnShieldBreak>(true))
+                    l.OnShieldBreak();
             }
             else
             {
@@ -616,7 +627,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         // Ally turn
-        if (ally != null && target != null)
+        if (ally != null && target != null && ally.go != null && target.go != null)
         {
             yield return new WaitForSeconds(0.2f);
             CombatAction a = ally.ch.GetRandomMove();
@@ -690,7 +701,10 @@ public class CombatController : MonoBehaviour
                 yield return PerformManaHeal(user, GameController.FindSkillByActionId(CombatAction.SKILL_CHARGE).GetCurrentLevelValue());
                 break;
             case CombatAction.SKILL_HEAL:
-                yield return PerformHeal(user, GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).GetCurrentLevelValue());
+                if (user.ch.IsPlayerChar())
+                    yield return PerformHeal(user, (int)(user.ch.maxlife * GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).GetCurrentLevelValue()/100.0));
+                else
+                    yield return PerformHeal(user, (int)(user.ch.maxlife * 0.12));
                 break;
             case CombatAction.SKILL_ENERGYSHOT:
                 yield return PerformEnergyball(user, target);
@@ -825,7 +839,7 @@ public class CombatController : MonoBehaviour
         user.animator?.SetTrigger("Heal");
         Debug.Log(user.ch.name + " recovers mana " + healamount);
         user.ch.mana += healamount;
-        if (user.ch.mana > user.ch.maxmana) user.ch.mana = user.ch.maxmana;
+        if (user.ch.mana > user.ch.GetMaxMana()) user.ch.mana = user.ch.GetMaxMana();
         ShowDamageNumber(user.go.transform.position, 0, healamount, false);
         UpdateTexts();
         // wait for the animation to finish
@@ -855,7 +869,7 @@ public class CombatController : MonoBehaviour
     {
         // throw
         user.animator?.SetTrigger("Throw");
-        FXSystem.SpawnEffect(FXSystem.FxId.SHURIKENS, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.SHURIKENS, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for attack animation
         yield return new WaitForSeconds(0.5f);
         if (user.ch.IsPlayerChar())
@@ -884,7 +898,7 @@ public class CombatController : MonoBehaviour
         if (user.ch.IsPlayerChar())
             bonusDamage = (int)(((GameController.FindSkillByActionId(CombatAction.SKILL_DOUBLESTRIKE).GetCurrentLevelValue() - 100.0f) * user.ch.GetPhysDmg()) / 100f);
         else
-            bonusDamage = (((50 + user.ch.level * 2) - 100) * user.ch.GetPhysDmg()) / 100;
+            bonusDamage = (((60 + user.ch.level) - 100) * user.ch.GetPhysDmg()) / 100;
         DealDamage(user, target, true, true, bonusDamage, 0);
         yield return new WaitForSeconds(0.5f);
         DealDamage(user, target, true, true, bonusDamage, 0);
@@ -951,7 +965,7 @@ public class CombatController : MonoBehaviour
 
         // Wait for attack animation
         user.animator?.SetTrigger("Split");
-        FXSystem.SpawnEffect(FXSystem.FxId.SPLIT, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.SPLIT, user.go.transform.position, !user.ch.IsPlayerChar());
         yield return new WaitForSeconds(1.3f);
         int bonusDamage = (int)(target.ch.maxlife);
         if (user.ch.IsPlayerChar())
@@ -974,7 +988,7 @@ public class CombatController : MonoBehaviour
         if (user.ch.IsPlayerChar())
             bonusDamage = ((GameController.FindSkillByActionId(CombatAction.SKILL_EXECUTION).GetCurrentLevelValue() - 100) * user.ch.GetPhysDmg()) / 100;
         else
-            bonusDamage = (((50 + user.ch.level * 5) - 100) * user.ch.GetPhysDmg()) / 100;
+            bonusDamage = (((20 + user.ch.level * 5) - 100) * user.ch.GetPhysDmg()) / 100;
 
         DealDamage(user, target, true, true, bonusDamage, 0);
         yield return new WaitForSeconds(0.35f);
@@ -993,7 +1007,7 @@ public class CombatController : MonoBehaviour
     {
         // throw
         user.animator?.SetTrigger("Energyball");
-        FXSystem.SpawnEffect(FXSystem.FxId.ENERGY_BALL, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.ENERGY_BALL, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for attack animation
         yield return new WaitForSeconds(1.0f);
         if (user.ch.IsPlayerChar())
@@ -1013,7 +1027,7 @@ public class CombatController : MonoBehaviour
     {
         // throw
         user.animator?.SetTrigger("Throw");
-        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.FIRE_SHOT, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for attack animation
         yield return new WaitForSeconds(0.3f);
         user.animator?.SetTrigger("Idle");
@@ -1042,7 +1056,7 @@ public class CombatController : MonoBehaviour
     {
         // shoot
         user.animator?.SetTrigger("Annihilate");
-        FXSystem.SpawnEffect(FXSystem.FxId.ANNIHILATE, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.ANNIHILATE, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for attack animation
         yield return new WaitForSeconds(0.6f);
         if (user.ch.IsPlayerChar())
@@ -1070,7 +1084,7 @@ public class CombatController : MonoBehaviour
     {
         // throw
         user.animator?.SetTrigger("ShadowStrike");
-        FXSystem.SpawnEffect(FXSystem.FxId.SHADOW_STRIKE, user.go.transform.position, false);
+        FXSystem.SpawnEffect(FXSystem.FxId.SHADOW_STRIKE, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for attack animation
         yield return new WaitForSeconds(0.75f);
         if (user.ch.IsPlayerChar())
@@ -1186,15 +1200,18 @@ public class CombatController : MonoBehaviour
         // shoot
         user.animator?.SetTrigger("Throw");
         FXSystem.SpawnEffect(FXSystem.FxId.THROW_SLASH, user.go.transform.position, !user.ch.IsPlayerChar());
-        // Wait for attack animation
-        yield return new WaitForSeconds(0.6f);
-
-        DealDamage(user, target, true, true, user.ch.level * 2, 0);
-        yield return new WaitForSeconds(0.3f);
-
-        user.animator?.SetTrigger("Idle");
-        // Wait for hurt animation
+        // Wait for animation
         yield return new WaitForSeconds(0.2f);
+        user.animator?.SetTrigger("Idle");
+
+        // Wait for effect
+        yield return new WaitForSeconds(0.4f);
+
+        // hit
+        DealDamage(user, target, true, true, user.ch.level * 2, 0);
+
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.4f);
     }
     private IEnumerator PerformWaspSting(Combatant user, Combatant target)
     {

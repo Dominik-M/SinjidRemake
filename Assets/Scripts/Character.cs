@@ -21,6 +21,20 @@ public class Character : ScriptableObject
         return name.Equals("Player");
     }
 
+    public int GetMaxMana()
+    {
+        int n = (int)maxmana;
+        if (weapon)
+            n += weapon.bonusMana;
+        if (suit)
+            n += suit.bonusMana;
+        if (headgear)
+            n += headgear.bonusMana;
+        if (shield)
+            n += shield.bonusMana;
+        return n;
+    }
+
     public int GetPhysDmg()
     {
         int n = 1;
@@ -30,6 +44,8 @@ public class Character : ScriptableObject
             n += suit.physDmg;
         if (headgear)
             n += headgear.physDmg;
+        if (shield)
+            n += shield.physDmg;
         float scaling = 1 + 0.5f * strength + 0.5f * dex;
         n = (int)(n + scaling);
         if (IsPlayerChar())
@@ -50,6 +66,8 @@ public class Character : ScriptableObject
             n += suit.magicDmg;
         if (headgear)
             n += headgear.magicDmg;
+        if (shield)
+            n += shield.magicDmg;
         n += magic;
         if (IsPlayerChar())
         {
@@ -92,7 +110,7 @@ public class Character : ScriptableObject
 
     public int GetSpeed()
     {
-        int spd = dex;
+        int spd = dex + level;
         if (weapon)
             spd += weapon.bonusSpeed;
         if (suit)

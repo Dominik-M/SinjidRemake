@@ -22,8 +22,8 @@ MonoBehaviour:
   physDmg: 0
   magicDmg: 0
   shieldDmg: 0
-  physDef: 30
-  magicDef: 40
-  shieldHP: 200
+  physDef: 0
+  magicDef: 0
+  shieldHP: 500
   bonusMana: 0
   bonusSpeed: 0

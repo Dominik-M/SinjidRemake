@@ -20,8 +20,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d412fa5fbb1467745bca49a824fa9d00, type: 2}
   requiredLevel: 0
   passive: 0
-  manacost: 20
-  currentlevel: 1
+  manacost: 15
+  currentlevel: 0
   levelvalues: 3c000000440000004c000000540000005a0000005f0000006300000066000000690000006c0000006e00000070000000720000007400000076000000780000007a0000007d0000008000000082000000
   effectTitle: Damage Multiplier
   effectValueDescription: '%'
