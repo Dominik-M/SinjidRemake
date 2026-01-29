@@ -795,6 +795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9094171456948368517}
   - component: {fileID: 1861491160912393665}
+  - component: {fileID: 549921651171891005}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -875,6 +876,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &549921651171891005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539596952751497792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037cf98a1acb5cd4d86d4ea11e773260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOnShieldBreak
 --- !u!1 &4118351287217690452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +1020,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073051820021384315}
   - component: {fileID: 1661436216914651358}
+  - component: {fileID: 1833086112573757125}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -1087,6 +1101,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1833086112573757125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195451376266994836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037cf98a1acb5cd4d86d4ea11e773260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOnShieldBreak
 --- !u!1 &5123603021978862361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5948586794649357650}
   - component: {fileID: 2927840115569273556}
+  - component: {fileID: 8863452487467932415}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -1177,6 +1204,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8863452487467932415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123603021978862361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037cf98a1acb5cd4d86d4ea11e773260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOnShieldBreak
 --- !u!1 &5677177420997267719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6183214611592912007}
   - component: {fileID: 2574079889030785134}
+  - component: {fileID: 1909281721537135400}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -1357,3 +1397,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1909281721537135400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967565897758070298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037cf98a1acb5cd4d86d4ea11e773260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOnShieldBreak

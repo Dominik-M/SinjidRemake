@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject infoDialog;
     [SerializeField] private Text infoDialogTitle, infoDialogMessage;
     [SerializeField] private Text lifepotionstext, manapotionstext;
+    [SerializeField] private SimpleTouchPad touchPad;
 
     [Header("Minimap")]
     [SerializeField] private GameObject mapArrowLeft;
@@ -117,6 +118,14 @@ public class GameController : MonoBehaviour
             h -= 1;
         if (Input.GetKey(KeyCode.D))
             h += 1;
+
+        if (touchPad)
+        {
+            // add touchpad inputs
+            Vector2 direction = touchPad.GetDirection();
+            h += direction.x;
+            v += direction.y;
+        }
 
         //Debug.Log("h=" + h + " v=" + v);
 
@@ -205,6 +214,12 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+    public void OnInteractPressed()
+    {
+        Interaction();
+    }
+
     private void Interaction()
     {
         Debug.Log("Interaction: " + currentInteraction);
@@ -965,7 +980,7 @@ public class GameController : MonoBehaviour
     private static void LevelUp()
     {
         playerchar.exp -= playerchar.expNext;
-        ExpNext = Mathf.Round((playerchar.expNext + playerchar.expNext * 0.2f) / 15 + Level) * 15;
+        ExpNext = Mathf.Round((playerchar.expNext * 1.2f) / 10 + Level) * 10;
         // common upgrades
         Level++;
         Skillpoints++;
@@ -1109,7 +1124,7 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("level", Level);
         PlayerPrefs.SetInt("maxlife", (int)MaxLife);
         PlayerPrefs.SetInt("life", (int)Life);
-        PlayerPrefs.SetInt("maxmana", (int)MaxMana);
+        PlayerPrefs.SetInt("maxmana", (int)playerchar.maxmana);
         PlayerPrefs.SetInt("mana", (int)Mana);
         PlayerPrefs.SetInt("maxeng", (int)MaxEng);
         PlayerPrefs.SetInt("eng", (int)Eng);

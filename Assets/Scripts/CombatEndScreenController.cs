@@ -108,7 +108,7 @@ public class CombatEndScreenController : MonoBehaviour
                     break;
                 case 4:
                     // mana
-                    GameController.MaxMana+=10;
+                    GameController.MaxMana = GameController.PlayerChar.maxmana + 10;
                     GameController.Mana = GameController.MaxMana;
                     break;
             }

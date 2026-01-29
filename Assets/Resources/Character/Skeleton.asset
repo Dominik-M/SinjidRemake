@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Skeleton
+  icon: {fileID: 21300000, guid: 882e863df086e5e498e38a97c29471ce, type: 3}
+  combatprefab: {fileID: 8452722320731276732, guid: 7be26225b41feea47a7bb0ded2bf6264, type: 3}
+  life: 400
+  maxlife: 400
+  mana: 0
+  maxmana: 0
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 200
+  gold: 100
+  level: 10
+  lifePotions: 0
+  manaPotions: 0
+  strength: 30
+  dex: 8
+  magic: 2
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 5320f2f524b27c345b8b86bebd0189a0, type: 2}
+  shield: {fileID: 11400000, guid: e4183f7f4cf64dc4499083b2e90797fb, type: 2}
+  suit: {fileID: 0}
+  headgear: {fileID: 0}
+  moves: 01000000

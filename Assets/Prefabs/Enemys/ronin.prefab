@@ -1603,6 +1603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5008361701444780574}
   - component: {fileID: 1442495896873449929}
+  - component: {fileID: 8111495539422713518}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -1683,3 +1684,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8111495539422713518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754601579666057086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037cf98a1acb5cd4d86d4ea11e773260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyOnShieldBreak

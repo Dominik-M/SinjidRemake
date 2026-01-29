@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e091b1636f51b841bac308167984d04, type: 3}
+  m_Name: Mage Shield
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  type: 1
+  icon: {fileID: 21300000, guid: 238876bf7ccaa604e9d125993ceb30ff, type: 3}
+  battleSprite: {fileID: 21300000, guid: a3de271391730d144953a7011593a9a0, type: 3}
+  displayname: Mage Shield
+  description: 
+  value: 500
+  strengthRequired: 5
+  physDmg: 0
+  magicDmg: 0
+  shieldDmg: 0
+  physDef: 10
+  magicDef: 25
+  shieldHP: 800
+  bonusMana: 40
+  bonusSpeed: 0

@@ -26,4 +26,4 @@ MonoBehaviour:
   magicDef: 0
   shieldHP: 0
   bonusMana: 0
-  bonusSpeed: 20
+  bonusSpeed: 10

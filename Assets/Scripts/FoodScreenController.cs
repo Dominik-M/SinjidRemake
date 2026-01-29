@@ -19,6 +19,7 @@ public class FoodScreenController : DefaultMenuButtonHandler
     [SerializeField] private Text gold;
     [SerializeField] private SelectionCallbackHandler[] buttons;
     [SerializeField] private GameObject[] descriptions;
+    [SerializeField] private bool alwaysShowHints;
 
     void Start()
     {
@@ -60,7 +61,7 @@ public class FoodScreenController : DefaultMenuButtonHandler
     public void OnButtonSelected(int idx)
     {
         for (int i = 0; i < descriptions.Length; i++)
-            descriptions[i].SetActive(idx == i);
+            descriptions[i].SetActive((idx == i)||alwaysShowHints);
     }
 
     public void OnButtonClicked(int idx)

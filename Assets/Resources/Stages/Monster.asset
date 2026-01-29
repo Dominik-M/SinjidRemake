@@ -16,7 +16,23 @@ MonoBehaviour:
   currentLevel: 1
   primaryEnemyPerStage:
   - {fileID: 11400000, guid: dffdea516fe29ef4a88e9970f761443f, type: 2}
+  - {fileID: 11400000, guid: e4dff8541a9c1da4b86751e20587c348, type: 2}
+  - {fileID: 11400000, guid: 811d32f0a3d42c74fbfe83cd4104e018, type: 2}
   - {fileID: 11400000, guid: 5a30746922aaeb2469fe2d441adcf2df, type: 2}
+  - {fileID: 11400000, guid: aadbaafaf719ff041aaf88e8870da5a4, type: 2}
+  - {fileID: 11400000, guid: 0153c7d38d5348e4eb7dc8669640c20d, type: 2}
+  - {fileID: 11400000, guid: 811d32f0a3d42c74fbfe83cd4104e018, type: 2}
+  - {fileID: 11400000, guid: 0153c7d38d5348e4eb7dc8669640c20d, type: 2}
+  - {fileID: 11400000, guid: b3904f06ec6e79747a3c588d38c323cc, type: 2}
+  - {fileID: 11400000, guid: 3386e24b48372dd4292984827dd1c819, type: 2}
   secondaryEnemyPerStage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: e4dff8541a9c1da4b86751e20587c348, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: aadbaafaf719ff041aaf88e8870da5a4, type: 2}
+  - {fileID: 11400000, guid: 5a30746922aaeb2469fe2d441adcf2df, type: 2}
   - {fileID: 0}
   - {fileID: 0}

@@ -239,7 +239,11 @@ public class CombatController : MonoBehaviour
         end |= ((enemy1 == null || enemy1.ch.life <= 0) && (enemy2 == null || enemy2.ch.life <= 0)); // both enemys dead
         end |= (isTraining && (int)(GameController.Eng) <= 0); // Out of energy in training
 
-        if (end) Invoke(nameof(EndCombat), 2f); // Delay end screen to see die animations
+        if (end)
+        {
+            IsAnimating = true;
+            Invoke(nameof(EndCombat), 1f); // Delay end screen to see die animations
+        }
         else
         {
             // cleanup dead bodys
@@ -462,9 +466,10 @@ public class CombatController : MonoBehaviour
         return Mathf.Min(soft, maxReduction);
     }
 
-    private void DealDamage(Combatant attacker, Combatant defender, bool isPhys, bool isMag, float extraPhysDmg, float extraMagicDmg)
+    private int DealDamage(Combatant attacker, Combatant defender, bool isPhys, bool isMag, float extraPhysDmg, float extraMagicDmg)
     {
-        if (attacker == null || defender == null || attacker.go == null || defender.go == null) return;
+        if (attacker == null || defender == null || attacker.go == null || defender.go == null) return 0;
+        int totaldmg = 0;
         float critChance = attacker.ch.GetCritChance();
         bool isCrit = Random.value < critChance;
         float missChance = (1.0f - attacker.ch.GetDodgeChance()) * defender.ch.GetDodgeChance();
@@ -492,7 +497,7 @@ public class CombatController : MonoBehaviour
             ) : 0;
             Debug.Log(defender.ch.name + "'s shield receives " + physdmg + " physical and " + magicdmg + " magical damage");
             ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg, isCrit);
-            int totaldmg = physdmg + magicdmg;
+            totaldmg = physdmg + magicdmg;
             defender.ch.currentShieldHp -= totaldmg;
             if (defender.ch.currentShieldHp < 0)
             {
@@ -542,7 +547,7 @@ public class CombatController : MonoBehaviour
             ) : 0;
             Debug.Log(defender.ch.name + " receives " + physdmg + " physical and " + magicdmg + " magical damage");
             ShowDamageNumber(defender.go.transform.position, physdmg, magicdmg, isCrit);
-            int totaldmg = physdmg + magicdmg;
+            totaldmg = physdmg + magicdmg;
             defender.ch.life -= totaldmg;
             if (defender.ch.life <= 0)
             {
@@ -574,6 +579,7 @@ public class CombatController : MonoBehaviour
             }
         }
         UpdateTexts();
+        return totaldmg;
     }
 
     public void ShowDamageNumber(Vector3 position, int physdmg, int magicdmg, bool isCrit)
@@ -702,7 +708,7 @@ public class CombatController : MonoBehaviour
                 break;
             case CombatAction.SKILL_HEAL:
                 if (user.ch.IsPlayerChar())
-                    yield return PerformHeal(user, (int)(user.ch.maxlife * GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).GetCurrentLevelValue()/100.0));
+                    yield return PerformHeal(user, (int)(user.ch.maxlife * GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).GetCurrentLevelValue() / 100.0));
                 else
                     yield return PerformHeal(user, (int)(user.ch.maxlife * 0.12));
                 break;
@@ -750,6 +756,12 @@ public class CombatController : MonoBehaviour
                 break;
             case CombatAction.WASP_LASER:
                 yield return PerformWaspLaser(user, target);
+                break;
+            case CombatAction.CHARGE_SHOT:
+                yield return PerformChargedShot(user, target);
+                break;
+            case CombatAction.LIFESTEAL:
+                yield return PerformLifesteal(user, target);
                 break;
         }
     }
@@ -811,7 +823,7 @@ public class CombatController : MonoBehaviour
         // Wait for attack animation
         attacker.animator?.SetTrigger("Strike");
         yield return new WaitForSeconds(0.25f);
-        DealDamage(attacker, defender, true, true, 0, 0);
+        DealDamage(attacker, defender, true, false, 0, 0);
         yield return new WaitForSeconds(0.25f);
 
         yield return MoveBackward(attacker, defender);
@@ -856,9 +868,9 @@ public class CombatController : MonoBehaviour
         user.animator?.SetTrigger("Stab");
         yield return new WaitForSeconds(0.35f);
         if (user.ch.IsPlayerChar())
-            DealDamage(user, target, true, true, GameController.FindSkillByActionId(CombatAction.SKILL_STAB).GetCurrentLevelValue(), 0);
+            DealDamage(user, target, true, false, GameController.FindSkillByActionId(CombatAction.SKILL_STAB).GetCurrentLevelValue(), 0);
         else
-            DealDamage(user, target, true, true, user.ch.level * 4, 0);
+            DealDamage(user, target, true, false, user.ch.level * 4, 0);
         yield return new WaitForSeconds(0.35f);
 
         yield return MoveBackward(user, target);
@@ -884,7 +896,7 @@ public class CombatController : MonoBehaviour
         }
         // Wait for hurt animation
         user.animator?.SetTrigger("Idle");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
     }
 
     private IEnumerator PerformDoublestrike(Combatant user, Combatant target)
@@ -921,6 +933,8 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, true, true, bonusDamage, 0);
 
         user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.5f);
     }
 
     private IEnumerator PerformVerticalStrike(Combatant user, Combatant target)
@@ -1020,7 +1034,7 @@ public class CombatController : MonoBehaviour
         }
         // Wait for hurt animation
         user.animator?.SetTrigger("Idle");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.8f);
     }
 
     private IEnumerator PerformFireshot(Combatant user, Combatant target)
@@ -1069,15 +1083,15 @@ public class CombatController : MonoBehaviour
         }
         else
         {
-            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+            DealDamage(user, target, false, true, 0, user.ch.level);
             yield return new WaitForSeconds(0.3f);
-            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+            DealDamage(user, target, false, true, 0, user.ch.level);
             yield return new WaitForSeconds(0.3f);
-            DealDamage(user, target, false, true, 0, user.ch.level * 4);
+            DealDamage(user, target, false, true, 0, user.ch.level);
         }
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
 
     private IEnumerator PerformShadowstrike(Combatant user, Combatant target)
@@ -1097,7 +1111,7 @@ public class CombatController : MonoBehaviour
         }
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1.0f);
     }
 
     private IEnumerator PerformReplicate()
@@ -1115,7 +1129,7 @@ public class CombatController : MonoBehaviour
         ally.startPosition = ally.go.transform.position;
         player2Position.gameObject.SetActive(true);
         // Wait for animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
     }
 
     private IEnumerator PerformManabomb(Combatant user, Combatant target)
@@ -1136,7 +1150,7 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, false, true, 0, bonusDamage);
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformLaser(Combatant user, Combatant target)
     {
@@ -1148,7 +1162,7 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, false, true, 0, user.ch.level);
 
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformDoubleLaser(Combatant user, Combatant target)
     {
@@ -1162,7 +1176,7 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, false, true, 0, user.ch.level);
 
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformTripleEnergyball(Combatant user, Combatant target)
     {
@@ -1178,7 +1192,7 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, false, true, 0, 0);
 
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1.2f);
     }
     private IEnumerator PerformFireball(Combatant user, Combatant target)
     {
@@ -1193,12 +1207,12 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformThrowslash(Combatant user, Combatant target)
     {
         // shoot
-        user.animator?.SetTrigger("Throw");
+        user.animator?.SetTrigger("Throwslash");
         FXSystem.SpawnEffect(FXSystem.FxId.THROW_SLASH, user.go.transform.position, !user.ch.IsPlayerChar());
         // Wait for animation
         yield return new WaitForSeconds(0.2f);
@@ -1211,7 +1225,32 @@ public class CombatController : MonoBehaviour
         DealDamage(user, target, true, true, user.ch.level * 2, 0);
 
         // Wait for hurt animation
+        yield return new WaitForSeconds(0.8f);
+    }
+    private IEnumerator PerformLifesteal(Combatant user, Combatant target)
+    {
+        // shoot
+        user.animator?.SetTrigger("Lifesteal");
+        FXSystem.SpawnEffect(FXSystem.FxId.LIFESTEAL, user.go.transform.position, !user.ch.IsPlayerChar());
+        // Wait for animation
+        yield return new WaitForSeconds(0.8f);
+        user.animator?.SetTrigger("Idle");
+
+        // Wait for effect
         yield return new WaitForSeconds(0.4f);
+
+        // hit
+        int dmg = DealDamage(user, target, true, true, 0, 0);
+        // heal
+        int healamount = dmg;
+        Debug.Log(user.ch.name + " heals " + healamount);
+        user.ch.life += healamount;
+        if (user.ch.life > user.ch.maxlife) user.ch.life = user.ch.maxlife;
+        ShowDamageNumber(user.go.transform.position, -healamount, 0, false);
+        UpdateTexts();
+
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformWaspSting(Combatant user, Combatant target)
     {
@@ -1225,7 +1264,7 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
     }
     private IEnumerator PerformWaspLaser(Combatant user, Combatant target)
     {
@@ -1239,7 +1278,21 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("Idle");
         // Wait for hurt animation
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
+    }
+    private IEnumerator PerformChargedShot(Combatant user, Combatant target)
+    {
+        // start animation
+        user.animator?.SetTrigger("ChargedShot");
+        // Wait for attack animation
+        yield return new WaitForSeconds(1.5f);
+
+        DealDamage(user, target, false, true, 0, user.ch.level * 4);
+        yield return new WaitForSeconds(0.3f);
+
+        user.animator?.SetTrigger("Idle");
+        // Wait for hurt animation
+        yield return new WaitForSeconds(0.8f);
     }
 
     public void TestFunction()

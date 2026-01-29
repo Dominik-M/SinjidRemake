@@ -14,5 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage
   title: Dark Gateway
   currentLevel: 0
-  primaryEnemyPerStage: []
-  secondaryEnemyPerStage: []
+  primaryEnemyPerStage:
+  - {fileID: 11400000, guid: 3b1427347bf1dc4438a31aedb900a6bf, type: 2}
+  - {fileID: 11400000, guid: 1817ef075bf4c854db0e837470b18fa0, type: 2}
+  - {fileID: 11400000, guid: 0628b9e318632e2468da89e76507fb89, type: 2}
+  - {fileID: 11400000, guid: 0090a49173d7b8640ab1c93788a5522a, type: 2}
+  - {fileID: 11400000, guid: 9e0f53cff1bcf054da4b0e58be7e7021, type: 2}
+  secondaryEnemyPerStage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

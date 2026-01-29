@@ -31,7 +31,7 @@ MonoBehaviour:
   dex: 8
   magic: 6
   currentShieldHp: 0
-  weapon: {fileID: 11400000, guid: 778ee291921d080439bebaec244923e4, type: 2}
+  weapon: {fileID: 11400000, guid: 5a65c1814b1c82a49815973076204141, type: 2}
   shield: {fileID: 11400000, guid: e4183f7f4cf64dc4499083b2e90797fb, type: 2}
   suit: {fileID: 11400000, guid: 7825b32876dde4645abd8cafa57a1a47, type: 2}
   headgear: {fileID: 0}

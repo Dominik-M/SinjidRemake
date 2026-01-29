@@ -11,21 +11,12 @@ UI:
 - buy/sell/equip with kasten/dreieck
 
 Combat scene:
-- all other characters and prefabs
 - more sounds and effects
 
 
 Known Issues
 - some Animations buggy
 - buy herbs with negative money ?
-- weapon bonus mana 
-- effects not mirrored (shuriken, annihilate,...)
-- destroy shields
-- disable actions while end wait
 - normalize weapon image sizes
 
 Balancing:
-Seer too strong, nerv rods + heal. No normal attacks?
-Avenger overpowered
-Agent name
-Fire shot too strong

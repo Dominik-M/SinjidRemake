@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0485aa8abf9a5ef4bae345142d9e2d14, type: 3}
+  m_Name: Skeleton Mage
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  displayName: Skeleton Mage
+  icon: {fileID: 21300000, guid: b95e7c21b4803024aa529d869f2859b5, type: 3}
+  combatprefab: {fileID: 1182826583376627294, guid: 1f2f63c92b6791442b3f680c4fbe495e, type: 3}
+  life: 400
+  maxlife: 400
+  mana: 500
+  maxmana: 500
+  eng: 0
+  maxeng: 0
+  exp: 0
+  expNext: 400
+  gold: 200
+  level: 12
+  lifePotions: 0
+  manaPotions: 0
+  strength: 5
+  dex: 8
+  magic: 50
+  currentShieldHp: 0
+  weapon: {fileID: 11400000, guid: 332100c492831334da737fe74733a9d3, type: 2}
+  shield: {fileID: 11400000, guid: f3bcd360439909a4ebed5f3fc67d21b1, type: 2}
+  suit: {fileID: 11400000, guid: d7e2b1c908d2e32429db2896b50ed1a1, type: 2}
+  headgear: {fileID: 0}
+  moves: 140000000d0000001c000000

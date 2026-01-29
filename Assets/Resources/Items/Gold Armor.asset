@@ -18,12 +18,12 @@ MonoBehaviour:
   displayname: Gold Armor
   description: 
   value: 1200
-  strengthRequired: 14
+  strengthRequired: 28
   physDmg: 0
   magicDmg: 0
   shieldDmg: 0
-  physDef: 60
-  magicDef: 40
+  physDef: 80
+  magicDef: 60
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
