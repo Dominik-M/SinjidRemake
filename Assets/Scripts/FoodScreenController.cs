@@ -55,7 +55,7 @@ public class FoodScreenController : DefaultMenuButtonHandler
         maxeng.text = mn.ToString("F0");
         engbar.value = n / mn;
         // Gold
-        gold.text = "Gold: " + GameController.Gold;
+        gold.text = Localization.GetText(1296) + GameController.Gold;
     }
 
     public void OnButtonSelected(int idx)

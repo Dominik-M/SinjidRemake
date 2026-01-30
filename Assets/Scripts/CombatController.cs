@@ -85,6 +85,8 @@ public class CombatController : MonoBehaviour
     private static Combatant player, ally, enemy1, enemy2, target;
     private static Stage currentStage;
 
+    public static Stage CurrentStage { get => currentStage; }
+
     public bool IsAnimating
     {
         get => isAnimating; set
@@ -220,7 +222,7 @@ public class CombatController : MonoBehaviour
         lifepotionstext.text = GameController.LifePotions.ToString();
         manapotionstext.text = GameController.ManaPotions.ToString();
         trainingInfo.SetActive(isTraining);
-        expGain.text = "EXP earned: " + trainingXp;
+        expGain.text = Localization.GetText(2133) + trainingXp;
         currentEng.text = GameController.Eng.ToString("F0");
         engBar.value = GameController.Eng / GameController.MaxEng;
     }

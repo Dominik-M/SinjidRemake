@@ -35,7 +35,7 @@ public class PotionScreenController : DefaultMenuButtonHandler
         maxmana.text = mn.ToString("F0");
         manabar.value = n / mn;
         // Gold
-        gold.text = "Gold: " + GameController.Gold;
+        gold.text = Localization.GetText(1296) + GameController.Gold;
         // Potions
         currentLifepotions.text = GameController.LifePotions.ToString();
         currentManapotions.text = GameController.ManaPotions.ToString();

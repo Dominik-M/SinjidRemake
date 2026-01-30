@@ -47,14 +47,14 @@ public class RestScreenController : DefaultMenuButtonHandler
         // Stats
         playericon.sprite = GameController.PlayerChar.icon;
         level.text = "Level: "+GameController.Level;
-        mClass.text = GameController.MyClass.ToString();
-        gold.text = "Gold: "+GameController.Gold.ToString();
+        mClass.text = GameController.MyClassname;
+        gold.text = Localization.GetText(1296) + GameController.Gold.ToString();
         lifepotions.text = "x " + GameController.LifePotions;
         manapotions.text = "x " + GameController.ManaPotions;
-        physDmg.text = "Physical   Damage:    " + GameController.GetPhysDmg();
-        physDef.text = "Physical   Defence:    " + GameController.GetPhysDef();
-        magicDmg.text = "Magical   Damage:    " + GameController.GetMagicDmg();
-        magicDef.text = "Magical   Defence:    " + GameController.GetMagicDef();
+        physDmg.text = Localization.GetText(1334) + GameController.GetPhysDmg();
+        physDef.text = Localization.GetText(1336) + GameController.GetPhysDef();
+        magicDmg.text = Localization.GetText(1335) + GameController.GetMagicDmg();
+        magicDef.text = Localization.GetText(1337) + GameController.GetMagicDef();
         strength.text = GameController.Strength.ToString();
         dex.text = GameController.Dex.ToString();
         magic.text = GameController.Magic.ToString();

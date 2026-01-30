@@ -1,0 +1,477 @@
+Loading texts for language EN
+
+1000: id= 1000 content= Item explination, blah,blah
+1004: id= 1004 content= Weapon
+1005: id= 1005 content= Head Gear
+1006: id= 1006 content= Armour
+1007: id= 1007 content= Shield
+1008: id= 1008 content= Your Gold:
+1009: id= 1009 content= 0
+1011: id= 1011 content= Sell 
+Item
+1012: id= 1012 content= Place unwanted items in 
+this box to sell them.
+1014: id= 1014 content= Accepted Items:
+--- RECORDSEPARATOR ---
+Weapons, Shields, Suit, Helmet
+1015: id= 1015 content= Current Strength:
+1016: id= 1016 content= 000
+1017: id= 1017 content= 30
+1018: id= 1018 content= 60
+1019: id= 1019 content= 90
+102: id= 102 content= loading
+1020: id= 1020 content= 15
+1021: id= 1021 content= 40
+1022: id= 1022 content= 10
+1023: id= 1023 content= 100
+1034: id= 1034 content= Basic Items
+1035: id= 1035 content= Items 
+1036: id= 1036 content= 120
+1038: id= 1038 content= 150
+1039: id= 1039 content= 200
+1040: id= 1040 content= 330
+1041: id= 1041 content= 400
+1051: id= 1051 content= Clothing
+1052: id= 1052 content= 170
+1053: id= 1053 content= 350
+106: id= 106 content= It was dark, as dark as night could be. Somewhere, nearby, the smell of burning timber and thatch gave the air a sort of pleasant stench, that and of course the smell of blood. The mighty warlord, Lord Baka, high above on a cliff, gazed down upon the tiny village. He had ordered his soldiers to leave no survivors. Should Lord Baka be a normal man, he would have already been consumed with his guilt. But yet, he felt no shame, no remorse, no pity. Many innocent lives have been ended by his order, why should it change? He turned around and walked back to his tent. 
+Below, a warrior fought his way to the exit of the little village. Upon reaching the gate, he was confronted by no less than six adversaries. They attempted to surround him, but this was what he was waiting for, and with one 360 degree horizontal slash, he hacked them aside with his sword. The warrior continued running into the bamboo forest. His name was Fujin. Soon he came to a clearing. Another man was standing there.
+Hattori, the legendary guardian of the lands, was awaiting Fujin. After handing his young son to Fujin, and explaining the situation, he grabbed his sword and runs off towards to village, never to be seen by Fujin nor his son, Sinjid, ever again. 
+1060: id= 1060 content= Advanced Items
+1061: id= 1061 content= 700
+1062: id= 1062 content= 220
+1063: id= 1063 content= 800
+1064: id= 1064 content= 210
+1065: id= 1065 content= 560
+1066: id= 1066 content= 600
+1074: id= 1074 content= Shadow Items
+1075: id= 1075 content= 1000
+1076: id= 1076 content= 1500
+1082: id= 1082 content= Ultimate Items
+1083: id= 1083 content= 1100
+1084: id= 1084 content= 900
+1085: id= 1085 content= 1600
+1091: id= 1091 content= 980
+110: id= 110 content= Introduction:
+1101: id= 1101 content= Place a bottle of 
+medicine into this box to 
+sell it.
+1106: id= 1106 content= Want to make some quick money? I'm very 
+busy right now, but I need you to do a job for 
+me. 
+Take some 
+white leaves 
+to the lady upstairs. 
+She will make a medicine for you. I'll buy that 
+medicine for 
+3 gold
+.
+1107: id= 1107 content= Take as many leaves as you want, and you can 
+always come back for more.
+1108: id= 1108 content= Item 
+Bin
+1115: id= 1115 content= Blacksmith
+1116: id= 1116 content= 50
+1130: id= 1130 content= Sell unwanted items. 
+Required items cannot 
+be sold. Sold items 
+cannot be bought back.
+1176: id= 1176 content= Skill Points:
+1178: id= 1178 content= Level:
+1181: id= 1181 content= Put mouse over a
+ Skill
+ for 
+its explination
+1182: id= 1182 content= Stab
+1183: id= 1183 content= Requires 15 Mana
+1184: id= 1184 content= Attack the enemy with a 
+powerful stab that deals 
+extra damage.
+1185: id= 1185 content= Currently:
+1187: id= 1187 content= Extra Damage
+1188: id= 1188 content= Next Level:
+1190: id= 1190 content= Shurikens
+1191: id= 1191 content= Requires 20 Mana
+1192: id= 1192 content= Throws deadly shurikens at 
+the enemy. Stacks with 
+weapon magical damage.
+1194: id= 1194 content= Magical Damage
+1196: id= 1196 content= Double Strike
+1197: id= 1197 content= Strikes the enemy twice, 
+dealing a percentage 
+damage of original attack.
+1200: id= 1200 content= Speed Strike
+1201: id= 1201 content= A fast and accurate charge 
+that deals extra damage 
+based on speed. 
+1204: id= 1204 content= Energy Shot
+1205: id= 1205 content= Requires 25 Mana
+1206: id= 1206 content= Fires a ball of energy at the 
+enemy. Stacks with weapon 
+magical damage.
+1209: id= 1209 content= Blast Fire
+1210: id= 1210 content= Fire shots of flame twice at 
+both enemies. Stacks with 
+1212: id= 1212 content= Magical Damage 
+1214: id= 1214 content= Vertical Strike
+1215: id= 1215 content= A powerful slash that 
+damages the enemy based 
+on strength. However, 
+accuracy is decreased a 
+little.
+1217: id= 1217 content= Extra Strength Damage
+1219: id= 1219 content= Shadow Blend
+1220: id= 1220 content= Passive
+1221: id= 1221 content= Increases speed in battle.
+1223: id= 1223 content= Speed Increased
+1225: id= 1225 content= Energy Field
+1226: id= 1226 content= Increases the damage of 
+magical attacks in battle.
+1228: id= 1228 content= Damage Increased
+1230: id= 1230 content= Charge
+1231: id= 1231 content= Requires 0 Mana
+1232: id= 1232 content= Recovers Mana.
+1234: id= 1234 content= Mana Recovered
+1236: id= 1236 content= Inner Strength
+1240: id= 1240 content= Mana Bomb
+1241: id= 1241 content= Requires 1 Mana
+1242: id= 1242 content= A very powerful move that 
+discharges all remaining 
+mana against the enemy. 
+1245: id= 1245 content= Heal
+1246: id= 1246 content= Recovers health.
+1248: id= 1248 content= Percentage of life healed
+1250: id= 1250 content= Avenger
+1251: id= 1251 content= A stab for revenge, that 
+damages the enemy 
+depending on how much life 
+has been lost.
+1253: id= 1253 content= Damage
+1255: id= 1255 content= Split
+1256: id= 1256 content= Slices the enemy, doing a 
+percentage damage of thier 
+remaining health.
+1259: id= 1259 content= Shadow Strike
+1260: id= 1260 content= Requires 40 Mana
+1261: id= 1261 content= A dark attack that cannot be 
+dodged. Stacks with weapon 
+1264: id= 1264 content= Annihilate
+1265: id= 1265 content= Requires 60 Mana
+1266: id= 1266 content= A devestating move that 
+blasts the enemy 3 times. 
+Stacks with weapon magical 
+damage.
+1269: id= 1269 content= Execution
+1270: id= 1270 content= Requires 70 Mana
+1271: id= 1271 content= The ultimate physical attack 
+that hits the enemy four 
+times, dealing a percentage 
+of the initial damage.
+1274: id= 1274 content= Shadow Replicate
+1275: id= 1275 content= Requires 100 Mana
+1276: id= 1276 content= Makes a shadow copy of 
+yourself to fight alongside 
+you. Shadow damage, life, 
+and speed increases with 
+each level.
+1278: id= 1278 content= Shadow Life
+1281: id= 1281 content= Upgrading Skill...
+1287: id= 1287 content= Lvl. 
+5
+1289: id= 1289 content= Lvl.
+ 15
+1296: id= 1296 content= GOLD:
+1300: id= 1300 content= Cost:
+1301: id= 1301 content= Energy:
+1302: id= 1302 content= Life:
+1303: id= 1303 content= Mana:
+1304: id= 1304 content= -
+1327: id= 1327 content= Save Game
+1328: id= 1328 content= Rests Remaining:
+1330: id= 1330 content= Rest
+1331: id= 1331 content= Saves the game.
+1334: id= 1334 content= Physical Dmg:
+1335: id= 1335 content= Magical Dmg:
+1336: id= 1336 content= Physical Def:
+1337: id= 1337 content= Magical Def:
+1338: id= 1338 content= Strength:
+1339: id= 1339 content= Speed:
+1340: id= 1340 content= Max Mana:
+1348: id= 1348 content= Max Life:
+1352: id= 1352 content= Player Name
+1354: id= 1354 content= Completely fills up mana, life, and 
+energy.
+1356: id= 1356 content= Saving Game...
+1357: id= 1357 content= Game Saved
+1363: id= 1363 content= Fighting Guide
+1364: id= 1364 content= The Dark Rift
+1367: id= 1367 content= Mendo's Discovery
+1368: id= 1368 content= Shadow Wolves
+1370: id= 1370 content= Book Shelf
+1372: id= 1372 content= Book
+
+
+1375: id= 1375 content= Welcome to the temple. You are wise to come and read this guide. Those who ignore the power of knowledge will likely not last as long as the ones prepared.
+There are many ways to combat an enemy. Bash them with pure strength, blast them with mystical energy, charge at them with considerable speed...  the list goes on.
+First, you will need to know what each attribute does. Strength gives you more physical damage, and the power to carry stronger equipment. Speed will give you evasion and accuracy. The faster you are, the less chances you have of getting hit. If you are faster than the enemy, then you will get to attack first when a battle starts.
+Some enemies have items that you cannot buy. Once you defeat them, you will have a chance to obtain these items, but only if you have at least one inventory slot open. So it is wise to spare some space in your inventory everytime you enter a fight,
+The moves you should use also depends on the type of fighter you are. If you are a Warrior, then powerful physical attacks are the right choice. Spellcasters should use magic to vanquish their enemies. Shadow ninjas should utilize their great speed to a maximum extent. Balanced fighters have a freedom of choice, but since they are 'balanced,' it will be difficult to focus on a primary attribute, which will make them weaker in the long run than attribute-based heroes.
+Most skills have interlocking links to other skills, and attributes. Leveling up the skills that support each other can make you very powerful. Once you work out the right combination, the path to victory lays clear. 
+
+
+1377: id= 1377 content= The Dark Rift is the final and hardest portal in the temple. Enemies in there have special moves and attributes. Very few have managed to live through the battles, but those who returned told many things of what they had experienced while in there.
+Some say they faced a physically very powerful enemy, who seemed to be made of liquid metal, and dealt great damage with a single strike.
+Others came face to face with a strange spiritual being, which had a powerful, magical force field around it. Its attack is purely magic, and deals great damage.
+The other three enemies in there remain unknown, since the ones who survived them never told the outside anything about the nightmares they faced.
+
+
+1379: id= 1379 content= Mendo Tansuki was a fisherman. He would go into the ocean to fish, but one particular day, when he was striding along the coastline, he found a small old ring washed up on the shore. He was poor, so he kept it.
+As the days passed by, he tried several times to sell it, but it was such a priceless ring, nobody wanted to buy it. But one night, as he was strolling within his village in the bare moonlight, groups of raiders invaded the village. In fear, he began to flee, but then suddenly, he felt a strong spiritual energy surge in his body, which seemed to be channeled by the ring.
+When the sun rose the next day, all the raiders had already fallen to Mendo's newly found strength. He became a well-respected man for a few years, but then his power started to fade. He tried what he can to bring it back, but the ring didn't seem to work anymore.
+Angrily, he cast it back into the sea where it belongs.
+Many have tried to figure out what triggered the power of the ring, but no one has yet succeeded.
+A few years later, an anonymous  scroll was found. It seemed to be related to Mendo's ring. The writing on the scroll read:
+"To unravel the secret of the ancient relic, look into the celestial body that alters the tides on a clear night." 
+
+
+1381: id= 1381 content= Have you ever had the feeling that something is watching you when having to go outside to relieve yourself? Then you might want to know about shadow wolves, the rare and mysterious creatures that have been known as a sign or omen of an event. First of all, you might want to know what a shadow wolf is. A shadow wolf originates from the northern province of Obakeland, a sinister place for one to travel, for one rarely returns from such a evil place, and when one does, one is no longer alone. Though through one way or another, a shadow wolf may venture beyond the border of that blasted realm, many have been sighted, some near forest lakes and mountain glades and even some near major settlements. 
+Half ethereal and half animal, this species have mystical powers. Their powers include shifting in and out of reality and their surprisingly cunning minds; this makes them harder to catch than killing flies with a needle. 
+Though some do succeed in capturing one, they are known to be unable to be trained. Sighting one of these creatures is known to give knowledge about a future event. None except one man has been able to befriend and tame these ethereal creatures. One man, named Kajind Kazaka, the feral waker of the south.
+1382: id= 1382 content= Shadow  Wolves
+1393: id= 1393 content= Currently Have:
+1396: id= 1396 content= Buy 
+LIFE POTION 
+25
+1399: id= 1399 content= heals 80 life points
+1400: id= 1400 content= heals 80 mana points
+141: id= 141 content= An RPG game by InfraRift
+1413: id= 1413 content= Life Heal
+1415: id= 1415 content= Mana Heal
+1416: id= 1416 content= 5
+1417: id= 1417 content=  Heal All
+1418: id= 1418 content= 20
+1419: id= 1419 content= Restoration
+142: id= 142 content= Krin, Joan, and Galiant
+1421: id= 1421 content= Recovers 
+40 life
+1437: id= 1437 content= Training
+1439: id= 1439 content= Basic Training
+144: id= 144 content= Copyright © 2004-2005 InfraRift
+1440: id= 1440 content= Energy Required: 2 per hit
+1441: id= 1441 content= EXP Recieved: 3 per Hit
+1443: id= 1443 content= Energy Required: 3 per hit
+1444: id= 1444 content= EXP Recieved: 5 per hit
+1445: id= 1445 content= Advanced Training
+1446: id= 1446 content= Energy Required: 10 per hit
+1447: id= 1447 content= EXP Recieved: 20 per hit
+1448: id= 1448 content= EASY
+1449: id= 1449 content= MEDIUM
+1450: id= 1450 content= HARD
+1451: id= 1451 content= Choose one of the training 
+options. Each hit reduces 
+energy, but increases your 
+EXP.
+You will fight an immobile 
+ward that is capable of 
+casting certain spells.
+It get stronger depending on 
+the type of training you 
+choose.
+Hitting the enemy when its 
+shield is down gains you 
+double the EXP rate.
+1452: id= 1452 content= GO
+1456: id= 1456 content= Suggested Level: 5 and up
+1457: id= 1457 content= Suggested Level: 10 and up
+1459: id= 1459 content=  Restart Game || Toggle Quality
+1460: id= 1460 content= infrarift.net
+1477: id= 1477 content= g
+h
+f
+d
+t
+m
+y
+1480: id= 1480 content= s
+p
+b
+k
+r
+e
+s
+1492: id= 1492 content= p
+a
+n
+c
+i
+w
+1495: id= 1495 content= a
+j
+v
+152: id= 152 content= Play
+162: id= 162 content= infra
+RIFT
+entertainment
+presents...
+1764: id= 1764 content= Skills
+182: id= 182 content= SKIP
+1915: id= 1915 content= 75
+1928: id= 1928 content= Shadow
+1929: id= 1929 content= Sinjid
+1930: id= 1930 content= Other thing
+1931: id= 1931 content= Wasp
+1932: id= 1932 content= Attack
+1933: id= 1933 content= Life P.
+1934: id= 1934 content= Mana P.
+1937: id= 1937 content= Mana
+1984: id= 1984 content= ...Please Wait...
+1985: id= 1985 content= ...Please Wait..
+2131: id= 2131 content= End Training
+2133: id= 2133 content= EXP earned:
+2134: id= 2134 content= 0000
+2153: id= 2153 content= VICTORY
+2157: id= 2157 content= Experience Gained:
+2158: id= 2158 content= Gold Recieved:
+2159: id= 2159 content= Total Gold:
+2166: id= 2166 content= Continue
+2171: id= 2171 content= New item obtained!
+2173: id= 2173 content= Strength +2
+2174: id= 2174 content= Speed +2
++Bonus Skill Point
+2179: id= 2179 content= Level Up!
+2182: id= 2182 content= MaxLife +5
+2183: id= 2183 content= MaxMana +5
+2184: id= 2184 content= MaxEnergy +3
+2187: id= 2187 content= Choose attribute you wish to increase
+2188: id= 2188 content= Strength
+2189: id= 2189 content= Speed
+2190: id= 2190 content= Max Mana
+2194: id= 2194 content= Max Life
+2247: id= 2247 content= Load Game
+2248: id= 2248 content= Retry
+2249: id= 2249 content= Main Menu
+2251: id= 2251 content= DEFEAT
+2256: id= 2256 content= Save the game? 
+2260: id= 2260 content= Proceed
+2262: id= 2262 content= Sinjid left the arena, tired, but proud that he had finally fullfilled his master's will.
+But upon returning to his master's house, Fujin was gone. All that was left was a letter. It read:
+Sinjid,
+I have left the safe boundaries of the mountain to seek out an old friend, who lives far by the northern coastline. A Fallen Army, which was once driven away by our forces, has now regrouped and is starting to strike from the south. You are to defend the highlands. The tall trees here will provide excellent cover. At the misty peak of this mountain, I have arranged for the great one to meet with you. Seek him out.
+-Fujin
+2263: id= 2263 content= Conclusion:
+2270: id= 2270 content= Sinjid: 
+Shadow of the Warrior
+2271: id= 2271 content= presented by Infra
+Rift
+2284: id= 2284 content= Producer/Animation/Programmer/Music
+2285: id= 2285 content= Krin
+2301: id= 2301 content= Artwork
+2302: id= 2302 content= Joan
+2304: id= 2304 content= Story Board
+2305: id= 2305 content= Sucky Sausage
+2306: id= 2306 content= Galiant
+2309: id= 2309 content= ...And so he  journeys towards the peak
+2310: id= 2310 content= The end.
+2311: id= 2311 content= Restart
+2312: id= 2312 content= Go to
+ 
+Infra
+.net
+:
+2313: id= 2313 content= -Hear news about our upcoming games
+2314: id= 2314 content= -Talk about stuff in the forums
+2315: id= 2315 content= What now?
+2317: id= 2317 content= -Learn Flash from our tutorials
+2318: id= 2318 content= -Play our exclusive minigames
+2319: id= 2319 content= ...why? Because you can:
+2320: id= 2320 content= So what are you waiting for? 
+Go.
+2321: id= 2321 content= Or you can try beat the other two portals if you haven't yet:
+245: id= 245 content= Sorry I'm late... I had to fight my way out of the town...
+248: id= 248 content= *Shh* The child's sleeping!
+252: id= 252 content= What? Why did you bring Sinjid here?
+253: id= 253 content= With a massive war behind us... He will surely die back there...
+254: id= 254 content= ...come here and take him
+261: id= 261 content= Why? What's going on?
+273: id= 273 content= I need you to take him into 
+the mountains where he will be safe.
+283: id= 283 content= Teach him the ways of the shadow
+288: id= 288 content= He must survive in this world destined to die
+298: id= 298 content= As for me...I must go back to rejoin the battle
+307: id= 307 content= ...what?
+310: id= 310 content= There is no hope left in the war...
+311: id= 311 content= You won't see your son ever again...
+327: id= 327 content= ........
+333: id= 333 content= True...But if I can force the enemy away from the mountains...
+341: id= 341 content= Then so be it. You and Sinjid will be safe.
+365: id= 365 content= Until next time we meet...old friend
+370: id= 370 content= Shadow of the Warrior
+469: id= 469 content= Start Game
+471: id= 471 content= Options
+473: id= 473 content= View Intro
+475: id= 475 content= Gameplay graphics:
+476: id= 476 content= Sound:
+486: id= 486 content= The Temple of Shadow
+
+
+
+
+
+488: id= 488 content= Choose your Character Class:
+489: id= 489 content= Balanced
+490: id= 490 content= A balanced character that is 
+balanced both physically and 
+magically. 
+491: id= 491 content= Spell Caster
+492: id= 492 content= Spell Casters are very powerful with 
+magic and can cast destructive 
+spells on the enemy. However, weak 
+in physical attributes.
+493: id= 493 content= Warrior
+494: id= 494 content= A very physically powerful character, 
+able to inflict heavy physical damage 
+and withstand many attacks. 
+However, slow, and weak in magic.
+495: id= 495 content= Shadow Ninja
+496: id= 496 content= Stealthy assasin. Swift and very fast, 
+able to dodge many attacks with 
+such a high amount of speed, but 
+weak in strength.
+497: id= 497 content= Starting Skill:
+505: id= 505 content= Your stats will differ greatly depending on the class you select.
+
+
+
+
+
+520: id= 520 content= Inventory
+527: id= 527 content= LIFE
+531: id= 531 content= MANA
+534: id= 534 content= EXP
+535: id= 535 content= x
+538: id= 538 content= Level
+551: id= 551 content= Life Potion
+556: id= 556 content= ENG
+620: id= 620 content= Mana Potion
+925: id= 925 content= SPEAKER
+926: id= 926 content= Text
+928: id= 928 content= Continue (Press Space) 
+933: id= 933 content= Objectives
+942: id= 942 content= EXIT
+963: id= 963 content= Equipment
+968: id= 968 content= Put unwanted items into the Item Bin. 
+Required items cannot be dumped. 
+Deleted Items cannot be recovered
+969: id= 969 content= Current Player Stats:
+984: id= 984 content= Put the mouse over any 
+item for explination
+988: id= 988 content= Item Name
+989: id= 989 content= Item Type
+990: id= 990 content= Stat Name1
+991: id= 991 content= Stat Name2
+992: id= 992 content= Stat Name3
+993: id= 993 content= Stat Name4
+998: id= 998 content= Strength Required to Carry:
+Found 312 texts
+Localization:Init () (at Assets/Scripts/Localization.cs:46)
+Loading texts for language DE

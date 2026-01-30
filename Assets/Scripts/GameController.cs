@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject infoDialog;
     [SerializeField] private Text infoDialogTitle, infoDialogMessage;
     [SerializeField] private Text lifepotionstext, manapotionstext;
+    [SerializeField] private Text stageTitle, stageLevel;
+    [SerializeField] private GameObject combatIntroScreen;
     [SerializeField] private SimpleTouchPad touchPad;
 
     [Header("Minimap")]
@@ -55,6 +57,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         instance = this;
+        combatIntroScreen.SetActive(false);
         if (!resourcesLoaded)
         {
             LoadResources();
@@ -283,8 +286,7 @@ public class GameController : MonoBehaviour
                     ShowInfoDialog("Info", "You finished this stage.");
                 else
                 {
-                    CombatController.InitCombat(humangatewaystage);
-                    StartCombat();
+                    StartCombat(humangatewaystage);
                 }
                 break;
             case InteractionID.HGATE_NPC1:
@@ -399,8 +401,7 @@ public class GameController : MonoBehaviour
                     ShowInfoDialog("Info", "You finished this stage.");
                 else
                 {
-                    CombatController.InitCombat(monstergatewaystage);
-                    StartCombat();
+                    StartCombat(monstergatewaystage);
                 }
                 break;
             case InteractionID.MGATE_NPC1:// merchant
@@ -477,8 +478,7 @@ public class GameController : MonoBehaviour
                     ShowInfoDialog("Info", "You finished this stage.");
                 else
                 {
-                    CombatController.InitCombat(darkgatestage);
-                    StartCombat();
+                    StartCombat(darkgatestage);
                 }
                 break;
             case InteractionID.END_EXIT:
@@ -789,6 +789,26 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public static string MyClassname
+    {
+        get
+        {
+            switch (mClass)
+            {
+                case CharacterClass.Balanced:
+                    return Localization.GetText(489);
+                case CharacterClass.Warrior:
+                    return Localization.GetText(493);
+                case CharacterClass.Spellcaster:
+                    return Localization.GetText(491);
+                case CharacterClass.Ninja:
+                    return Localization.GetText(495);
+                default:
+                    return "INVALID";
+            }
+        }
+    }
+
     public static int Gold
     {
         get => playerchar.gold; set
@@ -1029,15 +1049,29 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    private static void StartCombat()
+    public void LoadCombatScene()
     {
         SceneManager.LoadScene(2);
+    }
+
+    private static void SwitchToCombatScene()
+    {
+        Instance.stageTitle.text = CombatController.CurrentStage.title;
+        Instance.stageLevel.text = "Level " + (CombatController.CurrentStage.currentLevel + 1);
+        Instance.combatIntroScreen.SetActive(true);
+        Instance.Invoke(nameof(LoadCombatScene), 0.1f);
+    }
+
+    private static void StartCombat(Stage stage)
+    {
+        CombatController.InitCombat(stage);
+        SwitchToCombatScene();
     }
 
     public static void StartTraining(int level)
     {
         CombatController.InitTraining(level);
-        StartCombat();
+        SwitchToCombatScene();
     }
 
     public static void CloseMenu()
@@ -1056,6 +1090,7 @@ public class GameController : MonoBehaviour
     private static void LoadResources()
     {
         Debug.Log("LoadResources()");
+
         humangatewaystage = Resources.Load<Stage>("Stages/Human");
         monstergatewaystage = Resources.Load<Stage>("Stages/Monster");
         darkgatestage = Resources.Load<Stage>("Stages/Dark");
@@ -1071,6 +1106,7 @@ public class GameController : MonoBehaviour
         shopItemsNinja = Resources.Load<ItemContainer>("Items/Container/shopItemsNinja");
 
         playerchar = Resources.Load<Character>("Character/Player");
+
 
         resourcesLoaded = true;
     }

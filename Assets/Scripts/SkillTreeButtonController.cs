@@ -37,13 +37,13 @@ public class SkillTreeButtonController : MonoBehaviour
         effectValueNext.text = skill.GetNextLevelValueDescription();
         if (skill.passive)
         {
-            manacost.text = "Passive";
+            manacost.text = Localization.GetText(1220);
             manacost.color = Color.green;
             effectTitle.color = Color.green;
         }
         else
         {
-            manacost.text = "Requires " + skill.manacost +" Mana";
+            manacost.text = Localization.GetText(1183) + skill.manacost + " " +Localization.GetText(1937);
             manacost.color = Color.cyan;
             effectTitle.color = Color.orange;
         }

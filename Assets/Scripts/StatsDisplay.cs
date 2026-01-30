@@ -19,7 +19,7 @@ public class StatsDisplay : MonoBehaviour
         if (level)
             level.text = "Level "+GameController.Level.ToString();
         if (characterclass)
-            characterclass.text = GameController.MyClass.ToString();
+            characterclass.text = GameController.MyClassname;
         if (physdmg)
             physdmg.text = "Physical   Damage:    " + GameController.GetPhysDmg();
         if (physdef)

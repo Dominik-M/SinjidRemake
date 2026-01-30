@@ -5,10 +5,10 @@ public class MainMenuController : MonoBehaviour
 {
     public enum Frame
     {
-        WELCOME, MAIN, START, CHOOSE
+        WELCOME, MAIN, START, CHOOSE, LOADING
     }
 
-    public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, optionsFrame;
+    public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, optionsFrame, loadingScreen;
     public Text versionNumber;
 
     private Frame currentFrame;
@@ -22,12 +22,14 @@ public class MainMenuController : MonoBehaviour
             mainMenuFrame.SetActive(currentFrame == Frame.MAIN);
             startFrame.SetActive(currentFrame == Frame.START);
             chooseCharacterFrame.SetActive(currentFrame == Frame.CHOOSE);
+            loadingScreen.SetActive(currentFrame == Frame.LOADING);
         }
     }
 
 
     void Start()
     {
+        Localization.Init();
         CurrentFrame = Frame.WELCOME;
         versionNumber.text = "v"+Application.version;
     }
@@ -64,8 +66,14 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("OnChooseButton");
         CharacterClass chosen = (CharacterClass)idx;
-        GameController.LoadWorldScene();
+        Invoke(nameof(LoadWorldScene), 0.1f); // Delay the scene switch to show loading screen before
         GameController.InitCharacter(chosen);
+        CurrentFrame = Frame.LOADING;
+    }
+
+    private void LoadWorldScene()
+    {
+        GameController.LoadWorldScene();
     }
 
     public void OnToggleOptions()
@@ -78,5 +86,11 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("OnClearData");
         PlayerPrefs.DeleteAll();
+    }
+
+    public void OnViewIntro()
+    {
+        Debug.Log("OnViewIntro");
+        CurrentFrame = Frame.WELCOME;
     }
 }

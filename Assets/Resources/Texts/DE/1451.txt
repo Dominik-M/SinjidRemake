@@ -1,0 +1,9 @@
+Wähle ein Training.
+Jeder Angriff kostet Energie,
+aber bringt Ehrfahrungspunkte.
+
+Du kämpfst gegen ein unbewegliches Ziel, das bestimmte Magische Angriffe ausführen kann.
+
+Es wird schwieriger abhängig vom Level des Trainings, das du wählst.
+
+Triffst du den Gegner, wenn der Schild gebrochen ist, erhälst du doppelte EXP.

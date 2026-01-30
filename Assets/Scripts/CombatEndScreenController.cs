@@ -30,7 +30,7 @@ public class CombatEndScreenController : MonoBehaviour
         victoryButtons.SetActive(!defeat);
         if (!defeat)
         {
-            title.text = "VICTORY";
+            title.text = Localization.GetText(2153);
             itemdropMessage.SetActive(drop != null);
             StartCoroutine(EarnGoldAndXP(goldgained, xpgained));
             if (drop != null)
@@ -47,7 +47,7 @@ public class CombatEndScreenController : MonoBehaviour
         }
         else
         {
-            title.text = "DEFEAT";
+            title.text = Localization.GetText(2251);
         }
     }
 
@@ -129,7 +129,7 @@ public class CombatEndScreenController : MonoBehaviour
         float nextxp = GameController.ExpNext;
 
         // initial values
-        expgained.text = "Experience Gained: " + xp;
+        expgained.text = Localization.GetText(2157) + xp;
         currentexp.text = currentxp.ToString("F0") + " / ";
         nextexp.text = nextxp.ToString("F0");
         expBar.value = currentxp / nextxp;
@@ -160,7 +160,7 @@ public class CombatEndScreenController : MonoBehaviour
             currentxp++;
             yield return null;
 
-            expgained.text = "Experience Gained: " + xp;
+            expgained.text = Localization.GetText(2157) + xp;
             currentexp.text = currentxp.ToString("F0") + " / ";
             nextexp.text = nextxp.ToString("F0");
             expBar.value = currentxp / nextxp;

@@ -1,0 +1,5 @@
+Put unwanted items into the Item Bin. 
+--- RECORDSEPARATOR ---
+Required items cannot be dumped. 
+--- RECORDSEPARATOR ---
+Deleted Items cannot be recovered

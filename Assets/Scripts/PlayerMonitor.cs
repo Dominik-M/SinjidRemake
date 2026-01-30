@@ -53,7 +53,7 @@ public class PlayerMonitor : MonoBehaviour
         if (charname)
             charname.text = GameController.PlayerChar.displayName;
         if (classname)
-            classname.text = GameController.MyClass.ToString();
+            classname.text = GameController.MyClassname;
         if (playericon)
             playericon.sprite = GameController.PlayerChar.icon;
         if (gold)
