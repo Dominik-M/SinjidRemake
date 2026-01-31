@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 573120855420803755}
   - component: {fileID: 785912776705780756}
   - component: {fileID: 125244958909422590}
+  - component: {fileID: 950053386466622575}
   m_Layer: 5
   m_Name: message
   m_TagString: Untagged
@@ -260,6 +261,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Game Saved.
+--- !u!114 &950053386466622575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398993373991176914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062e9de79de3d354997ed7feeec9c206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  id: 1357
+  listenOnChange: 0
 --- !u!1 &8152772607296285241
 GameObject:
   m_ObjectHideFlags: 0

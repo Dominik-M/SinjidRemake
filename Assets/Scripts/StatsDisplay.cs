@@ -21,13 +21,13 @@ public class StatsDisplay : MonoBehaviour
         if (characterclass)
             characterclass.text = GameController.MyClassname;
         if (physdmg)
-            physdmg.text = "Physical   Damage:    " + GameController.GetPhysDmg();
+            physdmg.text = "" + GameController.GetPhysDmg();
         if (physdef)
-            physdef.text = "Physical   Defence:    " + GameController.GetPhysDef();
+            physdef.text = "" + GameController.GetPhysDef();
         if (magicdmg)
-            magicdmg.text = "Magical   Damage:    " + GameController.GetMagicDmg();
+            magicdmg.text = "" + GameController.GetMagicDmg();
         if (magicdef)
-            magicdef.text = "Magical   Defence:    " + GameController.GetMagicDef();
+            magicdef.text = "" + GameController.GetMagicDef();
         if (strength)
             strength.text = GameController.Strength.ToString();
         if (dex)

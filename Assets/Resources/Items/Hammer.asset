@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: Assembly-CSharp::Item
   type: 0
-  icon: {fileID: 21300000, guid: b616d2c37b9d9064b9956f74f8cd7bc3, type: 3}
+  icon: {fileID: 21300000, guid: bc223c91daee9bb4b9a3dd0875b8f0d5, type: 3}
   battleSprite: {fileID: 21300000, guid: b616d2c37b9d9064b9956f74f8cd7bc3, type: 3}
   displayname: Shield Breaker
   description: 

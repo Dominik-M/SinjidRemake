@@ -1,0 +1,5 @@
+A fast and accurate charge 
+--- RECORDSEPARATOR ---
+that deals extra damage 
+--- RECORDSEPARATOR ---
+based on speed. 

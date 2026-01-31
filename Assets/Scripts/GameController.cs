@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject herbguyScreen;
     [SerializeField] private GameObject gambleScreen;
     [SerializeField] private GameObject trainingScreen;
+    [SerializeField] private GameObject bookshelfScreen;
     [SerializeField] private GameObject endScreen;
 
     [Header("UI Elements")]
@@ -380,7 +381,7 @@ public class GameController : MonoBehaviour
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
                 break;
             case InteractionID.LIBRARY_BOOKS:
-                ShowInfoDialog("Books", "There is a lot of meaningless stuff to read here.");
+                OpenMenu(bookshelfScreen);
                 break;
             case InteractionID.SECRET:
                 // Ring in inventory?

@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class Localization : MonoBehaviour
+public class Localization
 {
     [Header("Log all available original text resources")]
-    private static readonly bool debugLog = true;
+    private static readonly bool debugLog = false;
 
     public static event Action OnLanguageChanged;
     public enum Language

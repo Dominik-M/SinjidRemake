@@ -69,10 +69,10 @@ public class FoodScreenController : DefaultMenuButtonHandler
         switch (idx)
         {
             case 0:
-                BuyFood(5, 20, 5, 5);
+                BuyFood(15, 50, 15, 15);
                 break;
             case 1:
-                BuyFood(15, 50, 15, 15);
+                BuyFood(5, 20, 5, 5);
                 break;
             case 2:
                 BuyFood(20, 60, 20, 20);

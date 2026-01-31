@@ -1,14 +1,16 @@
 Missing features
 
--Localization
+Intro curscene?
 
 World scene:
 - equip visible
 - book shelf
 - dialogs
 
+
 UI:
 - buy/sell/equip with kasten/dreieck
+- Translate Item/Character values
 
 Combat scene:
 - more sounds and effects
@@ -18,5 +20,6 @@ Known Issues
 - some Animations buggy
 - buy herbs with negative money ?
 - normalize weapon image sizes
+
 
 Balancing:

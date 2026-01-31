@@ -186,6 +186,11 @@ each level.
 1302: id= 1302 content= Life:
 1303: id= 1303 content= Mana:
 1304: id= 1304 content= -
+1305
+1306
+1307
+1308
+
 1327: id= 1327 content= Save Game
 1328: id= 1328 content= Rests Remaining:
 1330: id= 1330 content= Rest

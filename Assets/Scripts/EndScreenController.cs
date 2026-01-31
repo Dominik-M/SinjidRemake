@@ -8,6 +8,7 @@ public class EndScreenController : DefaultMenuButtonHandler
     [Header("References")]
     [SerializeField] private CanvasGroup buttons;
     [SerializeField] private AnimatedImage outro;
+    [SerializeField] private GameObject conclusionScreen;
 
     [Header("Parameters")]
     [SerializeField] private float outrolength = 5f;
@@ -19,13 +20,21 @@ public class EndScreenController : DefaultMenuButtonHandler
     {
         base.OnEnable();
         buttons.alpha = 0;
+        conclusionScreen.SetActive(true);
+    }
+
+    public void OnProceed()
+    {
+        conclusionScreen.SetActive(false);
         StartCoroutine(PlayOutro());
     }
+
     private IEnumerator PlayOutro()
     {
         // play outro
         outroFinished = false;
         outro.Restart();
+        GetComponent<AudioSource>().Play();
         // wait for outro
         yield return new WaitForSeconds(outrolength);
         // fade in buttons
