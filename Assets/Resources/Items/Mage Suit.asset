@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 4d1f3aacf9857564d9dd7a91199ed7fd, type: 3}
   displayname: Mage Suit
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 500
   strengthRequired: 6
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 60
   bonusSpeed: 0
+  dropable: 0

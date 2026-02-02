@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: f6d0d6978977cc8498be1c6fee065511, type: 3}
   displayname: Fire Band
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 50
   strengthRequired: 3
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

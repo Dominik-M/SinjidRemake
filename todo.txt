@@ -21,6 +21,8 @@ Known Issues
 - buy herbs with negative money ?
 - normalize weapon image sizes
 
+- Remove recordseparators
+- Training screen EN
 
 Balancing:
 - Endgame items imba? esp. holy blade

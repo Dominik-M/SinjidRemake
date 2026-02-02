@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 118f172d2c9033946b6336e66825d86e, type: 3}
   displayname: Shadow Armor
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 1100
   strengthRequired: 8
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 25
   bonusSpeed: 15
+  dropable: 1

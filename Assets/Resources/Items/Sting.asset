@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 82cdb9042d4aeac44ae94bb633d2818b, type: 3}
   displayname: Wasp Sting
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 20
   strengthRequired: 3
   physDmg: 2
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

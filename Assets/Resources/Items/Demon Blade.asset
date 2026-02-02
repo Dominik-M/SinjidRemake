@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 65ff4b0d1462a6e469e1978cb0c0f49f, type: 3}
   displayname: Demon Blade
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 2100
   strengthRequired: 30
   physDmg: 70
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

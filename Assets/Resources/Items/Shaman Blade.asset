@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 0f36d38573c7c8445be996bb289cd58b, type: 3}
   displayname: Shaman Blade
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 260
   strengthRequired: 16
   physDmg: 16
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 30
   bonusSpeed: 0
+  dropable: 1

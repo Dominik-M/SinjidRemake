@@ -245,7 +245,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    ShowInfoDialog("Info", "You have to complete human gateway first to enter.");
+                    ShowInfoDialog(Localization.GetText(10), Localization.GetText(11));
                 }
                 break;
             case InteractionID.EXIT_UP:
@@ -268,40 +268,40 @@ public class GameController : MonoBehaviour
                 if (worldPlayer)
                     worldPlayer.transform.position = new Vector3(-3.5f, worldPlayer.transform.position.y, worldPlayer.transform.position.z);
                 break;
-            case InteractionID.ENTRANCE_NPC1:
+            case InteractionID.ENTRANCE_NPC1:// Opa
                 OpenMenu(restScreen);
                 break;
-            case InteractionID.ENTRANCE_NPC2:
+            case InteractionID.ENTRANCE_NPC2:// Healer
                 OpenMenu(healScreen);
                 break;
-            case InteractionID.ENTRANCE_NPC3:
-                ShowInfoDialog("Student", "This is the arena entrance. If you are hurt, the man in the white robes will heal you for a cheap price. If you want to save, talk to the old man with the stick.");
+            case InteractionID.ENTRANCE_NPC3://Student
+                ShowInfoDialog(Localization.GetText(12), Localization.GetText(14));
                 break;
-            case InteractionID.BASAR_NPC1:
-                ShowInfoDialog("Ninja", "This is my shitty dialog. You can buy potions or food from the merchants around. Why are you talking to me? I'm a pointless NPC.");
+            case InteractionID.BASAR_NPC1:// Ninja
+                ShowInfoDialog(Localization.GetText(13), Localization.GetText(31));
                 break;
-            case InteractionID.BASAR_NPC2:
+            case InteractionID.BASAR_NPC2:// potion dealer
                 OpenMenu(potionScreen);
                 break;
-            case InteractionID.BASAR_NPC3:
+            case InteractionID.BASAR_NPC3:// food dealer
                 OpenMenu(foodScreen);
                 break;
             case InteractionID.HGATE_GATE_ENTRY:
                 if (humangatewaystage.isFinished())
-                    ShowInfoDialog("Info", "You finished this stage.");
+                    ShowInfoDialog(Localization.GetText(10), Localization.GetText(30));
                 else
                 {
                     StartCombat(humangatewaystage);
                 }
                 break;
-            case InteractionID.HGATE_NPC1:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.HGATE_NPC1: // Guard
+                ShowInfoDialog(Localization.GetText(40), Localization.GetText(34));
                 break;
-            case InteractionID.HGATE_NPC2:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.HGATE_NPC2:// Apprentice
+                ShowInfoDialog(Localization.GetText(32), Localization.GetText(33));
                 break;
-            case InteractionID.MARKET_NPC1:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.MARKET_NPC1:// Apprentice
+                ShowInfoDialog(Localization.GetText(32), Localization.GetText(28));
                 break;
             case InteractionID.MARKET_NPC2:// merchant
                 currentShopItems = shopItemsMarket;
@@ -318,30 +318,30 @@ public class GameController : MonoBehaviour
                 acceptedItemTypes.Add(Item.Type.Drink);
                 OpenMenu(herbguyScreen);
                 break;
-            case InteractionID.PUB_NPC1:
+            case InteractionID.PUB_NPC1://Host
                 if (pubhostDialogProgress == 0)
                 {
-                    ShowInfoDialog("Host", "Welcome to my Pub. I am not a fighter so I have to find another way to make a living.");
+                    ShowInfoDialog(Localization.GetText(20), Localization.GetText(21));
                     pubhostDialogProgress = 1;
                 }
                 else if (pubhostDialogProgress == 1)
                 {
-                    ShowInfoDialog("Host", "These Ninjas shouldn't be drinking it can harm their skill memory.");
+                    ShowInfoDialog(Localization.GetText(20), Localization.GetText(22));
                     pubhostDialogProgress = 2;
                 }
                 else if (pubhostDialogProgress == 2)
                 {
-                    ShowYesNoDialog("Host", "So you also want to forget all your Skills?", ResetSkills, CloseMenu);
+                    ShowYesNoDialog(Localization.GetText(20), Localization.GetText(23), ResetSkills, CloseMenu);
                 }
                 break;
-            case InteractionID.PUB_NPC2:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.PUB_NPC2:// sitting drinker
+                ShowInfoDialog(Localization.GetText(25), Localization.GetText(26));
                 break;
-            case InteractionID.PUB_NPC3:
+            case InteractionID.PUB_NPC3:// gambler
                 OpenMenu(gambleScreen);
                 break;
-            case InteractionID.PUB_NPC4:
-                ShowInfoDialog("Guy", "Saufen Geil!");
+            case InteractionID.PUB_NPC4:// Drinker with bottle
+                ShowInfoDialog(Localization.GetText(25), Localization.GetText(27));
                 break;
             case InteractionID.ARMORY_NPC1:// armor merchant
                 currentShopItems = shopItemsArmory1;
@@ -352,8 +352,8 @@ public class GameController : MonoBehaviour
                 acceptedItemTypes.Add(Item.Type.Head_Gear);
                 OpenMenu(shopScreen);
                 break;
-            case InteractionID.ARMORY_NPC2:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.ARMORY_NPC2: // apprentice
+                ShowInfoDialog(Localization.GetText(32), Localization.GetText(29));
                 break;
             case InteractionID.ARMORY_NPC3:// weapon merchant
                 currentShopItems = shopItemsArmory2;
@@ -385,17 +385,17 @@ public class GameController : MonoBehaviour
                     }
                 }
                 if (hasBlackHerbs)
-                    ShowInfoDialog("Lady", "Oh! You have mysterious black herbs! Here is your special medicine.");
+                    ShowInfoDialog(Localization.GetText(15), Localization.GetText(16));
                 else if (hasHerbs)
-                    ShowInfoDialog("Lady", "Ah! You found some white leaves! Here is your medicine.");
+                    ShowInfoDialog(Localization.GetText(15), Localization.GetText(17));
                 else
-                    ShowInfoDialog("Lady", "I've been studying herbs here. If you bring me white leaves, I can make medicine out of it for you.");
+                    ShowInfoDialog(Localization.GetText(15), Localization.GetText(18));
                 break;
-            case InteractionID.LIBRARY_NPC2:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.LIBRARY_NPC2: // Scribe
+                ShowInfoDialog(Localization.GetText(13), Localization.GetText(35));
                 break;
-            case InteractionID.LIBRARY_NPC3:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.LIBRARY_NPC3: // relaxing ninja
+                ShowInfoDialog(Localization.GetText(36), Localization.GetText(37));
                 break;
             case InteractionID.LIBRARY_BOOKS:
                 OpenMenu(bookshelfScreen);
@@ -409,14 +409,14 @@ public class GameController : MonoBehaviour
                     {
                         inventoryItems[i] = null;
                         Skillpoints++;
-                        ShowInfoDialog("Information", "Mendo's Ring vanishes in the moonlight. The power of the moon grants you a bonus Skillpoint!");
+                        ShowInfoDialog(Localization.GetText(10), Localization.GetText(51));
                         return;
                     }
                 }
                 break;
             case InteractionID.MGATE_GATE_ENTRY:
                 if (monstergatewaystage.isFinished())
-                    ShowInfoDialog("Info", "You finished this stage.");
+                    ShowInfoDialog(Localization.GetText(10), Localization.GetText(30));
                 else
                 {
                     StartCombat(monstergatewaystage);
@@ -431,14 +431,14 @@ public class GameController : MonoBehaviour
                 acceptedItemTypes.Add(Item.Type.Head_Gear);
                 OpenMenu(shopScreen);
                 break;
-            case InteractionID.MGATE_NPC2:
-                ShowInfoDialog("Guard", "This is my shitty dialog.");
+            case InteractionID.MGATE_NPC2://Guard
+                ShowInfoDialog(Localization.GetText(40), Localization.GetText(43));
                 break;
-            case InteractionID.MGATE_NPC3:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.MGATE_NPC3://Dark Ninja
+                ShowInfoDialog(Localization.GetText(44), Localization.GetText(45));
                 break;
             case InteractionID.MGATE_NOTE:
-                ShowInfoDialog("Note", "This is a notice");
+                ShowInfoDialog(Localization.GetText(41), Localization.GetText(42));
                 break;
             case InteractionID.TRAINING_ENTRY:
                 OpenMenu(trainingScreen);
@@ -458,20 +458,20 @@ public class GameController : MonoBehaviour
                         }
                     }
                 if (ringgiven)
-                    ShowInfoDialog("Meditating Ninja", "I was strolling down the beach yesterday, when I found this strange ring washed on the shore. I do not have any use for it, so you can have it... It may do you good.");
+                    ShowInfoDialog(Localization.GetText(47), Localization.GetText(48));
                 else if (ringreceived)
-                    ShowInfoDialog("Meditating Ninja", "Did you find a good use for the ring that I gave you?");
+                    ShowInfoDialog(Localization.GetText(47), Localization.GetText(49));
                 else // No inventory space
-                    ShowInfoDialog("Meditating Ninja", "I have a special gift for you. Make some room in your inventory so I can give it to you.");
+                    ShowInfoDialog(Localization.GetText(47), Localization.GetText(50));
                 break;
-            case InteractionID.PREDARK_NPC2:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+            case InteractionID.PREDARK_NPC2://Dark Ninja
+                ShowInfoDialog(Localization.GetText(44), Localization.GetText(46));
                 break;
             case InteractionID.DGATE_GUARD:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+                ShowInfoDialog(Localization.GetText(13), Localization.GetText(2));
                 break;
             case InteractionID.DGATE_NPC:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+                ShowInfoDialog(Localization.GetText(13), Localization.GetText(2));
                 break;
             case InteractionID.DGATE_MERCHANT:
                 currentShopItems = shopItemsDGate;
@@ -493,7 +493,7 @@ public class GameController : MonoBehaviour
                 break;
             case InteractionID.DGATE_GATE_ENTRY:
                 if (darkgatestage.isFinished())
-                    ShowInfoDialog("Info", "You finished this stage.");
+                    ShowInfoDialog(Localization.GetText(10), Localization.GetText(30));
                 else
                 {
                     StartCombat(darkgatestage);
@@ -507,7 +507,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    ShowInfoDialog("Info", "You have to complete human gateway first to enter.");
+                    ShowInfoDialog(Localization.GetText(10), Localization.GetText(11));
                 }
                 break;
         }
@@ -742,14 +742,16 @@ public class GameController : MonoBehaviour
         foreach (Skill s in allSkills)
             if (s.associatedAction == action)
                 return s;
+        Debug.LogWarning("Cannot find Skill: " + action);
         return null;
     }
 
     public static Item FindItemByName(string itemname)
     {
         foreach (Item i in allItems)
-            if (i.displayname.Equals(itemname))
+            if (i.name.Equals(itemname))
                 return i;
+        Debug.LogWarning("Cannot find Skill: " + itemname);
         return null;
     }
     public static Item FindItemByIndex(int idx)
@@ -840,7 +842,7 @@ public class GameController : MonoBehaviour
             s.currentlevel = 0;
         }
         Skillpoints += skillpointsSpent;
-        instance.ShowInfoDialog("Information", "All your Skills were reset.");
+        instance.ShowInfoDialog(Localization.GetText(10), Localization.GetText(24));
     }
 
     public static CharacterClass MyClass
@@ -1165,7 +1167,7 @@ public class GameController : MonoBehaviour
         {
             bookbonusreceived = true;
             Skillpoints++;
-            Instance.ShowInfoDialog("Information", "Reading all the books grants you great knowledge in form of a bonus Skillpoint.");
+            Instance.ShowInfoDialog(Localization.GetText(10), "Reading all the books grants you great knowledge in form of a bonus Skillpoint.");
         }
     }
 

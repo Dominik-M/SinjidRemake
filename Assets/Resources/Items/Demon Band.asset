@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 26383aaced9b39d4696e5e63242ad67b, type: 3}
   displayname: Demon Band
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 300
   strengthRequired: 18
   physDmg: 15
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

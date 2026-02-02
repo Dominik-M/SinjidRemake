@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 24e620357f7eeca43a5857efebf81a32, type: 3}
   displayname: The Guardian
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 2000
   strengthRequired: 25
   physDmg: 0
@@ -24,6 +26,7 @@ MonoBehaviour:
   shieldDmg: 0
   physDef: 60
   magicDef: 60
-  shieldHP: 400
+  shieldHP: 800
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 6557c5de9cf8da4449cac54ff39c4a55, type: 3}
   displayname: Snake Band
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 60
   strengthRequired: 3
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 10
   bonusSpeed: 5
+  dropable: 1

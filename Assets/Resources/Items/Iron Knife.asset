@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 810857006d4268d4ead6dbdf6555d9e2, type: 3}
   displayname: Iron Knife
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 15
   strengthRequired: 2
   physDmg: 5
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

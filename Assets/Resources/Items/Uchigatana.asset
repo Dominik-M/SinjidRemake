@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: f90638b483e6c9d47817ce89e738ccb7, type: 3}
   displayname: Uchigatana
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 200
   strengthRequired: 14
   physDmg: 32
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 5
+  dropable: 1

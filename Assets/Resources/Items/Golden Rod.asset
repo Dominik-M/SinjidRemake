@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 72aaf35c9d5db20499e148d7317b09d5, type: 3}
   displayname: Golden Rod
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 900
   strengthRequired: 8
   physDmg: 4
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 80
   bonusSpeed: 0
+  dropable: 1

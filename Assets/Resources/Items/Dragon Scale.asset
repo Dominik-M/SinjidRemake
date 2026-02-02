@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 8e1acdc6abc73094ab64b90304914a78, type: 3}
   displayname: Dragon Scale
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 2500
   strengthRequired: 30
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 600
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

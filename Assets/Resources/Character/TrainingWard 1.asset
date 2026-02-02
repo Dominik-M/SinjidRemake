@@ -15,8 +15,8 @@ MonoBehaviour:
   displayName: Training Ward
   icon: {fileID: -6594082591126157566, guid: 39dafdaf9c4d08b4082d036462b8b5e2, type: 3}
   combatprefab: {fileID: 1182826583376627294, guid: e786094b0b0d82a498f87a902952cad0, type: 3}
-  life: 150
-  maxlife: 150
+  life: 180
+  maxlife: 180
   mana: 0
   maxmana: 0
   eng: 0

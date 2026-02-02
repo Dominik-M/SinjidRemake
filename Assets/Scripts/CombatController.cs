@@ -378,14 +378,25 @@ public class CombatController : MonoBehaviour
             Item itemdrop = null;
             if (!isTraining)
             {
+                // add exp
+                if (enemy1 != null)
+                {
+                    xp += (int)enemy1.ch.expNext;
+                    gold += (int)enemy1.ch.gold;
+                }
+                if (enemy2 != null)
+                {
+                    xp += (int)enemy2.ch.expNext;
+                    gold += (int)enemy2.ch.gold;
+                }
+
+                // calculate item drop
                 // re-roll max 3 times
                 for (int i = 0; i < 3; i++)
                 {
                     int itemidx = Random.Range(0, 10);
                     if (enemy1 != null)
                     {
-                        xp += (int)enemy1.ch.expNext;
-                        gold += (int)enemy1.ch.gold;
                         if (itemidx == 0 || itemidx == 1)
                             itemdrop = enemy1.ch.weapon;
                         else if (itemidx == 2)
@@ -397,8 +408,6 @@ public class CombatController : MonoBehaviour
                     }
                     if (enemy2 != null)
                     {
-                        xp += (int)enemy2.ch.expNext;
-                        gold += (int)enemy2.ch.gold;
                         if (itemidx == 5 || itemidx == 6)
                             itemdrop = enemy2.ch.weapon;
                         else if (itemidx == 7)
@@ -680,16 +689,24 @@ public class CombatController : MonoBehaviour
     }
     private IEnumerator AutoBattleLoop()
     {
+        Skill heal = GameController.FindSkillByActionId(CombatAction.SKILL_HEAL);
+        Skill charge = GameController.FindSkillByActionId(CombatAction.SKILL_CHARGE);
         while (AutoBattle)
         {
             CombatAction action = CombatAction.ATTACK;
             // Use heal under 50% life if possible
             if ((player.ch.life < player.ch.maxlife / 2)
-                && GameController.FindSkillByActionId(CombatAction.SKILL_HEAL).currentlevel > 0)
+                && heal.currentlevel > 0 // skill learned?
+                && GameController.Mana >= heal.manacost) // enough mana?
+            {
                 action = CombatAction.SKILL_HEAL;
+                GameController.Mana -= heal.manacost;
+            }
             else if ((player.ch.mana < player.ch.maxmana / 2)// Use charge under 50% mana if possible
-                && GameController.FindSkillByActionId(CombatAction.SKILL_CHARGE).currentlevel > 0)
+                && charge.currentlevel > 0) // skill learned?
+            {
                 action = CombatAction.SKILL_CHARGE;
+            }
 
             yield return PlayTurnAnimations(action);
             if (combatEnded) AutoBattle = false;
@@ -864,7 +881,7 @@ public class CombatController : MonoBehaviour
         Vector3 start = user.go.transform.position;
         Vector3 forward = target.go.transform.position;
 
-        forward += (start - forward).normalized * 2;
+        forward += (start - forward).normalized * 3f; // units distance to the target
 
         user.animator?.SetTrigger("Move");
         float t = 0;

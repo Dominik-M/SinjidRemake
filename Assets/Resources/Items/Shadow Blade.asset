@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 42e3963da14c89d479fbd9ab08fdd1e9, type: 3}
   displayname: Shadow Blade
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 9000
   strengthRequired: 32
   physDmg: 90
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 10
+  dropable: 1

@@ -30,4 +30,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
-  dropable: 0
+  dropable: 1

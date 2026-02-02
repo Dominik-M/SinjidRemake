@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: db0f01f768927bb43bd447ae6d46f755, type: 3}
   displayname: Fusion Edge
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 700
   strengthRequired: 21
   physDmg: 28
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 30
   bonusSpeed: 0
+  dropable: 1

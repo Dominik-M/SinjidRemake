@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 21b761e160210c442bec185194cc24a6, type: 3}
   displayname: Shadow Band
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 700
   strengthRequired: 14
   physDmg: 20
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 20
+  dropable: 1

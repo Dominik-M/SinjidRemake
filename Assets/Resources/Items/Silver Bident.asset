@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 88f823d8368a6214b8fdd9887c1b337d, type: 3}
   displayname: Silver Bident
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 275
   strengthRequired: 16
   physDmg: 20
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 20
   bonusSpeed: 0
+  dropable: 1

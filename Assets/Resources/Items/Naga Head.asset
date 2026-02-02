@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 9cb166d5fd130f64f9b6fd4badc3f227, type: 3}
   displayname: Naga Head
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 300
   strengthRequired: 12
   physDmg: 10
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 20
   bonusSpeed: 0
+  dropable: 1

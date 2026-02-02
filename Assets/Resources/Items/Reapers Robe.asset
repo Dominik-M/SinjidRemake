@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 40f29f82015cedd41af586a91c5f1015, type: 3}
   displayname: Reapers Robe
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 12000
   strengthRequired: 20
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 0

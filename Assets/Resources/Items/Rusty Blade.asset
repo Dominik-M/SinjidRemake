@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 1d2349cb960ab954ca309dafa720b57a, type: 3}
   displayname: Rusty Blade
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 125
   strengthRequired: 15
   physDmg: 20
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

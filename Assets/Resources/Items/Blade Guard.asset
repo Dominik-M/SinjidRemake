@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: eae21358020447a45a27bed5fe399423, type: 3}
   displayname: Blade Guard
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 180
   strengthRequired: 16
   physDmg: 0
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 120
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

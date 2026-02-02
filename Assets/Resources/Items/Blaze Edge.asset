@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: a5add899612a01d45be68992a36e1c10, type: 3}
   displayname: Blaze Edge
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 150
   strengthRequired: 15
   physDmg: 12
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 1

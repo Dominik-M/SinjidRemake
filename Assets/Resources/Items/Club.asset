@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 811ce4cde1dac7f41a27cd30dcd8d2a5, type: 3}
   displayname: Club
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 40
   strengthRequired: 8
   physDmg: 5
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: -10
+  dropable: 1

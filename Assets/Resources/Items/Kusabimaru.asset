@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: eb432c8e527c1e5489cbaac9ff533e64, type: 3}
   displayname: Kusabimaru
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 100
   strengthRequired: 10
   physDmg: 16
@@ -27,3 +29,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 5
+  dropable: 1
