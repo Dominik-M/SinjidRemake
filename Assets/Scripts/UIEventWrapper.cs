@@ -10,4 +10,12 @@ public class UIEventWrapper : MonoBehaviour
     {
         GameController.UseManaPotion();
     }
+    public void OnYesClicked()
+    {
+        GameController.OnYesClicked();
+    }
+    public void OnNoClicked()
+    {
+        GameController.OnNoClicked();
+    }
 }

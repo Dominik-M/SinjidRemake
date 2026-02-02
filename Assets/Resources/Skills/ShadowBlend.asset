@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
   m_Name: ShadowBlend
   m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 0
   displayname: Shadow Blend
   description: Increases Speed in battle
+  nameTextId: 1219
+  descriptionTextId: 1221
   icon: {fileID: 7953357176233372470, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: c67a422fac6f63d4bbbcfb682f837851, type: 2}
@@ -24,3 +27,5 @@ MonoBehaviour:
   levelvalues: 020000000400000006000000080000000a0000000c0000000e00000010000000120000001400000016000000180000001a0000001c0000001e0000002000000022000000240000002600000028000000
   effectTitle: Speed Increased
   effectValueDescription: 
+  effectTitleTextId: 1223
+  effectValueDescriptionTextId: 1

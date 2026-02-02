@@ -21,12 +21,14 @@ public class DefaultMenuButtonHandler : MonoBehaviour
             selectedButton.onClick.Invoke();
         }
     }
+
     public virtual void Kreis()
     {
         Debug.Log("DefaultMenuButtonHandler.Kreis()");
-        if(closeWithKreis)
+        if (closeWithKreis)
             GameController.CloseMenu();
     }
+
     public virtual void Kasten()
     {
         Debug.Log("DefaultMenuButtonHandler.Kasten()");

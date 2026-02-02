@@ -30,7 +30,9 @@ public class GameController : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private GameObject infoDialog;
+    [SerializeField] private GameObject yesnoDialog;
     [SerializeField] private Text infoDialogTitle, infoDialogMessage;
+    [SerializeField] private Text yesnoDialogTitle, yesnoDialogMessage;
     [SerializeField] private Text lifepotionstext, manapotionstext;
     [SerializeField] private Text stageTitle, stageLevel;
     [SerializeField] private GameObject combatIntroScreen;
@@ -66,6 +68,7 @@ public class GameController : MonoBehaviour
         if (shallInit)
         {
             // Started new game
+            prestigeLevel = 0;
             InitCharacter();
             shallInit = false;
         }
@@ -149,6 +152,8 @@ public class GameController : MonoBehaviour
         // Button handling in menu
         if (currentMenuButtonHandler != null)
         {
+            // stop movement in menu
+            worldPlayer.Move(0, 0);
             if (kreis)
             {
                 currentMenuButtonHandler.Kreis();
@@ -178,7 +183,6 @@ public class GameController : MonoBehaviour
         else if (worldPlayer)
         {
             worldPlayer.Move(h, v);
-
             if (worldPlayer.IsMoving())
             {
                 Eng -= movingEngConsumption * Time.deltaTime;
@@ -315,7 +319,20 @@ public class GameController : MonoBehaviour
                 OpenMenu(herbguyScreen);
                 break;
             case InteractionID.PUB_NPC1:
-                ShowInfoDialog("Guy", "This is my shitty dialog.");
+                if (pubhostDialogProgress == 0)
+                {
+                    ShowInfoDialog("Host", "Welcome to my Pub. I am not a fighter so I have to find another way to make a living.");
+                    pubhostDialogProgress = 1;
+                }
+                else if (pubhostDialogProgress == 1)
+                {
+                    ShowInfoDialog("Host", "These Ninjas shouldn't be drinking it can harm their skill memory.");
+                    pubhostDialogProgress = 2;
+                }
+                else if (pubhostDialogProgress == 2)
+                {
+                    ShowYesNoDialog("Host", "So you also want to forget all your Skills?", ResetSkills, CloseMenu);
+                }
                 break;
             case InteractionID.PUB_NPC2:
                 ShowInfoDialog("Guy", "This is my shitty dialog.");
@@ -525,6 +542,16 @@ public class GameController : MonoBehaviour
         infoDialogTitle.text = title;
         infoDialogMessage.text = message;
     }
+    public void ShowYesNoDialog(string title, string message, Action yesAction, Action noAction)
+    {
+        Debug.Log("ShowYesNoDialog");
+        OpenMenu(yesnoDialog);
+        bottomview.SetActive(true);
+        yesnoDialogTitle.text = title;
+        yesnoDialogMessage.text = message;
+        dialogOptionYes = yesAction;
+        dialogOptionNo = noAction;
+    }
 
     public void ChangeRoom(Room next)
     {
@@ -557,6 +584,10 @@ public class GameController : MonoBehaviour
         humangatewaystage.currentLevel = 0;
         monstergatewaystage.currentLevel = 0;
         darkgatestage.currentLevel = 0;
+        ringreceived = false;
+        bookbonusreceived = false;
+        pubhostDialogProgress = 0;
+        Skillpoints = 0;
         Gold = 75;
         Level = 1;
         ExpNext = 50;
@@ -614,7 +645,7 @@ public class GameController : MonoBehaviour
                 Dex = 6;
                 Magic = 3;
                 Weapon = FindItemByName("Iron Knife");
-                FindSkillByName("Shadow Blend").currentlevel = 1;
+                FindSkillByName("ShadowBlend").currentlevel = 1;
                 break;
         }
         SaveAllPrefs();
@@ -630,6 +661,7 @@ public class GameController : MonoBehaviour
     private static bool shallInit = false, resourcesLoaded = false;
     private static Room[] allRooms;
     private static Stage humangatewaystage, monstergatewaystage, darkgatestage;
+    private static event Action dialogOptionYes, dialogOptionNo;
 
     // stats
     private static Character playerchar;
@@ -644,9 +676,11 @@ public class GameController : MonoBehaviour
     private static List<Item.Type> acceptedItemTypes = new List<Item.Type>();
 
     // progress
-    private static bool ringreceived = false;
+    private static bool ringreceived = false, bookbonusreceived = false;
     private static Skill[] allSkills;
     private static int restsremaining;
+    private static int prestigeLevel;
+    private static int pubhostDialogProgress;
 
     public static Item.Type[] GetAcceptedItemTypes()
     {
@@ -698,8 +732,9 @@ public class GameController : MonoBehaviour
     public static Skill FindSkillByName(string skillname)
     {
         foreach (Skill s in allSkills)
-            if (s.displayname.Equals(skillname))
+            if (s.name.Equals(skillname))
                 return s;
+        Debug.LogWarning("Cannot find Skill: " + skillname);
         return null;
     }
     public static Skill FindSkillByActionId(CombatAction action)
@@ -780,6 +815,32 @@ public class GameController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public static int PrestigeLevel()
+    {
+        return prestigeLevel;
+    }
+
+    public static void NextPrestigeLevel()
+    {
+        prestigeLevel++;
+        restsremaining = 10;
+        humangatewaystage.currentLevel = 0;
+        monstergatewaystage.currentLevel = 0;
+        darkgatestage.currentLevel = 0;
+    }
+
+    public static void ResetSkills()
+    {
+        int skillpointsSpent = 0;
+        foreach (Skill s in allSkills)
+        {
+            skillpointsSpent += s.currentlevel;
+            s.currentlevel = 0;
+        }
+        Skillpoints += skillpointsSpent;
+        instance.ShowInfoDialog("Information", "All your Skills were reset.");
     }
 
     public static CharacterClass MyClass
@@ -997,13 +1058,21 @@ public class GameController : MonoBehaviour
         ManaPotions--;
         return true;
     }
+    public static void OnYesClicked()
+    {
+        dialogOptionYes?.Invoke();
+    }
+    public static void OnNoClicked()
+    {
+        dialogOptionNo?.Invoke();
+    }
 
     private static void LevelUp()
     {
-        playerchar.exp -= playerchar.expNext;
-        ExpNext = Mathf.Round((playerchar.expNext * 1.2f) / 10 + Level) * 10;
-        // common upgrades
         Level++;
+        playerchar.exp -= playerchar.expNext;
+        ExpNext += Level * 15;
+        // common upgrades
         Skillpoints++;
         if (Level % 5 == 0)
             Skillpoints++; // Bonus point
@@ -1086,6 +1155,18 @@ public class GameController : MonoBehaviour
             instance.buttonDebounceTime = 0.25f; // prevent the interaction to be triggered again immediately
         }
         currentShopItems = null;
+        dialogOptionYes = null;
+        dialogOptionNo = null;
+    }
+
+    public static void OnAllBooksRead()
+    {
+        if (!bookbonusreceived)
+        {
+            bookbonusreceived = true;
+            Skillpoints++;
+            Instance.ShowInfoDialog("Information", "Reading all the books grants you great knowledge in form of a bonus Skillpoint.");
+        }
     }
 
     private static void LoadResources()
@@ -1147,10 +1228,13 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < allSkills.Length; i++)
             allSkills[i].currentlevel = PlayerPrefs.GetInt("skill_" + i, 0);
         ringreceived = PlayerPrefs.GetInt("ringreceived", 0) > 0;
+        bookbonusreceived = PlayerPrefs.GetInt("bookbonusreceived", 0) > 0;
         restsremaining = PlayerPrefs.GetInt("restsremaining", 10);
         humangatewaystage.currentLevel = PlayerPrefs.GetInt("humangatewaystageLevel", 0);
         monstergatewaystage.currentLevel = PlayerPrefs.GetInt("monstergatewaystageLevel", 0);
         darkgatestage.currentLevel = PlayerPrefs.GetInt("darkgatestageLevel", 0);
+        prestigeLevel = PlayerPrefs.GetInt("prestigeLevel", 0);
+        pubhostDialogProgress = PlayerPrefs.GetInt("pubhostDialogProgress", 0);
     }
 
     public static void SaveAllPrefs()
@@ -1187,9 +1271,12 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < allSkills.Length; i++)
             PlayerPrefs.SetInt("skill_" + i, allSkills[i].currentlevel);
         PlayerPrefs.SetInt("ringreceived", ringreceived ? 1 : 0);
+        PlayerPrefs.SetInt("bookbonusreceived", bookbonusreceived ? 1 : 0);
         PlayerPrefs.SetInt("restsremaining", restsremaining);
         PlayerPrefs.SetInt("humangatewaystageLevel", humangatewaystage.currentLevel);
         PlayerPrefs.SetInt("monstergatewaystageLevel", monstergatewaystage.currentLevel);
         PlayerPrefs.SetInt("darkgatestageLevel", darkgatestage.currentLevel);
+        PlayerPrefs.SetInt("prestigeLevel", prestigeLevel);
+        PlayerPrefs.SetInt("pubhostDialogProgress", pubhostDialogProgress);
     }
 }

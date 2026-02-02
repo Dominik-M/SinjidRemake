@@ -30,9 +30,9 @@ public class SkillTreeButtonController : MonoBehaviour
 
     public void UpdateDescription()
     {
-        descriptionTitle.text = skill.displayname;
-        description.text = skill.description;
-        effectTitle.text = skill.effectTitle;
+        descriptionTitle.text = Localization.GetText(skill.nameTextId);
+        description.text = Localization.GetText(skill.descriptionTextId);
+        effectTitle.text = Localization.GetText(skill.effectTitleTextId);
         effectValue.text = skill.GetCurrentLevelValueDescription();
         effectValueNext.text = skill.GetNextLevelValueDescription();
         if (skill.passive)
@@ -43,7 +43,7 @@ public class SkillTreeButtonController : MonoBehaviour
         }
         else
         {
-            manacost.text = Localization.GetText(1183) + skill.manacost + " " +Localization.GetText(1937);
+            manacost.text = Localization.GetText(1183)+" " + skill.manacost + " " +Localization.GetText(1937);
             manacost.color = Color.cyan;
             effectTitle.color = Color.orange;
         }

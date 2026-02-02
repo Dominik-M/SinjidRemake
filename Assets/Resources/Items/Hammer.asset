@@ -17,6 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: b616d2c37b9d9064b9956f74f8cd7bc3, type: 3}
   displayname: Shield Breaker
   description: 
+  displaynameTextId: 0
+  descriptionTextId: 0
   value: 400
   strengthRequired: 15
   physDmg: 20
@@ -26,4 +28,5 @@ MonoBehaviour:
   magicDef: 0
   shieldHP: 0
   bonusMana: 0
-  bonusSpeed: -15
+  bonusSpeed: -30
+  dropable: 0

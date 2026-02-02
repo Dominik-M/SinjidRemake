@@ -6,6 +6,8 @@ public class Skill : ScriptableObject
     public CombatAction associatedAction;
     public string displayname;
     public string description;
+    public int nameTextId;
+    public int descriptionTextId;
     public Sprite icon;
     public Skill[] prerequisites;
     public int requiredLevel;
@@ -15,6 +17,8 @@ public class Skill : ScriptableObject
     public int[] levelvalues;
     public string effectTitle;
     public string effectValueDescription;
+    public int effectTitleTextId;
+    public int effectValueDescriptionTextId;
 
     public int GetLevelValue(int level)
     {
@@ -40,7 +44,7 @@ public class Skill : ScriptableObject
         int value = GetLevelValue(level);
         if (value == 0)
             return "-";
-        return value + effectValueDescription;
+        return value + Localization.GetText(effectValueDescriptionTextId);
     }
 
     public string GetCurrentLevelValueDescription()

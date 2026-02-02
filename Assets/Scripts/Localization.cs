@@ -23,6 +23,7 @@ public class Localization
             if (currentLanguage != value && value < (int)Language.COUNT)
             {
                 currentLanguage = value;
+                Debug.Log("Set Language: " + currentLanguage);
                 PlayerPrefs.SetInt("Language", CurrentLanguage);
                 OnLanguageChanged?.Invoke();
             }
@@ -72,6 +73,8 @@ public class Localization
     {
         string text = "NA";
         translations[currentLanguage].TryGetValue(id, out text);
+        if (string.IsNullOrEmpty(text))
+            Debug.LogWarning("Translation not found for Text Id= " + id);
         return text;
     }
 }

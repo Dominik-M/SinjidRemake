@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
   m_Name: EnergyField
   m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 0
   displayname: Energy Field
   description: Increases the damage of magical attacks in battle
+  nameTextId: 1225
+  descriptionTextId: 1226
   icon: {fileID: -8330294807270784238, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: d7de4dc1df19428489079a518b4505f8, type: 2}
@@ -24,3 +27,5 @@ MonoBehaviour:
   levelvalues: 070000000e000000150000001c000000230000002c00000036000000400000004b0000005600000064000000730000008200000091000000a0000000b4000000c8000000dc000000f000000004010000
   effectTitle: Damage Increased
   effectValueDescription: ' '
+  effectTitleTextId: 1228
+  effectValueDescriptionTextId: 1

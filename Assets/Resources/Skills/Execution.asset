@@ -16,6 +16,8 @@ MonoBehaviour:
   displayname: Execution
   description: The ultimate physical attack that hits the enemy four time, dealing
     a percentage of the physical attack damage.
+  nameTextId: 1269
+  descriptionTextId: 1271
   icon: {fileID: 3297365880679015330, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: 756deadf1ab59b049a01c3d9b44a14ae, type: 2}
@@ -27,3 +29,5 @@ MonoBehaviour:
   levelvalues: 4b000000640000007d00000096000000af000000c8000000f000000018010000400100000401000090010000c2010000f4010000260200005802000094020000d00200002003000084030000e8030000
   effectTitle: Extra Damage
   effectValueDescription: '% Attack per Hit'
+  effectTitleTextId: 1187
+  effectValueDescriptionTextId: 1270

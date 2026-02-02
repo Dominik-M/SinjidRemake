@@ -15,6 +15,8 @@ MonoBehaviour:
   associatedAction: 4
   displayname: Stab
   description: Attacks the enemy with a powerful stab that deals extra damage
+  nameTextId: 1182
+  descriptionTextId: 1184
   icon: {fileID: -7459964926507498848, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites: []
   requiredLevel: 0
@@ -24,3 +26,5 @@ MonoBehaviour:
   levelvalues: 04000000080000000c0000001000000014000000180000001c0000002000000024000000280000002d00000032000000370000003c00000042000000480000004e000000550000005c00000064000000
   effectTitle: Extra Damage
   effectValueDescription: ' '
+  effectTitleTextId: 1187
+  effectValueDescriptionTextId: 1

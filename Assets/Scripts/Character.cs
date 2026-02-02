@@ -50,7 +50,7 @@ public class Character : ScriptableObject
         n = (int)(n + scaling);
         if (IsPlayerChar())
         {
-            n += GameController.FindSkillByName("Inner Strength").GetCurrentLevelValue();
+            n += GameController.FindSkillByName("InnerStrength").GetCurrentLevelValue();
         }
         return n;
     }
@@ -71,7 +71,7 @@ public class Character : ScriptableObject
         n += magic;
         if (IsPlayerChar())
         {
-            n += GameController.FindSkillByName("Energy Field").GetCurrentLevelValue();
+            n += GameController.FindSkillByName("EnergyField").GetCurrentLevelValue();
         }
         return n;
     }
@@ -121,7 +121,7 @@ public class Character : ScriptableObject
             spd += shield.bonusSpeed;
         if (IsPlayerChar())
         {
-            spd += GameController.FindSkillByName("Shadow Blend").GetCurrentLevelValue();
+            spd += GameController.FindSkillByName("ShadowBlend").GetCurrentLevelValue();
         }
         return spd;
     }

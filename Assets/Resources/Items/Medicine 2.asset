@@ -18,7 +18,9 @@ MonoBehaviour:
   displayname: Special Medicine
   description: A special medicine made from mysterious shadow herbs. Sell it to a
     merchant to make money
-  value: 36
+  displaynameTextId: 0
+  descriptionTextId: 0
+  value: 50
   strengthRequired: 0
   physDmg: 0
   magicDmg: 0
@@ -28,3 +30,4 @@ MonoBehaviour:
   shieldHP: 0
   bonusMana: 0
   bonusSpeed: 0
+  dropable: 0

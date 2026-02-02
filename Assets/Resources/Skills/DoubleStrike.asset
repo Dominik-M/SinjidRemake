@@ -15,6 +15,8 @@ MonoBehaviour:
   associatedAction: 6
   displayname: Double Strike
   description: Strikes the enemy twice, dealing a percentage damage of original attack
+  nameTextId: 1196
+  descriptionTextId: 1197
   icon: {fileID: 2334209960787096371, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: d412fa5fbb1467745bca49a824fa9d00, type: 2}
@@ -25,3 +27,5 @@ MonoBehaviour:
   levelvalues: 3c000000440000004c000000540000005a0000005f0000006300000066000000690000006c0000006e00000070000000720000007400000076000000780000007a0000007d0000008000000082000000
   effectTitle: Damage Multiplier
   effectValueDescription: '%'
+  effectTitleTextId: 1198
+  effectValueDescriptionTextId: 1199

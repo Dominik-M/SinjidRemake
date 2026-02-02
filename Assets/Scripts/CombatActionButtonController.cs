@@ -28,7 +28,7 @@ public class CombatActionButtonController : MonoBehaviour
         else
         {
             skilldetails.SetActive(true);
-            skillname.text = skill.displayname;
+            skillname.text = Localization.GetText(skill.nameTextId);
             manacost.text = skill.manacost.ToString();
         }
     }

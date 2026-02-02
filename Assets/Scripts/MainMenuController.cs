@@ -8,8 +8,9 @@ public class MainMenuController : MonoBehaviour
         WELCOME, MAIN, START, CHOOSE, LOADING
     }
 
-    public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, optionsFrame, loadingScreen;
+    public GameObject welcomeFrame, mainMenuFrame, startFrame, chooseCharacterFrame, loadingScreen;
     public Text versionNumber;
+    public DefaultMenuButtonHandler menuButtonHandler;
 
     private Frame currentFrame;
 
@@ -32,6 +33,42 @@ public class MainMenuController : MonoBehaviour
         Localization.Init();
         CurrentFrame = Frame.WELCOME;
         versionNumber.text = "v"+Application.version;
+    }
+
+    void Update()
+    {
+        // Get all Gamepad inputs
+        bool dreieck = Input.GetButtonDown("Dreieck");
+        bool kreis = Input.GetButton("Kreis");
+        bool kasten = Input.GetButtonDown("Kasten");
+        bool r1 = Input.GetButtonDown("R1");
+        bool l1 = Input.GetButtonDown("L1");
+
+        // Button handling in menu
+        // kreuz is handled by event system as default submit button
+        if (menuButtonHandler != null)
+        {
+            if (kreis)
+            {
+                menuButtonHandler.Kreis();
+            }
+            else if (kasten)
+            {
+                menuButtonHandler.Kasten();
+            }
+            else if (dreieck)
+            {
+                menuButtonHandler.Dreieck();
+            }
+            else if (r1)
+            {
+                menuButtonHandler.R1();
+            }
+            else if (l1)
+            {
+                menuButtonHandler.L1();
+            }
+        }
     }
 
     public void OnWelcomeProceed()
@@ -74,12 +111,6 @@ public class MainMenuController : MonoBehaviour
     private void LoadWorldScene()
     {
         GameController.LoadWorldScene();
-    }
-
-    public void OnToggleOptions()
-    {
-        Debug.Log("OnToggleOptions");
-        optionsFrame.SetActive(!optionsFrame.activeInHierarchy);
     }
 
     public void OnClearData()

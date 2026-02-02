@@ -31,9 +31,9 @@ public class CombatEndScreenController : MonoBehaviour
         if (!defeat)
         {
             title.text = Localization.GetText(2153);
-            itemdropMessage.SetActive(drop != null);
+            itemdropMessage.SetActive(drop != null && drop.dropable);
             StartCoroutine(EarnGoldAndXP(goldgained, xpgained));
-            if (drop != null)
+            if (drop != null && drop.dropable)
             {
                 for (int i = 0; i < GameController.GetTotalInventorySpace(); i++)
                 {

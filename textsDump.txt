@@ -82,37 +82,49 @@ cannot be bought back.
  Skill
  for 
 its explination
+
 1182: id= 1182 content= Stab
-1183: id= 1183 content= Requires 15 Mana
+1183: id= 1183 content= Requires 
 1184: id= 1184 content= Attack the enemy with a 
 powerful stab that deals 
 extra damage.
 1185: id= 1185 content= Currently:
 1187: id= 1187 content= Extra Damage
 1188: id= 1188 content= Next Level:
+
 1190: id= 1190 content= Shurikens
 1191: id= 1191 content= Requires 20 Mana
 1192: id= 1192 content= Throws deadly shurikens at 
 the enemy. Stacks with 
 weapon magical damage.
+1193: id= 1193 content=  each hit
 1194: id= 1194 content= Magical Damage
+
 1196: id= 1196 content= Double Strike
 1197: id= 1197 content= Strikes the enemy twice, 
 dealing a percentage 
 damage of original attack.
+1198: id= 1198 content= Damage Multiplier
+1199: id= 1199 content= %
+
+
 1200: id= 1200 content= Speed Strike
 1201: id= 1201 content= A fast and accurate charge 
 that deals extra damage 
 based on speed. 
+
 1204: id= 1204 content= Energy Shot
 1205: id= 1205 content= Requires 25 Mana
 1206: id= 1206 content= Fires a ball of energy at the 
 enemy. Stacks with weapon 
 magical damage.
+
 1209: id= 1209 content= Blast Fire
 1210: id= 1210 content= Fire shots of flame twice at 
 both enemies. Stacks with 
 1212: id= 1212 content= Magical Damage 
+1213: id=1213 content=  each shot
+
 1214: id= 1214 content= Vertical Strike
 1215: id= 1215 content= A powerful slash that 
 damages the enemy based 
@@ -120,53 +132,66 @@ on strength. However,
 accuracy is decreased a 
 little.
 1217: id= 1217 content= Extra Strength Damage
+
 1219: id= 1219 content= Shadow Blend
 1220: id= 1220 content= Passive
 1221: id= 1221 content= Increases speed in battle.
 1223: id= 1223 content= Speed Increased
+
 1225: id= 1225 content= Energy Field
 1226: id= 1226 content= Increases the damage of 
 magical attacks in battle.
 1228: id= 1228 content= Damage Increased
+
 1230: id= 1230 content= Charge
 1231: id= 1231 content= Requires 0 Mana
 1232: id= 1232 content= Recovers Mana.
 1234: id= 1234 content= Mana Recovered
+
 1236: id= 1236 content= Inner Strength
+
 1240: id= 1240 content= Mana Bomb
 1241: id= 1241 content= Requires 1 Mana
 1242: id= 1242 content= A very powerful move that 
 discharges all remaining 
 mana against the enemy. 
+
 1245: id= 1245 content= Heal
 1246: id= 1246 content= Recovers health.
 1248: id= 1248 content= Percentage of life healed
+
 1250: id= 1250 content= Avenger
 1251: id= 1251 content= A stab for revenge, that 
 damages the enemy 
 depending on how much life 
 has been lost.
 1253: id= 1253 content= Damage
+1254: id= 1254 content= % of life lost
+
 1255: id= 1255 content= Split
 1256: id= 1256 content= Slices the enemy, doing a 
 percentage damage of thier 
 remaining health.
+
 1259: id= 1259 content= Shadow Strike
 1260: id= 1260 content= Requires 40 Mana
 1261: id= 1261 content= A dark attack that cannot be 
 dodged. Stacks with weapon 
+
 1264: id= 1264 content= Annihilate
 1265: id= 1265 content= Requires 60 Mana
 1266: id= 1266 content= A devestating move that 
 blasts the enemy 3 times. 
 Stacks with weapon magical 
 damage.
+
 1269: id= 1269 content= Execution
-1270: id= 1270 content= Requires 70 Mana
+1270: id= 1270 content= % Attack per Hit
 1271: id= 1271 content= The ultimate physical attack 
 that hits the enemy four 
 times, dealing a percentage 
 of the initial damage.
+
 1274: id= 1274 content= Shadow Replicate
 1275: id= 1275 content= Requires 100 Mana
 1276: id= 1276 content= Makes a shadow copy of 
@@ -175,6 +200,7 @@ you. Shadow damage, life,
 and speed increases with 
 each level.
 1278: id= 1278 content= Shadow Life
+
 1281: id= 1281 content= Upgrading Skill...
 1287: id= 1287 content= Lvl. 
 5

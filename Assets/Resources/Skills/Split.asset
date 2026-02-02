@@ -15,6 +15,8 @@ MonoBehaviour:
   associatedAction: 10
   displayname: Split
   description: Slicing the enemy, dealing a percentage damage of the remaining health
+  nameTextId: 1255
+  descriptionTextId: 1256
   icon: {fileID: -6480853642490684476, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: 8e645fab681ed294080b7dce6bc1e20f, type: 2}
@@ -25,3 +27,5 @@ MonoBehaviour:
   levelvalues: 0c0000000e0000001000000012000000140000001600000018000000190000001a0000001c0000001e0000001f0000002000000021000000220000002300000024000000250000002600000028000000
   effectTitle: Damage
   effectValueDescription: '% of enemy life'
+  effectTitleTextId: 1253
+  effectValueDescriptionTextId: 1257

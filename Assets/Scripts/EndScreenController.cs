@@ -62,10 +62,10 @@ public class EndScreenController : DefaultMenuButtonHandler
     {
         if (outroFinished)
         {
+            GameController.NextPrestigeLevel();
             GameController.CloseMenu();
             GameController.Instance.GetComponent<AudioSource>().Play();
         }
-
     }
 
     public void OnMenu()

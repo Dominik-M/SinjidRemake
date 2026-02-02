@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Human
   m_EditorClassIdentifier: Assembly-CSharp::Stage
   title: Human Gateway
-  currentLevel: 5
+  currentLevel: 21
   primaryEnemyPerStage:
   - {fileID: 11400000, guid: e916b100e8edd57458a7cb51ba8361b1, type: 2}
   - {fileID: 11400000, guid: a3982919bba4546438ea388e5f63ce0e, type: 2}
@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 3e5d5ffdb4a227a458f71a5f62b5f010, type: 2}
+  - {fileID: 11400000, guid: e3795b0770a3ccb40a019bd54cdb70e2, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

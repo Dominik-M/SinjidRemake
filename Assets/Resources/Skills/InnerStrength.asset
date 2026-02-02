@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c523a349e5a30c24889997a1006a053f, type: 3}
   m_Name: InnerStrength
   m_EditorClassIdentifier: Assembly-CSharp::Skill
+  associatedAction: 0
   displayname: Inner Strength
   description: Increases physical damage in battle
+  nameTextId: 1236
+  descriptionTextId: 1237
   icon: {fileID: -6908928262604086628, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: 516d4e14b60087542917e4443074eb2e, type: 2}
@@ -24,3 +27,5 @@ MonoBehaviour:
   levelvalues: 050000000a0000000f000000140000001c000000240000002c000000340000003c00000046000000500000005a000000640000006e00000078000000820000008c00000096000000aa000000c8000000
   effectTitle: Speed Increased
   effectValueDescription: 
+  effectTitleTextId: 1253
+  effectValueDescriptionTextId: 1

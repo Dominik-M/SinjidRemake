@@ -16,6 +16,8 @@ MonoBehaviour:
   displayname: Annihilate
   description: A devastating move that blasts the enemy 3 times. Stacks with magical
     damage.
+  nameTextId: 1264
+  descriptionTextId: 1266
   icon: {fileID: 6586677607534848360, guid: eed5d5e97f960e0479ba528f0973e761, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: 5a6df2746cf32f547aee9b475bff173d, type: 2}
@@ -27,3 +29,5 @@ MonoBehaviour:
   levelvalues: 08000000100000001e0000002a0000003a0000004c000000620000007800000090000000aa000000c8000000e8000000080100002c0100004f01000077010000a4010000e0010000260200008f020000
   effectTitle: Magical Damage
   effectValueDescription: ' each hit'
+  effectTitleTextId: 1212
+  effectValueDescriptionTextId: 1193
