@@ -1,5 +1,1 @@
-Fire shots of flame twice at 
---- RECORDSEPARATOR ---
-both enemies. Stacks with 
---- RECORDSEPARATOR ---
-weapon magical damage.
+Fire shots of flame twice at both enemies. Stacks with weapon magical damage.

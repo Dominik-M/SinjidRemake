@@ -1,7 +1,0 @@
-The ultimate physical attack 
---- RECORDSEPARATOR ---
-that hits the enemy four 
---- RECORDSEPARATOR ---
-times, dealing a percentage 
---- RECORDSEPARATOR ---
-of the initial damage.

@@ -2,7 +2,6 @@ Intro curscene?
 
 World scene:
 - equip visible
-- dialogs
 - render order
 
 
@@ -14,7 +13,7 @@ Combat scene:
 - more sounds and effects
 - arms and legs show armor
 - change target with pad
-- reskill
+- End screen have to wait for exp bar animation before proceed
 
 Known Issues
 - some Animations buggy

@@ -1,9 +1,1 @@
-A powerful slash that 
---- RECORDSEPARATOR ---
-damages the enemy based 
---- RECORDSEPARATOR ---
-on strength. However, 
---- RECORDSEPARATOR ---
-accuracy is decreased a 
---- RECORDSEPARATOR ---
-little.
+A powerful slash that damages the enemy based on strength. However, accuracy is decreased a little.

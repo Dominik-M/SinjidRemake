@@ -1,9 +1,1 @@
-Makes a shadow copy of 
---- RECORDSEPARATOR ---
-yourself to fight alongside 
---- RECORDSEPARATOR ---
-you. Shadow damage, life, 
---- RECORDSEPARATOR ---
-and speed increases with 
---- RECORDSEPARATOR ---
-each level.
+Makes a shadow copy of yourself to fight alongside you. Shadow damage, life, and speed increases with each level.

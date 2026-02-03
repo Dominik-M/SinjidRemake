@@ -1,3 +1,0 @@
-Increases the damage of 
---- RECORDSEPARATOR ---
-physical attacks in battle.

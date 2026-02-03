@@ -1,1 +1,0 @@
-Slices the enemy, doing a percentage damage of thier remaining health.

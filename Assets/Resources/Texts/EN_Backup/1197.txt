@@ -1,5 +1,0 @@
-Strikes the enemy twice, 
---- RECORDSEPARATOR ---
-dealing a percentage 
---- RECORDSEPARATOR ---
-damage of original attack.

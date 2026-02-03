@@ -1,3 +1,0 @@
-Put unwanted items into the Item Bin. 
-Required items cannot be dumped. 
-Deleted Items cannot be recovered

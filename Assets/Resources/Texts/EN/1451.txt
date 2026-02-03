@@ -1,10 +1,1 @@
-Choose one of the training 
-options. Each hit reduces 
-energy, but increases your 
-EXP.You will fight an immobile 
-ward that is capable of 
-casting certain spells.It get stronger depending on 
-the type of training you 
-choose.Hitting the enemy when its 
-shield is down gains you 
-double the EXP rate.
+Choose one of the training options. Each hit reduces energy, but increases your EXP.You will fight an immobile ward that is capable of casting certain spells.It get stronger depending on the type of training you choose.Hitting the enemy when its shield is down gains you double the EXP rate.

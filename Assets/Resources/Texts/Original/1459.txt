@@ -1,1 +1,0 @@
- Restart Game || Toggle Quality

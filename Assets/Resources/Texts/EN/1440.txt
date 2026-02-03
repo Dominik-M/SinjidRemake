@@ -1,1 +1,2 @@
-Energy Required: 2 per hit
+Energy Required: 2 per hit
+EXP received: 3 per hit

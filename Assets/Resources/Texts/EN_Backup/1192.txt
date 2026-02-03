@@ -1,5 +1,0 @@
-Throws deadly shurikens at 
---- RECORDSEPARATOR ---
-the enemy. Stacks with 
---- RECORDSEPARATOR ---
-weapon magical damage.

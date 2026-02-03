@@ -1,7 +1,0 @@
-A stab for revenge, that 
---- RECORDSEPARATOR ---
-damages the enemy 
---- RECORDSEPARATOR ---
-depending on how much life 
---- RECORDSEPARATOR ---
-has been lost.

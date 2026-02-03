@@ -1,5 +1,1 @@
-A dark attack that cannot be 
---- RECORDSEPARATOR ---
-dodged. Stacks with weapon 
---- RECORDSEPARATOR ---
-magical damage.
+A dark attack that cannot be dodged. Stacks with weapon magical damage.

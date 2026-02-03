@@ -1,7 +1,0 @@
-Sell unwanted items. 
---- RECORDSEPARATOR ---
-Required items cannot 
---- RECORDSEPARATOR ---
-be sold. Sold items 
---- RECORDSEPARATOR ---
-cannot be bought back.

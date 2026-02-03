@@ -468,10 +468,10 @@ public class GameController : MonoBehaviour
                 ShowInfoDialog(Localization.GetText(44), Localization.GetText(46));
                 break;
             case InteractionID.DGATE_GUARD:
-                ShowInfoDialog(Localization.GetText(13), Localization.GetText(2));
+                ShowInfoDialog(Localization.GetText(40), Localization.GetText(54));
                 break;
             case InteractionID.DGATE_NPC:
-                ShowInfoDialog(Localization.GetText(13), Localization.GetText(2));
+                ShowInfoDialog(Localization.GetText(52), Localization.GetText(53));
                 break;
             case InteractionID.DGATE_MERCHANT:
                 currentShopItems = shopItemsDGate;

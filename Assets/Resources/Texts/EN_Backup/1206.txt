@@ -1,5 +1,0 @@
-Fires a ball of energy at the 
---- RECORDSEPARATOR ---
-enemy. Stacks with weapon 
---- RECORDSEPARATOR ---
-magical damage.
