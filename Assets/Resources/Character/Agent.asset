@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Agent
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Agent
+  displayNameTextId: 3000
   icon: {fileID: 21300000, guid: fd35edbe50983104aadbe22847a72da8, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 7d1378633f0b5ab448556c2e590c0d6c, type: 3}
   life: 600

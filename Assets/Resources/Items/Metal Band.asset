@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: c580b969cbde7d449a821df25f2d94f9, type: 3}
   displayname: Metal Band
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3202
+  descriptionTextId: 3203
   value: 25
   strengthRequired: 5
   physDmg: 0

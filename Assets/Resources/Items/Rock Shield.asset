@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 9d4c7c5c449468e41967bc1a433da825, type: 3}
   displayname: Rock Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3218
+  descriptionTextId: 3219
   value: 500
   strengthRequired: 50
   physDmg: 0

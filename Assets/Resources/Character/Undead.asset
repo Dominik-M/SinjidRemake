@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Undead
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Undead
+  displayNameTextId: 3032
   icon: {fileID: 21300000, guid: 2480ba5727dd07a40a12a99b2550d462, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: e63e782dbf4316a4cb35f3533fbd2663, type: 3}
   life: 1200

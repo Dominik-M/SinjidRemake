@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spirit
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Blood Spirit
+  displayNameTextId: 3025
   icon: {fileID: -6594082591126157566, guid: 39dafdaf9c4d08b4082d036462b8b5e2, type: 3}
   combatprefab: {fileID: 1182826583376627294, guid: d0cd5d962df430b4e918dd2e387c792d, type: 3}
   life: 1800

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 1c7cb14d7473b9a448f43a39162e48aa, type: 3}
   displayname: Power Band
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3212
+  descriptionTextId: 3213
   value: 100
   strengthRequired: 10
   physDmg: 13

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: bba373d2e0cb11e4b815f8c2f55d8456, type: 3}
   displayname: Focus Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3138
+  descriptionTextId: 3139
   value: 400
   strengthRequired: 5
   physDmg: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 132889f2540c2cc429accd494cef6c60, type: 3}
   displayname: White Leaves
   description: Rare white leaves. Can be used to make medicine.
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3264
+  descriptionTextId: 3265
   value: 0
   strengthRequired: 0
   physDmg: 0

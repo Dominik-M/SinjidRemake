@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 2173e73ad9336f9429046edc7fb8afac, type: 3}
   displayname: Great Axe
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3154
+  descriptionTextId: 3155
   value: 260
   strengthRequired: 30
   physDmg: 30

@@ -14,6 +14,8 @@ public class LocalizedText : MonoBehaviour
     {
         mText = GetComponent<Text>();
         mText.text = Localization.GetText(id);
+        if (string.IsNullOrEmpty(mText.text))
+            Debug.LogWarning("Text invalid at " + gameObject);
         if (listenOnChange)
             Localization.OnLanguageChanged += OnLanguageChanged;
     }

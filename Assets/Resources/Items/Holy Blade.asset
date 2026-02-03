@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 7273a0e671478ee4ebbbd600f7a65114, type: 3}
   displayname: Holy Blade
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3166
+  descriptionTextId: 3167
   value: 2300
   strengthRequired: 18
   physDmg: 42

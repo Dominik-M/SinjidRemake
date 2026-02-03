@@ -13,25 +13,27 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Sinjid
+  displayNameTextId: 3012
   icon: {fileID: 21300000, guid: 3c90071dc6a455a45b00c7f11a8f46d1, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 4a28853d35ca2d5419d3a95ccf889380, type: 3}
-  life: 60
-  maxlife: 60
-  mana: 60
-  maxmana: 60
-  eng: 50
+  life: 100
+  maxlife: 100
+  mana: 80
+  maxmana: 80
+  eng: 49.999
   maxeng: 50
   exp: 0
-  expNext: 30
+  expNext: 50
   gold: 75
   level: 1
   lifePotions: 5
   manaPotions: 5
-  strength: 3
-  dex: 3
-  magic: 3
+  strength: 8
+  dex: 4
+  magic: 4
   currentShieldHp: 0
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 01af9973ff8615b4fb61e9f62380103f, type: 2}
   shield: {fileID: 0}
   suit: {fileID: 0}
   headgear: {fileID: 0}
+  moves: 

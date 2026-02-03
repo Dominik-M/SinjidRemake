@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 10d0182b9d8fae04ab7a218648fef3cb, type: 3}
   displayname: Goldblade
   description: Dekorative Weapon, valuable but not strong in battle
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3148
+  descriptionTextId: 3149
   value: 1600
   strengthRequired: 25
   physDmg: 24

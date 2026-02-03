@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ronin
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Ronin
+  displayNameTextId: 3015
   icon: {fileID: 21300000, guid: 2706a654ba4108e48a5ccb2d2322eeef, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 5466d5a61c47cce4c80fae3568227516, type: 3}
   life: 900

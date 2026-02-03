@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 4d76e9b1423da984da69023bacff5131, type: 3}
   displayname: Ion Bo
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3168
+  descriptionTextId: 3169
   value: 850
   strengthRequired: 19
   physDmg: 28

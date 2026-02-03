@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: f31ecf103d861be488c9acaa5d65f7ff, type: 3}
   displayname: Battle Hammer
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3106
+  descriptionTextId: 3107
   value: 210
   strengthRequired: 22
   physDmg: 14

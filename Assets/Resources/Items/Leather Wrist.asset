@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: d22124cd4d698a64a8cbbbd71b916799, type: 3}
   displayname: Leather Wrist
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3182
+  descriptionTextId: 3183
   value: 20
   strengthRequired: 5
   physDmg: 0

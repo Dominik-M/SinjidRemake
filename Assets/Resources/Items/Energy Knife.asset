@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 151489c7ad1022540a28c1cce6e761d3, type: 3}
   displayname: Energy Knife
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3130
+  descriptionTextId: 3131
   value: 40
   strengthRequired: 2
   physDmg: 2

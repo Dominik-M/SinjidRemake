@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 92bceb4e1c8ccd546bbfa58d2a63ef93, type: 3}
   displayname: Buckler
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3112
+  descriptionTextId: 3113
   value: 90
   strengthRequired: 8
   physDmg: 0

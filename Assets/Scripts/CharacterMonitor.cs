@@ -21,7 +21,7 @@ public class CharacterMonitor : MonoBehaviour
             gameObject.SetActive(mChar != null);
             if(mChar!= null)
             {
-                charname.text = mChar.displayName;
+                charname.text = Localization.GetText(mChar.displayNameTextId);
                 charicon.sprite = mChar.icon;
             }
         }

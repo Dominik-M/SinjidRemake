@@ -766,8 +766,9 @@ public class GameController : MonoBehaviour
         if (item)
         {
             for (int i = 0; i < allItems.Length; i++)
-                if (allItems[i].displayname.Equals(item.displayname))
+                if (allItems[i].name.Equals(item.name))
                     return i;
+            Debug.LogWarning("Item not found: " + item);
         }
         return -1;
     }

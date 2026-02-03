@@ -18,8 +18,8 @@ MonoBehaviour:
   displayname: Mendo's Ring
   description: An old ring which seems to be not of any value. But it emits a strong
     spiritual force.
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3198
+  descriptionTextId: 3199
   value: 0
   strengthRequired: 0
   physDmg: 0

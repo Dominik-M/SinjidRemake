@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 118f172d2c9033946b6336e66825d86e, type: 3}
   displayname: Rock Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3216
+  descriptionTextId: 3217
   value: 800
   strengthRequired: 45
   physDmg: 0

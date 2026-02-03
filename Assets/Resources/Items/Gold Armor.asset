@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 277ee0657515db44792704b052ea5c01, type: 3}
   displayname: Gold Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3144
+  descriptionTextId: 3145
   value: 1200
   strengthRequired: 28
   physDmg: 0

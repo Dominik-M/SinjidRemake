@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 5de962a9fc415d6469b2c2e9cb67ffa5, type: 3}
   displayname: Heavy Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3162
+  descriptionTextId: 3163
   value: 700
   strengthRequired: 35
   physDmg: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 55597643545c0f848bdd15195e6a3c20, type: 3}
   displayname: Golden Bident
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3150
+  descriptionTextId: 3151
   value: 1600
   strengthRequired: 21
   physDmg: 45

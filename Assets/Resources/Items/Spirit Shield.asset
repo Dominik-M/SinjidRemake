@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 8890a7c6348c99a4daaa0fd897a21675, type: 3}
   displayname: Spirit Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3246
+  descriptionTextId: 3247
   value: 9000
   strengthRequired: 10
   physDmg: 0

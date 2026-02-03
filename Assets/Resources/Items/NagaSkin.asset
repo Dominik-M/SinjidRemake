@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 8b4ff88102bb2dd4fb2d1ca8003d66df, type: 3}
   displayname: Naga Skin
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3210
+  descriptionTextId: 3211
   value: 220
   strengthRequired: 10
   physDmg: 0

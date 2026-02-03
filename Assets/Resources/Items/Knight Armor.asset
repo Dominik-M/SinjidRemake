@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 7102aebe9db2da544849a70960317891, type: 3}
   displayname: Knight Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3176
+  descriptionTextId: 3177
   value: 350
   strengthRequired: 20
   physDmg: 0

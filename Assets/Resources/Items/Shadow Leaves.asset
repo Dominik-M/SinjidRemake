@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 0a415a41f2a6b0f4490bdb421e0815c9, type: 3}
   displayname: Shadow Leaves
   description: Mystical black leaves. Can be used to make special medicine.
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3230
+  descriptionTextId: 3231
   value: 5
   strengthRequired: 0
   physDmg: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 2cfd50ca1a8d63a4785ba65062c6ac25, type: 3}
   displayname: Silver Rod
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3240
+  descriptionTextId: 3241
   value: 250
   strengthRequired: 5
   physDmg: 4

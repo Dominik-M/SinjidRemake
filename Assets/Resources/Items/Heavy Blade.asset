@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 486e65f76d617f04b963674060b95a07, type: 3}
   displayname: Heavy Blade
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3160
+  descriptionTextId: 3161
   value: 500
   strengthRequired: 28
   physDmg: 40

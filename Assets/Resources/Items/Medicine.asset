@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 4275b8c43f5c0d8488522b37b6e0b035, type: 3}
   displayname: Medicine
   description: A medicine made from herbs. Sell it to a merchant to make money
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3192
+  descriptionTextId: 3193
   value: 6
   strengthRequired: 0
   physDmg: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 4becccdd23653d047a51c28c5a5137f3, type: 3}
   displayname: Death Scythe
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3118
+  descriptionTextId: 3119
   value: 400
   strengthRequired: 24
   physDmg: 36

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Golem
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Golem
+  displayNameTextId: 3008
   icon: {fileID: 21300000, guid: e21fd60054eb7cc4eaecfce14a1d9e11, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 9969a6a0078fd3b4d9bad17c7885723e, type: 3}
   life: 700

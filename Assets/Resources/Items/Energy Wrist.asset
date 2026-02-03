@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: a3de271391730d144953a7011593a9a0, type: 3}
   displayname: Energy Wrist
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3132
+  descriptionTextId: 3133
   value: 400
   strengthRequired: 5
   physDmg: 0

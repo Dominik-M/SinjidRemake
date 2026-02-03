@@ -4,6 +4,7 @@ using UnityEngine;
 public class Character : ScriptableObject
 {
     public string displayName;
+    public int displayNameTextId;
     public Sprite icon;
     public GameObject combatprefab;
     public float life, maxlife;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Skeleton
+  displayNameTextId: 3023
   icon: {fileID: 21300000, guid: 882e863df086e5e498e38a97c29471ce, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 7be26225b41feea47a7bb0ded2bf6264, type: 3}
   life: 400

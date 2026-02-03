@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 9c58da77f6aa2b043a083fb002932431, type: 3}
   displayname: Leather Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3180
+  descriptionTextId: 3181
   value: 100
   strengthRequired: 5
   physDmg: 0

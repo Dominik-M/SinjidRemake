@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 9fe4e80125fc05e4ba21ac49866e156e, type: 3}
   displayname: Metal Armor
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3200
+  descriptionTextId: 3201
   value: 175
   strengthRequired: 12
   physDmg: 0

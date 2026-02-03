@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: a3de271391730d144953a7011593a9a0, type: 3}
   displayname: Mage Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3188
+  descriptionTextId: 3189
   value: 500
   strengthRequired: 5
   physDmg: 0

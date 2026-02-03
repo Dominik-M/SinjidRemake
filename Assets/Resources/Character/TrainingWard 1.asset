@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TrainingWard 1
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Training Ward
+  displayNameTextId: 3030
   icon: {fileID: -6594082591126157566, guid: 39dafdaf9c4d08b4082d036462b8b5e2, type: 3}
   combatprefab: {fileID: 1182826583376627294, guid: e786094b0b0d82a498f87a902952cad0, type: 3}
   life: 180

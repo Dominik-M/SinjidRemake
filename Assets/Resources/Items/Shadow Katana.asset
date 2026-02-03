@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 6a9a1c0db49c7104ea79681203a21c77, type: 3}
   displayname: Shadow Katana
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3228
+  descriptionTextId: 3229
   value: 1700
   strengthRequired: 20
   physDmg: 50

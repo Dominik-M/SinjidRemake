@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 5a39d6f261e43204280873122c75dbe6, type: 3}
   displayname: Metal Guard
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3204
+  descriptionTextId: 3205
   value: 150
   strengthRequired: 10
   physDmg: 0

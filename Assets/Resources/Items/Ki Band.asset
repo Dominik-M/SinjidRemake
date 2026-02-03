@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: e2154b610c962214fa4c27224ec062d2, type: 3}
   displayname: Ki Band
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3172
+  descriptionTextId: 3173
   value: 280
   strengthRequired: 6
   physDmg: 0

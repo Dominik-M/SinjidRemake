@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Reaper
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Shadow Reaper
+  displayNameTextId: 3014
   icon: {fileID: 21300000, guid: ada246949ca472740b61971aab572bcf, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 12399bdf3c4f75a4da0e8724b8449943, type: 3}
   life: 1000

@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 2ea9ca3c9ec6ac54da4af156fc2d30fc, type: 3}
   displayname: Battle Axe
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3104
+  descriptionTextId: 3105
   value: 90
   strengthRequired: 12
   physDmg: 10

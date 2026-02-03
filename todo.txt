@@ -7,7 +7,6 @@ World scene:
 
 UI:
 - buy/sell/equip with kasten/dreieck
-- Translate Item/Character values
 
 Combat scene:
 - more sounds and effects
@@ -20,8 +19,7 @@ Known Issues
 - buy herbs with negative money ?
 - normalize weapon image sizes
 
-- Remove recordseparators
-- Training screen EN
+- Change Texts lineendings CR to CRLF
 
 Balancing:
 - Endgame items imba? esp. holy blade

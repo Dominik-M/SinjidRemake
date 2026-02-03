@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 87a8746657815e042b3ae7bdc98c4469, type: 3}
   displayname: Claw Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3114
+  descriptionTextId: 3115
   value: 400
   strengthRequired: 13
   physDmg: 0

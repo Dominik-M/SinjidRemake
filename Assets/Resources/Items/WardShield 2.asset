@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 0ca4319ae6caf1645ba79a3d491188cb, type: 3}
   displayname: Ward Shield
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3258
+  descriptionTextId: 3259
   value: 500
   strengthRequired: 5
   physDmg: 0

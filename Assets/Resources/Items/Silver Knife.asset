@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: d29ba3457e5464f40b81e6d8ad29a4be, type: 3}
   displayname: Silver Knife
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3238
+  descriptionTextId: 3239
   value: 40
   strengthRequired: 8
   physDmg: 8

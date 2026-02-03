@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton Mage
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Skeleton Mage
+  displayNameTextId: 3024
   icon: {fileID: 21300000, guid: b95e7c21b4803024aa529d869f2859b5, type: 3}
   combatprefab: {fileID: 1182826583376627294, guid: 1f2f63c92b6791442b3f680c4fbe495e, type: 3}
   life: 400

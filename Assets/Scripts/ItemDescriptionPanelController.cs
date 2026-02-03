@@ -54,8 +54,8 @@ public class ItemDescriptionPanelController : MonoBehaviour
         }
         panel.SetActive(true);
         // Common values
-        itemname.text = item.displayname;
-        itemtype.text = item.type.ToString();
+        itemname.text = Localization.GetText(item.displaynameTextId);
+        itemtype.text = item.GetTypeText();
         reqStrValue.text = item.strengthRequired.ToString();
         // Equipment stats
         physDmg.SetActive(item.physDmg != 0);
@@ -83,7 +83,7 @@ public class ItemDescriptionPanelController : MonoBehaviour
         {
             // special item without stats, only show description
             description.SetActive(true);
-            descriptiontext.text = item.description;
+            descriptiontext.text = Localization.GetText(item.descriptionTextId);
         }
     }
 }

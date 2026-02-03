@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wasp
   m_EditorClassIdentifier: Assembly-CSharp::Character
   displayName: Giant Wasp
+  displayNameTextId: 3034
   icon: {fileID: 21300000, guid: b73454edd82608d45badfd9b6f70c84e, type: 3}
   combatprefab: {fileID: 8452722320731276732, guid: 360ce76daf0b19846bb63029c2128a68, type: 3}
   life: 0

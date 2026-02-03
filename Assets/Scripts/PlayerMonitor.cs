@@ -51,7 +51,7 @@ public class PlayerMonitor : MonoBehaviour
     void FixedUpdate()
     {
         if (charname)
-            charname.text = GameController.PlayerChar.displayName;
+            charname.text = Localization.GetText(GameController.PlayerChar.displayNameTextId);
         if (classname)
             classname.text = GameController.MyClassname;
         if (playericon)

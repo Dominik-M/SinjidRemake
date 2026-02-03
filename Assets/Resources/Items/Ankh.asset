@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 8b524f1fffae0ef42b8d14066c7417b1, type: 3}
   displayname: Ankh
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3100
+  descriptionTextId: 3101
   value: 9000
   strengthRequired: 10
   physDmg: 20

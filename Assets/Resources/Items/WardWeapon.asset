@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: 151489c7ad1022540a28c1cce6e761d3, type: 3}
   displayname: Training Ward Weapon
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3262
+  descriptionTextId: 3263
   value: 10
   strengthRequired: 1
   physDmg: 1

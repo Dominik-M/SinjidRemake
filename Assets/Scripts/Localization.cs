@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.IO;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Localization
 {
-    [Header("Log all available original text resources")]
-    private static readonly bool debugLog = false;
+    public static readonly bool dumpTexts = false;
 
     public static event Action OnLanguageChanged;
     public enum Language
@@ -33,35 +37,42 @@ public class Localization
     public static void Init()
     {
         CurrentLanguage = PlayerPrefs.GetInt("Language", ((int)Language.EN));
-        for(int i=0; i<translations.Length; i++)
+        for (int i = 0; i < translations.Length; i++)
         {
             translations[i] = new Dictionary<int, string>();
             Language l = ((Language)i);
             Debug.Log("Loading texts for language " + l);
-            TextAsset[] texts = Resources.LoadAll<TextAsset>("Texts/" + l.ToString());
-            int n = 0;
-            foreach(TextAsset text in texts)
+            TextAsset[] textassets = Resources.LoadAll<TextAsset>("Texts/" + l.ToString());
+            int count = 0;
+            foreach (TextAsset text in textassets)
             {
                 int id = int.Parse(text.name);
                 //Debug.Log(text.name+": id= "+id+" content= "+text.text);
                 translations[i].Add(id, text.text);
-                n++;
+                count++;
             }
-            Debug.Log("Found "+n+" texts");
+            Debug.Log("Found " + count + " texts");
         }
-        if (debugLog)
+
+        if (dumpTexts)
         {
             Debug.Log("Dump Text Assets...");
-            TextAsset[] texts = Resources.LoadAll<TextAsset>("Texts/Original");
+            TextAsset[] texts = Resources.LoadAll<TextAsset>("Texts/EN");
             int n = 0;
             foreach (TextAsset text in texts)
             {
                 int id = int.Parse(text.name);
-                Debug.Log(text.name+": id= "+id+" content= "+text.text);
+                Debug.Log(text.name + ": id= " + id + " content= " + text.text);
                 n++;
             }
             Debug.Log("Found " + n + " texts");
+#if UNITY_EDITOR
+            WriteCharacterNames(3000);
+            WriteItemNames(3100);
+            AssetDatabase.SaveAssets();
+#endif
         }
+
     }
 
     public static void SetLanguage(Language l)
@@ -77,4 +88,52 @@ public class Localization
             Debug.LogWarning("Translation not found for Text Id= " + id);
         return text;
     }
+#if UNITY_EDITOR
+
+    private static void WriteCharacterNames(int startIdx)
+    {
+        string folderpath = Path.Combine(Application.persistentDataPath, "Texts");
+
+        if (!Directory.Exists(folderpath))
+            Directory.CreateDirectory(folderpath);
+
+        int i = 0;
+        Character[] characters = Resources.LoadAll<Character>("Character");
+        foreach (Character c in characters)
+        {
+            c.displayNameTextId = (i + startIdx);
+            EditorUtility.SetDirty(c);
+            string filepath = Path.Combine(folderpath, c.displayNameTextId + ".txt");
+            File.WriteAllText(filepath, c.displayName);
+            Debug.Log("Write file: " + filepath);
+            i++;
+        }
+    }
+    private static void WriteItemNames(int startIdx)
+    {
+        string folderpath = Path.Combine(Application.persistentDataPath, "Texts");
+
+        if (!Directory.Exists(folderpath))
+            Directory.CreateDirectory(folderpath);
+
+        int i = 0;
+        Item[] items = Resources.LoadAll<Item>("Items");
+        foreach (Item c in items)
+        {
+            c.displaynameTextId = (i + startIdx);
+            EditorUtility.SetDirty(c);
+            string filepath = Path.Combine(folderpath, c.displaynameTextId + ".txt");
+            File.WriteAllText(filepath, c.displayname);
+            Debug.Log("Write file: " + filepath);
+            i++;
+            c.descriptionTextId = (i + startIdx);
+            EditorUtility.SetDirty(c);
+            filepath = Path.Combine(folderpath, c.descriptionTextId + ".txt");
+            File.WriteAllText(filepath, c.description);
+            Debug.Log("Write file: " + filepath);
+            i++;
+        }
+    }
+#endif
+
 }

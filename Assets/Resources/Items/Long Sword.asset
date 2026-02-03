@@ -17,8 +17,8 @@ MonoBehaviour:
   battleSprite: {fileID: 21300000, guid: adef1e5824e6eda49848c5af84d22267, type: 3}
   displayname: Long Sword
   description: 
-  displaynameTextId: 0
-  descriptionTextId: 0
+  displaynameTextId: 3184
+  descriptionTextId: 3185
   value: 80
   strengthRequired: 10
   physDmg: 15

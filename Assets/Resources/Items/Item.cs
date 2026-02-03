@@ -17,4 +17,27 @@ public class Item : ScriptableObject
     public int physDef, magicDef, shieldHP;
     public int bonusMana, bonusSpeed;
     public bool dropable;
+
+    public string GetTypeText()
+    {
+        switch (type)
+        {
+            case Type.Weapon:
+                return Localization.GetText(1004);
+            case Type.Shield:
+                return Localization.GetText(1007);
+            case Type.Head_Gear:
+                return Localization.GetText(1005);
+            case Type.Suit:
+                return Localization.GetText(1006);
+            case Type.Herb:
+                return Localization.GetText(1016);
+            case Type.Drink:
+                return Localization.GetText(1017);
+            case Type.Relic:
+                return Localization.GetText(1018);
+            default:
+                return "undefined";
+        }
+    }
 }
