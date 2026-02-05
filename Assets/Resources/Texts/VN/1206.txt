@@ -1,1 +1,1 @@
-Schießt einen Energieball auf den Gegner. Skaliert mit magischer Kraft.
+Phóng một quả cầu năng lượng vào đối thủ. Sức mạnh tăng theo cấp độ sức mạnh phép thuật.
