@@ -1,0 +1,1 @@
+Zerteilt den Gegner und macht Schaden basierend auf seinen Lebenspunkten.

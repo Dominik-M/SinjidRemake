@@ -1,0 +1,1 @@
+Ruft einen Schatten hervor, der mit dir kämpft. Attribute des Schattens steigen mit jedem Level.

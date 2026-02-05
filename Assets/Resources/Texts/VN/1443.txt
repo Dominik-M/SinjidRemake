@@ -1,1 +1,2 @@
-Energie benötigt: 3 pro TrefferEXP erhalten: 5 pro Treffer
+Energie benötigt: 3 pro Treffer
+EXP erhalten: 5 pro Treffer

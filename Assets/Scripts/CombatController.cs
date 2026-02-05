@@ -885,7 +885,7 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("Move");
         float t = 0;
-        while (t < 1.0f)
+        while (t < 0.8f)
         {
             t += Time.deltaTime;
             user.go.transform.position = Vector3.Lerp(start, forward, t);
@@ -899,7 +899,7 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("MoveBack");
         float t = 0;
-        while (t < 1.0f)
+        while (t < 0.8f)
         {
             t += Time.deltaTime;
             user.go.transform.position = Vector3.Lerp(start, end, t);

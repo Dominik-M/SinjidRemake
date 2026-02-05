@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
   id: 106
-  listenOnChange: 0
+  listenOnChange: 1
 --- !u!114 &261915453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,7 +1701,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: -15, y: 550}
+  m_SizeDelta: {x: -15, y: 650}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &286218736
 CanvasRenderer:
@@ -5804,7 +5804,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: -15, y: 650}
+  m_SizeDelta: {x: -15, y: 700}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1110043120
 CanvasRenderer:
@@ -9544,7 +9544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
   id: 110
-  listenOnChange: 0
+  listenOnChange: 1
 --- !u!1 &1934365579
 GameObject:
   m_ObjectHideFlags: 0
