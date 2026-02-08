@@ -876,6 +876,7 @@ public class CombatController : MonoBehaviour
         transform.localScale = toScale;
     }
 
+    private readonly float moveDuration = 0.8f;
     private IEnumerator MoveForward(Combatant user, Combatant target)
     {
         Vector3 start = user.go.transform.position;
@@ -885,10 +886,10 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("Move");
         float t = 0;
-        while (t < 0.8f)
+        while (t < moveDuration)
         {
             t += Time.deltaTime;
-            user.go.transform.position = Vector3.Lerp(start, forward, t);
+            user.go.transform.position = Vector3.Lerp(start, forward, t / moveDuration);
             yield return null;
         }
     }
@@ -899,10 +900,10 @@ public class CombatController : MonoBehaviour
 
         user.animator?.SetTrigger("MoveBack");
         float t = 0;
-        while (t < 0.8f)
+        while (t < moveDuration)
         {
             t += Time.deltaTime;
-            user.go.transform.position = Vector3.Lerp(start, end, t);
+            user.go.transform.position = Vector3.Lerp(start, end, t / moveDuration);
             yield return null;
         }
     }
