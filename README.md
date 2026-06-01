@@ -6,9 +6,18 @@ Remake of the original flash game Sinjid: Shadow of the Warrior (https://armorga
 
 ​Unity based remake of the original Armor Games flash game Sinjid Shadow of the warrior, an adventure rpg with turn based battles.  Fan project to make it available on multiple platforms and with controller support. Kept the original assets but re-balanced a bit and introduced a few secrets and additional content.
 
+# Play on Windows PC
+Download the latest build here
+https://github.com/Dominik-M/SinjidRemake/releases/download/v0.6.2/SinjidRemake_v0.6.2.zip
+Unzip&Run
 
+# Play in Web Browser
+https://dundun2339.itch.io/sinjid-remake
 
-Controls:
+# Android Build
+Not released yet
+
+# Controls:
 
 WASD - Move
 
