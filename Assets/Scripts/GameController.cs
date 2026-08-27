@@ -54,8 +54,6 @@ public class GameController : MonoBehaviour
     // internal fields
     private GameObject currentMenu;
     private GameObject currentRoomObject;
-    private DefaultMenuButtonHandler currentMenuButtonHandler;
-    private float buttonDebounceTime = 0f;
 
     void Start()
     {
@@ -102,85 +100,14 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        // Get all Gamepad inputs
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float digiPadHorizontal = Input.GetAxis("Right") - Input.GetAxis("Left");
-        float digiPadVertical = Input.GetAxis("Up") - Input.GetAxis("Down");
-        bool dreieck = Input.GetButtonDown("Dreieck");
-        bool kreuz = Input.GetButtonDown("Kreuz");
-        bool kreis = Input.GetButton("Kreis");
-        bool kasten = Input.GetButtonDown("Kasten");
-        bool r1 = Input.GetButtonDown("R1");
-        bool l1 = Input.GetButtonDown("L1");
-        bool start = Input.GetButtonDown("Start");
-        bool space = Input.GetKeyDown(KeyCode.Space);
-
-        // add keyboard inputs
-        if (Input.GetKey(KeyCode.W))
-            v += 1;
-        if (Input.GetKey(KeyCode.S))
-            v -= 1;
-        if (Input.GetKey(KeyCode.A))
-            h -= 1;
-        if (Input.GetKey(KeyCode.D))
-            h += 1;
-
-        if (touchPad)
-        {
-            // add touchpad inputs
-            Vector2 direction = touchPad.GetDirection();
-            h += direction.x;
-            v += direction.y;
-        }
-
+        float h = 0, v = 0;
+        // add touchpad inputs
+        Vector2 direction = touchPad.GetDirection();
+        h += direction.x;
+        v += direction.y;
         //Debug.Log("h=" + h + " v=" + v);
 
-        if (dreieck)
-        {
-            GameObject selected = EventSystem.current.currentSelectedGameObject;
-            if (selected != null)
-            {
-                Debug.Log("Currently selected UI object: " + selected.name);
-            }
-            else
-            {
-                Debug.Log("No UI object is currently selected.");
-            }
-        }
-
-        // Button handling in menu
-        if (currentMenuButtonHandler != null)
-        {
-            // stop movement in menu
-            worldPlayer.Move(0, 0);
-            if (kreis)
-            {
-                currentMenuButtonHandler.Kreis();
-            }
-            else if (space) // kreuz is handled by event system as default submit button
-            {
-                currentMenuButtonHandler.Kreuz();
-            }
-            else if (kasten)
-            {
-                currentMenuButtonHandler.Kasten();
-            }
-            else if (dreieck)
-            {
-                currentMenuButtonHandler.Dreieck();
-            }
-            else if (r1)
-            {
-                currentMenuButtonHandler.R1();
-            }
-            else if (l1)
-            {
-                currentMenuButtonHandler.L1();
-            }
-        }
-        // Button handling for player in world
-        else if (worldPlayer)
+        if (worldPlayer)
         {
             worldPlayer.Move(h, v);
             if (worldPlayer.IsMoving())
@@ -197,28 +124,6 @@ public class GameController : MonoBehaviour
                 Life = n < 1 ? 1 : n;
                 n = Mana - decreaseSpeed * Time.deltaTime;
                 Mana = n < 1 ? 1 : n;
-            }
-
-            if (buttonDebounceTime > 0)
-                buttonDebounceTime -= Time.deltaTime;
-            else if (start)
-            {
-                // open inventory
-                if (inventoryScreen)
-                    OpenInventory();
-            }
-            else if (kreuz || space)
-            {
-                // interaction
-                Interaction();
-            }
-            else if (kasten)
-            {
-                UseLifePotion();
-            }
-            else if (dreieck)
-            {
-                UseManaPotion();
             }
         }
     }
@@ -519,7 +424,6 @@ public class GameController : MonoBehaviour
             currentMenu.SetActive(false); // deactivate previous menu
         currentMenu = menu;
         currentMenu.SetActive(true);
-        currentMenuButtonHandler = menu.GetComponent<DefaultMenuButtonHandler>();
         bottomview.SetActive(false);
     }
 
@@ -1153,9 +1057,7 @@ public class GameController : MonoBehaviour
         {
             instance.currentMenu.SetActive(false);
             instance.currentMenu = null;
-            instance.currentMenuButtonHandler = null;
             instance.bottomview.SetActive(true);
-            instance.buttonDebounceTime = 0.25f; // prevent the interaction to be triggered again immediately
         }
         currentShopItems = null;
         dialogOptionYes = null;

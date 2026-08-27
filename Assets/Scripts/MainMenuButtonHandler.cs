@@ -15,7 +15,8 @@ public class MainMenuButtonHandler : DefaultMenuButtonHandler
     {
         Debug.Log("OnToggleOptions");
         optionsFrame.SetActive(true);
-        defaultOptionButton.Select();
+        if (defaultOptionButton != null)
+            defaultOptionButton.Select();
     }
 
     public void OnCloseOptions()

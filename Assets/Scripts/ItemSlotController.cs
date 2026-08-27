@@ -76,7 +76,7 @@ public class ItemSlotController : MonoBehaviour, ISelectHandler, IDeselectHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         Debug.Log($"Mouse exited: {gameObject.name}");
-        OnSelectItem?.Invoke(null);
+        //OnSelectItem?.Invoke(null);
     }
 
     // Keyboard / Gamepad navigation

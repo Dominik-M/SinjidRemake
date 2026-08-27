@@ -1,4 +1,6 @@
-Intro curscene?
+General
+- Intro curscene?
+- optimize for mobile
 
 World scene:
 - equip visible
@@ -6,6 +8,7 @@ World scene:
 
 
 UI:
+- Rework static backgrounds
 - buy/sell/equip with kasten/dreieck
 
 Combat scene:
@@ -18,8 +21,14 @@ Known Issues
 - some Animations buggy
 - buy herbs with negative money ?
 - normalize weapon image sizes
+- select on hover in combat
+- auto attack not clickable 
+- Shadow stats wrong
+
 
 - Change Texts lineendings CR to CRLF
 
 Balancing:
 - Endgame items imba? esp. holy blade
+
+

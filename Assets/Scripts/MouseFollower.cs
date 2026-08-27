@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MouseFollower : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MouseFollower : MonoBehaviour
         GameObject selected = EventSystem.current.currentSelectedGameObject;
         if (selected)
             transform.position = selected.transform.position;
-        Vector3 mousePos = Input.mousePosition;
+        Vector2 mousePos = Pointer.current.position.value;
         if (!mousePos.Equals(lastMousePos))
         {
             transform.position = mousePos;
